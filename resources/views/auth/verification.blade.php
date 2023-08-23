@@ -1,5 +1,9 @@
 @extends('components.layouts.app')
 
+@section('title')
+    Verificación de cuenta
+@endsection
+
 @section('content')
 
     <div class="hero is-fullheight has-background-light">
