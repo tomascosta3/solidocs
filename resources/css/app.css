@@ -1,0 +1,23 @@
+/**
+ * Import Bulma css framework, installed by npm. 
+ */
+ @import '../../node_modules/bulma/css/bulma.css';
+
+ /**
+  * Import Box Icons modules, installed by npm.
+  */
+@import '../../node_modules/boxicons/css/boxicons.css';
+
+ /**
+  * Import Bulma Calendar modules
+  */
+@import '../../node_modules/bulma-calendar/dist/css/bulma-calendar.min.css';
+
+div.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+div.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
