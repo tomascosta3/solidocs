@@ -17,14 +17,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->string('password');
-            
-            $table->boolean('verified')->default(false);
             
             $table->string('verification_code')->nullable();
-
-            $table->timestamp('verification_date')->nullable();
             
             $table->timestamp('verification_code_issue_date')->nullable();
             

@@ -19,7 +19,14 @@ class User extends Model
         'dni',
         'phone_number',
         'email',
+        'password',
+        'verified',
+        'verified_at',
         'active'
+    ];
+
+    protected $hidden = [
+        'password'
     ];
 
 

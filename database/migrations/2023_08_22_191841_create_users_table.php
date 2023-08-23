@@ -25,6 +25,12 @@ return new class extends Migration
 
             $table->string('email');
 
+            $table->string('password');
+
+            $table->boolean('verified')->default(false);
+
+            $table->timestamp('verified_at')->nullable();
+
             $table->boolean('active')->default(true);
 
             $table->timestamps();

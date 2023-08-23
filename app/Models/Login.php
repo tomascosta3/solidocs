@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Logins extends Model
+class Login extends Model
 {
     use HasFactory;
 
@@ -13,10 +13,11 @@ class Logins extends Model
 
     protected $fillable = [
         'user_id',
-        'verified',
+        'verification_code',
         'verification_code_issue_date',
         'verification_code_expiration_date',
         'forgot_password',
+        'renovation_code',
         'renovation_date',
         'renovation_code_issue_date',
         'renovation_code_expiration_date',
@@ -27,7 +28,6 @@ class Logins extends Model
     ];
 
     protected $hidden = [
-        'password',
         'verification_code',
         'renovation_code'
     ];

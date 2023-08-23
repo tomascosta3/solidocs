@@ -15,12 +15,12 @@
 
                 <div class="column is-one-third">
 
-                    @if (session('status') != null)
+                    @if (session('success') != null)
 
                         <div class="columns is-centered is-vcentered">
                             <div class="column is-10">
                                 <div class="notification is-success">
-                                    <p class="has-text-centered">{{ session('status') }}</p>
+                                    <p class="has-text-centered">{{ session('success') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                     
                     @endif
 
-                    <div class="box transparent-box">
+                    <div class="box">
 
                         <form action="" method="post">
 
@@ -76,7 +76,6 @@
                                 </div>
                             </div>
 
-
                             <div class="field pt-0 mb-0 is-flex is-justify-content-flex-end">
                                 <a href="">
                                     <p class="help">¿Olvidaste la contraseña?</p>
@@ -84,7 +83,6 @@
                             </div>
 
                             <div class="level-item has-text-centered">
-
                                 <div class="field is-grouped pt-3">
                                     <div class="control">
                                         <button type="submit" class="button is-link">Iniciar sesión</button>
@@ -93,7 +91,6 @@
                                         <a href="{{ route('auth.register') }}"><button type="button" class="button is-link is-light">Registrarse</button></a>
                                     </div>
                                 </div>
-
                             </div>
 
                         </form>
@@ -105,7 +102,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('scripts')
