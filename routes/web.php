@@ -28,7 +28,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 /**
  * Authentication routes
  */
-Route::prefix('auth')->name('auth.')->group(function () {
+Route::name('auth.')->group(function () {
     Route::get('/login', [LoginController::class, 'view'])->name('login');
     Route::get('/register', [RegisterController::class, 'view'])->name('register');
 });
