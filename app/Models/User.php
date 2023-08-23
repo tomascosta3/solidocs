@@ -22,6 +22,7 @@ class User extends Model
         'active'
     ];
 
+
     /**
      * Returns the organizations the user belongs to.
      */
@@ -30,5 +31,14 @@ class User extends Model
         return $this->belongsToMany(Organization::class)
             ->withPivot('access_level')
             ->withTimestamps();
+    }
+
+
+    /**
+     * Returns the user's login.
+     */
+    public function login()
+    {
+        return $this->hasOne(Login::class);
     }
 }
