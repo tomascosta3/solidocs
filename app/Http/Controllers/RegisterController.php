@@ -60,14 +60,13 @@ class RegisterController extends Controller
         if($user->id) {
 
             $token = Str::random(60);
-            $now = Carbon::now();
 
             // Create the login and link it to the user.
             $login = Login::create([
                 'user_id' => $user->id,
                 'verification_code' => $token,
-                'verification_code_issue_date' => $now,
-                'verification_code_expiration_date' => $now->addMinutes(30),
+                'verification_code_issue_date' => Carbon::now(),
+                'verification_code_expiration_date' => Carbon::now()->addMinutes(30),
             ]);
 
             // Check if the login was created successfully.
