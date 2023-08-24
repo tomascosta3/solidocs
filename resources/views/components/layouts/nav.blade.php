@@ -40,7 +40,14 @@
                     <span>Facturación</span>
                 </a>
             </li>
+            <li>
+                <a href="">
+                    <i class="bx bx-chat navbar-icon" ></i>
+                    <span>Consultas</span>
+                </a>
+            </li>
         </ul>
+
         <ul class="bottom-menu">
             <li>
                 <a href="">
