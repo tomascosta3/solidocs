@@ -36,3 +36,14 @@ Route::name('auth.')->group(function () {
     Route::post('/register', [RegisterController::class, 'create'])->name('register.user');
     Route::get('/verification/{token}', [RegisterController::class, 'verify'])->name('verify');
 });
+
+/**
+ * Routes that only authenticated users can access.
+ */
+Route::middleware('auth')->group(function() {
+
+    /**
+     * Logout.
+     */
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+});

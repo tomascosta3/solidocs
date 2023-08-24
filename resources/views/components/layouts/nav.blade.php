@@ -48,14 +48,29 @@
                     <span>Perfil</span>
                 </a>
             </li>
+            <!-- List item for the logout button/link -->
             <li>
-                <a href="">
+                <!-- 
+                "Logout" link. When clicked:
+                1. It prevents the default behavior of the link (which would be navigating to "#").
+                2. Submits the form with the ID 'logout-form'.
+                -->
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bx bx-log-out navbar-icon"></i>
                     <span>Cerrar sesión</span>
                 </a>
             </li>
         </ul>
     </nav>
+
+    <!-- 
+    Hidden form that performs the logout action.
+    The form is hidden because we don't need the user to interact with it directly. 
+    It's programmatically submitted when the user clicks the link above.
+    -->
+    <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
+        @csrf
+    </form>
 
     <div class="main-content">
         @yield('main-content')
