@@ -6,13 +6,9 @@
 
 @section('content')
 <div class="hero is-fullheight has-background-light login-background">
-
     <div class="hero-body is-flex justify-content-center">
-
         <div class="container">
-
             <div class="columns is-centered is-vcentered">
-
                 <div class="column is-one-third">
 
                     @if (session('success') != null)
@@ -41,18 +37,19 @@
 
                     <div class="box">
 
-                        <form action="" method="post">
-
+                        <form action="{{ route('auth.login.user') }}" method="post">
                             @csrf
-
                             <div class="field pt-2">
                                 <label class="label">Correo electrónico</label>
                                 <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" name="credential" id="credential" placeholder="correo@midominio.com.ar / 12345678">
+                                    <input class="input" type="text" name="email" id="email" placeholder="correo@midominio.com.ar">
                                     <span class="icon is-small is-left">
                                         <i class="bx bx-user"></i>
                                     </span>
                                 </div>
+                                @if ($errors->login->first('email'))
+                                    <small style="color: red">{{ $errors->login->first('email') }} </small>
+                                @endif
                             </div>
 
                             <label class="label">Contraseña</label>
@@ -75,6 +72,9 @@
                                     </div>
                                 </div>
                             </div>
+                            @if ($errors->login->first('password'))
+                                <small style="color: red">{{ $errors->login->first('password') }} </small>
+                            @endif
 
                             <div class="field pt-0 mb-0 is-flex is-justify-content-flex-end">
                                 <a href="">

@@ -31,6 +31,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
  */
 Route::name('auth.')->group(function () {
     Route::get('/login', [LoginController::class, 'view'])->name('login');
+    Route::post('/login', [LoginController::class, 'login'])->name('login.user');
     Route::get('/register', [RegisterController::class, 'view'])->name('register');
     Route::post('/register', [RegisterController::class, 'create'])->name('register.user');
     Route::get('/verification/{token}', [RegisterController::class, 'verify'])->name('verify');
