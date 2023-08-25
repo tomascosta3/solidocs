@@ -29,7 +29,6 @@ class User extends Authenticatable
         'password'
     ];
 
-
     /**
      * Returns the organizations the user belongs to.
      */
@@ -39,7 +38,6 @@ class User extends Authenticatable
             ->withPivot('access_level')
             ->withTimestamps();
     }
-
 
     /**
      * Returns the user's login.

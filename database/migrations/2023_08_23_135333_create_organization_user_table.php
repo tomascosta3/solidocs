@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('access_level')->default(1);
 
-            $table->boolean('active', true);
+            $table->boolean('active')->default(true);
 
             $table->timestamps();
         });
