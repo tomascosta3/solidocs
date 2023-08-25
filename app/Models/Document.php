@@ -15,17 +15,9 @@ class Document extends Model
         'name',
         'comment',
         'path',
-        'sector_id',
-        'created_by'
+        'created_by',
+        'required_access_level'
     ];
-
-    /**
-     * This relationship fetches the sector of the document.
-     */
-    public function sector()
-    {
-        return $this->belongsTo(Sector::class);
-    }
 
     /**
      * This relationship fetches the user who created the document.

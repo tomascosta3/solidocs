@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
 
-            $table->unsignedBigInteger('access_level');
+            $table->unsignedBigInteger('required_access_level');
 
             $table->timestamps();
         });
