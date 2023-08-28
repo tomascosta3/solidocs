@@ -295,7 +295,7 @@
                         && Auth::user()->access_level_in_organization(session('organization_id')) >= 6)
                             
                             <li class="scs-nav-link">
-                                <a href="#">
+                                <a href="{{ route('documents') }}">
                                     <i class="bx bx-folder-open scs-icon"></i>
                                     <span class="scs-sidebar-text scs-nav-text">Documentos</span>
                                 </a>
