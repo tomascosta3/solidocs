@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,8 @@ class DocumentController extends Controller
      */
     public function index() : View {
 
-        $documents = Document::where('active', true);
+        $documents = Document::where('active', true)
+            ->get();
         
         return view('documents.index')
             ->with(['documents' => $documents]);
@@ -70,5 +72,40 @@ class DocumentController extends Controller
         }
 
         return to_route('documents.create');
+    }
+
+
+    /**
+     * Return view
+     */
+    public function view($id){
+
+        $document = Document::find($id);
+
+        // If the document doesn't exists, it returns an error.
+        if(!$document) {
+
+            session()->flash('problem', 'No se encuentra el documento');
+            return to_route('documents');
+        }
+
+        /**
+         * If the user doesn't have the permissions to access the document,
+         * it returns an error.
+         */ 
+        if(Auth::user()->access_level_in_organization(session('organization_id')) < 
+        $document->required_access_level) {
+
+            session()->flash('problem', 'No cuentas con los permisos suficientes para acceder al archivo');
+            return to_route('documents');
+        }
+
+        // Get all active documents.
+        $documents = Document::where('active', true)
+            ->get();
+
+        return view('documents.view')
+            ->with(['documents' => $documents])
+            ->with(['document' => $document]);
     }
 }

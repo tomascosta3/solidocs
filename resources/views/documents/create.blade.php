@@ -85,6 +85,7 @@
                                 @if (session('error_comment'))
                                     <small style="color: red">{{ session('error_comment') }} </small>
                                 @endif
+                                <p class="help">No es obligatorio</p>
                             </div>
                 
                             <div class="field">

@@ -26,6 +26,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('required_access_level');
 
+            $table->boolean('active')->default(true);
+
             $table->timestamps();
         });
     }

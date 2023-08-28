@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -46,4 +47,18 @@ Route::middleware('auth')->group(function() {
      * Logout.
      */
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    /**
+     * Documents.
+     */
+    Route::get('/documents', [DocumentController::class, 'index'])->name('documents');
+
+    // Create document.
+    Route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.create');
+
+    // Store documents in database.
+    Route::post('/documents/store', [DocumentController::class, 'store'])->name('documents.store');
+
+    // View document.
+    Route::get('/documents/{id}', [DocumentController::class, 'view'])->name('documents.view');
 });
