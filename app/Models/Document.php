@@ -16,7 +16,8 @@ class Document extends Model
         'comment',
         'path',
         'created_by',
-        'required_access_level'
+        'required_access_level',
+        'active'
     ];
 
     /**

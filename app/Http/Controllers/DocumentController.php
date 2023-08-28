@@ -15,9 +15,8 @@ class DocumentController extends Controller
      */
     public function index() : View {
 
-        $documents = Document::all()
-            ->where('active', true);
-
+        $documents = Document::where('active', true);
+        
         return view('documents.index')
             ->with(['documents' => $documents]);
     }
