@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,7 +37,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Organization::class)
             ->withPivot('access_level')
-            ->withTimestamps();
+            ->withTimestamps()
+            ->where('organizations.active', true);
     }
 
     /**
@@ -45,5 +47,30 @@ class User extends Authenticatable
     public function login()
     {
         return $this->hasOne(Login::class);
+    }
+
+    /**
+     * Determine how many organizations the user belongs to.
+     */
+    public function organization_count() {
+
+        return $this->organizations()->where('organizations.active', true)->count();
+    }
+
+    /**
+     * Returns the first organization the user belongs to.
+     */
+    public function organization() {
+
+        return $this->belongsToMany(Organization::class)
+        ->withPivot('access_level')
+        ->withTimestamps()
+        ->where('organizations.active', true)
+        ->first();
+    }
+
+    public function access_level_in_organization($organization_id) {
+
+        return $this->organizations()->where('organization_id', $organization_id)->first()->pivot->access_level ?? null;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\AccountVerification;
 use App\Models\Login;
+use App\Models\Organization;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -79,11 +80,28 @@ class RegisterController extends Controller
         }
 
         /**
+         * If there is an organization with the same domain as the user's
+         * email, link de user to the organization with the lowest level
+         * permissions.
+         */
+        if($created) {
+
+            $domain = explode('@', $user->email)[1];
+
+            $organization = Organization::where('domain', $domain)->first();
+
+            if($organization) {
+
+                $user->organizations()->attach($organization->id, ['access_level' => 1]);
+            }
+        }
+
+        /**
          * Create a flash session variable depending on whether the 
          * user and login were created correctly.
          */
         if($created) {
-
+            
             session()->flash('success', 'Usuario creado correctamente!');
         } else {
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,21 @@ class LoginController extends Controller
             // Regenerate the session.
             $request->session()->regenerate();
 
-            return to_route('home');
+            $user = Auth::user();
+            
+            if($user->organization_count() == 1) {
+                
+                $organization = $user->organization();
+                session(['organization_id' => $organization->id]);
+
+                return to_route('home')->with(['organization' => $organization]);
+
+            } else if($user->organization_count() > 1){
+
+            } else {
+
+            }
+
         }
 
         /**

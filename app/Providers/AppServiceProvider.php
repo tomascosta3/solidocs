@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Organization;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        /**
+         * Whenever the 'components.layouts.nav' view is rendered, this code is executed.
+         * Render with organization selected by user.
+         */
+        View::composer('components.layouts.nav', function($view) {
+            $organization_id = session('organization_id');
+            $organization = Organization::find($organization_id);
+            $view->with(['organization' => $organization]);
+        });
     }
 }
