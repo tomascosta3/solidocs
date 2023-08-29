@@ -4,7 +4,9 @@
 
 {{-- Show document --}}
 @if (isset($document->path) && in_array(pathinfo($document->path, PATHINFO_EXTENSION), ['jpg', 'png']))
-    <img class="mb-6" src="{{ URL::asset($document->path) }}" alt="Document image" style="max-height: 55vh">
+    <div class="has-text-centered is-flex is-align-items-center is-justify-content-center">
+        <img class="mb-6" src="{{ URL::asset($document->path) }}" alt="Document image" style="max-height: 55vh">
+    </div>
 @else 
     @if (isset($document->path) && in_array(pathinfo($document->path, PATHINFO_EXTENSION), ['pdf']))
         <iframe class="mb-6" src="{{ URL::asset($document->path) }}" frameborder="0" style="height: 55vh; width: 46vw"></iframe>
