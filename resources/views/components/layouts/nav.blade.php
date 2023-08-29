@@ -291,8 +291,7 @@
                             </a>
                         </li>
 
-                        @if (Auth::user()->access_level_in_organization(session('organization_id'))
-                        && Auth::user()->access_level_in_organization(session('organization_id')) >= 6)
+                        @if (Auth::user()->belongs_to('Solido Connecting Solutions'))
                             
                             <li class="scs-nav-link">
                                 <a href="{{ route('documents') }}">
