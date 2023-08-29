@@ -5,6 +5,7 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,5 +75,8 @@ Route::middleware('auth')->group(function() {
 
         // Edit document.
         Route::post('/documents/edit/{id}', [DocumentController::class, 'edit'])->name('documents.edit');
+
+        // Users list.
+        Route::get('/users', [UserController::class, 'index'])->name('users');
     });
 });

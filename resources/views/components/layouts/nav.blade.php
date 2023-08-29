@@ -308,7 +308,7 @@
                             </li>
 
                             <li class="scs-nav-link">
-                                <a href="#">
+                                <a href="{{ route('users') }}">
                                     <i class="bx bx-group scs-icon"></i>
                                     <span class="scs-sidebar-text scs-nav-text">Usuarios</span>
                                 </a>
