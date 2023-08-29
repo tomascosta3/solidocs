@@ -65,4 +65,7 @@ Route::middleware('auth')->group(function() {
 
     // Download document.
     Route::get('/documents/download/{id}', [DownloadController::class, 'download_document'])->name('documents.download');
+
+    // Delete document.
+    Route::get('/documents/delete/{id}', [DocumentController::class, 'delete'])->name('documents.delete');
 });
