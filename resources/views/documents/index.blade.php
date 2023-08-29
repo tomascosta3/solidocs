@@ -23,12 +23,12 @@
             
                         {{-- Search form --}}
                         <div class="box is-shadowless p-3 mb-3">
-                            <form action="#" method="post">
+                            <form action="{{ route('documents') }}" method="get">
                                 <div class="columns is-vcentered is-centered">
                                     <div class="column is-10">
                                         <div class="field has-addons">
                                             <div class="control has-icons-left is-expanded">
-                                                <input class="input" type="text" name="filter" placeholder="Buscar por el nombre del archivo..." value="{{ session('filter') }}">
+                                                <input class="input" type="text" name="search" placeholder="Buscar por el nombre del archivo..." value="{{ session('filter') }}">
                                                 <span class="icon is-small is-left">
                                                     <i class="bx bx-search"></i>
                                                 </span>

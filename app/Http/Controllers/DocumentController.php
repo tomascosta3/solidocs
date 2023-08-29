@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class DocumentController extends Controller
@@ -15,10 +16,22 @@ class DocumentController extends Controller
     /**
      * Returns document list view.
      */
-    public function index() : View {
+    public function index(Request $request) : View {
 
-        $documents = Document::where('active', true)
-            ->get();
+        $user_access_level = Auth::user()->access_level_in_organization(session('organization_id'));
+
+        $search = $request->input('search');
+
+        if($search) {
+            $documents = Document::where('name', 'like', '%' . $search . '%')
+                ->where('active', true)
+                ->where('required_access_level', '<=', $user_access_level)
+                ->get();
+        } else {
+            $documents = Document::where('active', true)
+                ->where('required_access_level', '<=', $user_access_level)
+                ->get();
+        }
         
         return view('documents.index')
             ->with(['documents' => $documents]);
