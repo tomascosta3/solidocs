@@ -11,6 +11,12 @@
     @if (isset($document->path) && in_array(pathinfo($document->path, PATHINFO_EXTENSION), ['pdf']))
         <iframe class="mb-6" src="{{ URL::asset($document->path) }}" frameborder="0" style="height: 55vh; width: 46vw"></iframe>
     @endif
+
+    @if (isset($document->path) && in_array(pathinfo($document->path, PATHINFO_EXTENSION), ['docx']))
+    <div class="box has-background-light" style="max-height: 30vh">
+        <p class="has-text-centered is-size-4">Contenido no se puede visualizar</p>
+    </div>
+    @endif
 @endif
 
 {{-- Document details. --}}
