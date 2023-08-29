@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +12,7 @@ class DownloadController extends Controller
     /**
      * Download document from id.
      */
-    public function download_document($id) {
+    public function download_document($id) : RedirectResponse {
 
         $document = Document::find($id);
         

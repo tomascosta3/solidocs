@@ -68,4 +68,7 @@ Route::middleware('auth')->group(function() {
 
     // Delete document.
     Route::get('/documents/delete/{id}', [DocumentController::class, 'delete'])->name('documents.delete');
+
+    // Edit document.
+    Route::post('/documents/edit/{id}', [DocumentController::class, 'edit'])->name('documents.edit');
 });
