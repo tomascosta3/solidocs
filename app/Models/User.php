@@ -77,4 +77,15 @@ class User extends Authenticatable
 
         return $this->organizations()->where('organization_id', $organization_id)->first()->pivot->access_level ?? null;
     }
+
+
+    /**
+     * Check if user belongs to organization.
+     */
+    public function belongs_to($organization_name) {
+
+        return $this->organizations()->where('organizations.active', true)
+            ->where('business_name', $organization_name)
+            ->count() == 1;
+    }
 }

@@ -50,25 +50,29 @@ Route::middleware('auth')->group(function() {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     /**
-     * Documents.
+     * Only allow access to users that belong to Solido Connecting Solutions.
      */
-    Route::get('/documents', [DocumentController::class, 'index'])->name('documents');
+    Route::middleware(['solidocs'])->group(function() {
 
-    // Create document.
-    Route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.create');
+        // Documents index.
+        Route::get('/documents', [DocumentController::class, 'index'])->name('documents');
 
-    // Store documents in database.
-    Route::post('/documents/store', [DocumentController::class, 'store'])->name('documents.store');
+        // Create document.
+        Route::get('/documents/create', [DocumentController::class, 'create'])->name('documents.create');
 
-    // View document.
-    Route::get('/documents/{id}', [DocumentController::class, 'view'])->name('documents.view');
+        // Store documents in database.
+        Route::post('/documents/store', [DocumentController::class, 'store'])->name('documents.store');
 
-    // Download document.
-    Route::get('/documents/download/{id}', [DownloadController::class, 'download_document'])->name('documents.download');
+        // View document.
+        Route::get('/documents/{id}', [DocumentController::class, 'view'])->name('documents.view');
 
-    // Delete document.
-    Route::get('/documents/delete/{id}', [DocumentController::class, 'delete'])->name('documents.delete');
+        // Download document.
+        Route::get('/documents/download/{id}', [DownloadController::class, 'download_document'])->name('documents.download');
 
-    // Edit document.
-    Route::post('/documents/edit/{id}', [DocumentController::class, 'edit'])->name('documents.edit');
+        // Delete document.
+        Route::get('/documents/delete/{id}', [DocumentController::class, 'delete'])->name('documents.delete');
+
+        // Edit document.
+        Route::post('/documents/edit/{id}', [DocumentController::class, 'edit'])->name('documents.edit');
+    });
 });
