@@ -45,9 +45,11 @@ class LoginController extends Controller
                 return to_route('home')->with(['organization' => $organization]);
 
             } else if($user->organization_count() > 1){
+                //If user belongs to many organizations.
 
             } else {
-
+                // If user doesn't belong to any organization.
+                return to_route('home');
             }
 
         }

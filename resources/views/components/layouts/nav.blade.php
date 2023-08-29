@@ -216,9 +216,9 @@
                         @endauth
                     </span>
                     <span class="scs-sidebar-header-detail">
-                        @auth
-                            {{ $organization->business_name }}
-                        @endauth
+                        @if ($organization)
+                        {{ $organization->business_name }}
+                        @endif
                     </span>
                 </div>
             </div>
