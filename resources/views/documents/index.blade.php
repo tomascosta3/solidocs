@@ -57,8 +57,11 @@
             
                         <div class="box p-2 mb-2 has-background-grey-lighter is-shadowless">
                             <div class="columns is-vcentered">
-                                <div class="column is-8">
+                                <div class="column is-6">
                                     <p>Nombre</p>
+                                </div>
+                                <div class="column is-2">
+                                    <p class="has-text-centered">Tipo</p>
                                 </div>
                                 <div class="column is-4">
                                     <p class="has-text-centered">Fecha de modificación</p>
@@ -81,8 +84,21 @@
                         <a href="{{ route('documents.view', ['id' => $document->id ]) }}">
                             <div class="box p-1 mb-2 has-background-white is-shadowless">
                                 <div class="columns is-vcentered">
-                                    <div class="column is-8">
+                                    <div class="column is-6">
                                         <p>{{ $document->name }}</p>
+                                    </div>
+                                    <div class="column is-2">
+                                        <p class="has-text-centered">
+                                            @if (in_array(pathinfo($document->path, PATHINFO_EXTENSION), ['jpg', 'png']))
+                                                Imagen
+                                            @else
+                                                @if (in_array(pathinfo($document->path, PATHINFO_EXTENSION), ['pdf']))
+                                                    PDF
+                                                @else
+                                                    Word
+                                                @endif
+                                            @endif    
+                                        </p>
                                     </div>
                                     <div class="column is-4">
                                         <p class="has-text-centered">{{ $document->formatted_update_date() }}</p>

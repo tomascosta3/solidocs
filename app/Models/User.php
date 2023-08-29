@@ -69,6 +69,10 @@ class User extends Authenticatable
         ->first();
     }
 
+
+    /**
+     * Returns the access level of organization.
+     */
     public function access_level_in_organization($organization_id) {
 
         return $this->organizations()->where('organization_id', $organization_id)->first()->pivot->access_level ?? null;

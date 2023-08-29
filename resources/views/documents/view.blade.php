@@ -100,7 +100,7 @@
                 </a>
             </div>
             <div class="control">
-                <a href="#">
+                <a href="{{ route('documents.download', ['id' => $document->id]) }}">
                     <button type="button" class="button is-link is-success">
                         <i class="bx bxs-download"></i>
                     </button>
