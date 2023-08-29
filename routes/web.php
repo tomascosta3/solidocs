@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function() {
     /**
      * Logout.
      */
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     /**
      * Documents.

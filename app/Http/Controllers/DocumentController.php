@@ -52,15 +52,15 @@ class DocumentController extends Controller
         // Move file to server and hash its name.
         $file = $request->file('file');
         $hashed_name = $file->hashName();
-        $destination_path = '/home/solido/Documents/solidocs';
-        $request->file->move($destination_path, $hashed_name);
+        $folder_name = 'storage/documents';
+        $file->move(public_path($folder_name), $hashed_name);       
         
         // Create document.
         $document = Document::create([
             'name' => $request->input('name'),
             'required_access_level' => $request->input('required_access_level'),
             'comment' => $request->input('comment'),
-            'path' => $destination_path . '/' . $hashed_name,
+            'path' => $folder_name . '/' . $hashed_name,
             'created_by' => Auth::user()->id,
         ]);
 
@@ -92,7 +92,7 @@ class DocumentController extends Controller
         /**
          * If the user doesn't have the permissions to access the document,
          * it returns an error.
-         */ 
+         */
         if(Auth::user()->access_level_in_organization(session('organization_id')) < 
         $document->required_access_level) {
 

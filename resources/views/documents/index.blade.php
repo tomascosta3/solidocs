@@ -65,6 +65,16 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if ($documents->isEmpty())
+                        <div class="box p-1 has-background-white is-shadowless">
+                            <div class="columns is-vcentered">
+                                <div class="column">
+                                    <p class="has-text-centered">No hay documentos cargados</p>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
             
                         {{-- Documents list --}}
                         @foreach ($documents as $document)
@@ -86,7 +96,7 @@
 
 
                 {{-- Error or success message with document view --}}
-                <div class="column is-6 full-height is-offset-1">    
+                <div class="column is-8 full-height">    
                     @if (session('success') != null)
                         <div class="columns is-centered is-vcentered">
                             <div class="column is-10">
