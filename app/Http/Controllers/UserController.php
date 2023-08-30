@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AccountVerification;
+use App\Models\Login;
+use App\Models\Organization;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -46,5 +53,92 @@ class UserController extends Controller
 
         return view('users.index')
             ->with(['users' => $users]);
+    }
+
+
+    /**
+     * Return creation view with active organizations.
+     */
+    public function create() : View {
+
+        $organizations = Organization::where('active', true)
+            ->orderBy('business_name', 'asc')
+            ->get();
+
+        return view('users.create')
+            ->with(['organizations' => $organizations]);
+    }
+
+
+    /**
+     * Create a new user and saves it database.
+     */
+    public function store(Request $request) : RedirectResponse {
+
+        /**
+         * Validate form inputs.
+         * If there is an error, returns back with the errors.
+         */
+        $validated = $request->validateWithBag('create', [
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'phone_number' => ['nullable'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:6', 'confirmed', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s])[^ ]{6,}$/'],
+            'password_confirmation' => ['required'],
+            'organization' => ['required'],
+            'access_level' => ['required'],
+        ]);
+
+        $organization = Organization::find($request->input('organization'));
+
+        // If organization not exists or is not active return error.
+        if(!$organization->id || $organization->active == false) {
+
+            session()->flash('problem', 'No se puede acceder a la organización');
+            return to_route('users.create');
+        }
+
+        // Create user.
+        $user = User::create([
+            'first_name' => mb_convert_case($request->input('first_name'), MB_CASE_TITLE, "UTF-8"),
+            'last_name' => mb_convert_case($request->input('last_name'), MB_CASE_TITLE, "UTF-8"),
+            'phone_number' => $request->input('phone_number'),
+            'email' => strtolower($request->input('email')),
+            'password' => bcrypt($request->input('password')),
+        ]);
+
+        // Check if the user was created successfully.
+        if(!$user->id) {
+
+            session()->flash('problem', 'No se pudo crear el usuario');
+            return to_route('users.create');
+        }
+
+        $token = Str::random(60);
+
+        // Create the login and link it to the user.
+        $login = Login::create([
+            'user_id' => $user->id,
+            'verification_code' => $token,
+            'verification_code_issue_date' => Carbon::now(),
+            'verification_code_expiration_date' => Carbon::now()->addMinutes(30),
+        ]);
+
+        // Check if the login was created successfully.
+        if(!$login->id) {
+
+            session()->flash('problem', 'Error al crear el usuario');
+            return to_route('users.create');
+        }
+
+        // Send email to account verification.
+        Mail::to($user->email)->queue(new AccountVerification($login, $user));
+
+        $user->organizations()->attach($organization->id, ['access_level' => $request->input('access_level')]);
+
+        session()->flash('success', 'Usuario creado correctamente');
+
+        return to_route('users.create');
     }
 }

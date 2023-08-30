@@ -37,7 +37,6 @@ class RegisterController extends Controller
         $validated = $request->validateWithBag('register', [
             'first_name' => ['required'],
             'last_name' => ['required'],
-            'dni' => ['required', 'integer'],
             'phone_number' => ['nullable'],
             'email' => ['required', 'email'],
             'password' => ['required', 'min:6', 'confirmed', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s])[^ ]{6,}$/'],
@@ -49,7 +48,6 @@ class RegisterController extends Controller
             [
                 'first_name' => mb_convert_case($request->input('first_name'), MB_CASE_TITLE, "UTF-8"),
                 'last_name' => mb_convert_case($request->input('last_name'), MB_CASE_TITLE, "UTF-8"),
-                'dni' => $request->input('dni'),
                 'phone_number' => $request->input('phone_number'),
                 'email' => strtolower($request->input('email')),
                 'password' => bcrypt($request->input('password')),

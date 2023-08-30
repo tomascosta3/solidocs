@@ -78,5 +78,11 @@ Route::middleware('auth')->group(function() {
 
         // Users list.
         Route::get('/users', [UserController::class, 'index'])->name('users');
+
+        // Create user.
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+
+        // Store user in database.
+        Route::post('/users/save', [UserController::class, 'store'])->name('users.save');
     });
 });

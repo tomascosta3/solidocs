@@ -19,8 +19,6 @@ return new class extends Migration
 
             $table->string('last_name')->nullable();
 
-            $table->string('dni', 20)->nullable()->unique();
-
             $table->string('phone_number')->nullable();
 
             $table->string('email');

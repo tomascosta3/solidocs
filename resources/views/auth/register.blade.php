@@ -57,23 +57,6 @@
                                 </div>
 
                                 <div class="field">
-                                    <label class="label" for="dni">DNI</label>
-                                    <div class="control has-icons-left has-icons-right">
-                                        <input class="input" type="text" name="dni" id="dni" placeholder="Ingrese aquí el dni (sin puntos)">
-                                        <span class="icon is-small is-left">
-                                            <i class="bx bxs-id-card"></i>
-                                        </span>
-                                        <span class="icon is-small is-right">
-                                            <i class='bx bx-error-circle'></i>
-                                        </span>
-                                    </div>
-    
-                                    @if ($errors->register->first('dni'))
-                                        <small style="color: red">{{ $errors->register->first('dni') }} </small>
-                                    @endif
-                                </div>
-
-                                <div class="field">
                                     <label class="label" for="phone_number">Teléfono de contacto</label>
                                     <div class="control has-icons-left">
                                         <input class="input" type="text" name="phone_number" id="phone_number" placeholder="xx xxxx-xxxxxx">

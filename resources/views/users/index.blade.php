@@ -68,7 +68,7 @@
                                         </button>
                                     </div>
                                     <div class="column is-1">
-                                        <a href="#">
+                                        <a href="{{ route('users.create') }}">
                                             <button class="button is-success is-pulled-right" type="button">
                                                 <span class="icon">
                                                     <i class="bx bx-plus"></i>
