@@ -160,17 +160,20 @@ class UserController extends Controller
             return to_route('users');
         }
 
-        $organizations = Organization::where('active', true)
-            ->orderBy('business_name', 'asc')
-            ->get();
-
         $users = User::where('active', true)
             ->orderBy('first_name', 'asc')
+            ->get();
+
+        $user_organizations = $user->organizations();
+        
+        $organizations = Organization::where('active', true)
+            ->orderBy('business_name', 'asc')
             ->get();
 
         return view('users.view')
             ->with(['user' => $user])
             ->with(['users' => $users])
-            ->with(['organizations' => $organizations]);
+            ->with(['organizations' => $organizations])
+            ->with(['user_organizations' => $user_organizations]);
     }
 }
