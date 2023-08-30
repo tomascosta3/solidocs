@@ -106,7 +106,7 @@
             
                         {{-- Users list --}}
                         @foreach ($users as $user)
-                        <a href="#">
+                        <a href="{{ route('users.view', ['id' => $user->id]) }}">
                             <div class="box p-1 mb-2 has-background-white is-shadowless">
                                 <div class="columns is-vcentered">
                                     <div class="column is-3">
@@ -154,7 +154,7 @@
                         </div>
                     @endif
 
-                    @yield('document')
+                    @yield('users')
                 </div>
 
             </div>

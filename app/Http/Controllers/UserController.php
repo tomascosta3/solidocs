@@ -30,24 +30,27 @@ class UserController extends Controller
                 // Search for filtered users by name.
                 $users = User::where('active', true)
                     ->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$search}%"])
+                    ->orderBy('first_name', 'asc')
                     ->get();
             
             } else if($search_option == 'organization') {
                 // Search for filtered users by organization.
                 $users = User::whereHas('organizations', function ($query) use ($search) {
                     $query->where('business_name', 'like', '%' . $search . '%');
-                })->get();
+                })->orderBy('first_name', 'asc')->get();
             
             } else if($search_option == 'email') {
                 // Search for filtered users by email.
                 $users = User::where('active', true)
                     ->where('email', 'like', '%' . $search . '%')
+                    ->orderBy('first_name', 'asc')
                     ->get();
             }
 
         } else {
 
             $users = User::where('active', true)
+                ->orderBy('first_name', 'asc')
                 ->get();
         }
 
@@ -140,5 +143,34 @@ class UserController extends Controller
         session()->flash('success', 'Usuario creado correctamente');
 
         return to_route('users.create');
+    }
+
+
+    /**
+     * Return view with user if finds it.
+     */
+    public function view($id) {
+
+        $user = User::find($id);
+
+        // If the user doesn't exists, it returns an error.
+        if(!$user) {
+
+            session()->flash('problem', 'No se encuentra el usuario');
+            return to_route('users');
+        }
+
+        $organizations = Organization::where('active', true)
+            ->orderBy('business_name', 'asc')
+            ->get();
+
+        $users = User::where('active', true)
+            ->orderBy('first_name', 'asc')
+            ->get();
+
+        return view('users.view')
+            ->with(['user' => $user])
+            ->with(['users' => $users])
+            ->with(['organizations' => $organizations]);
     }
 }

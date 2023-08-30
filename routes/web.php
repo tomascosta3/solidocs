@@ -84,5 +84,8 @@ Route::middleware('auth')->group(function() {
 
         // Store user in database.
         Route::post('/users/save', [UserController::class, 'store'])->name('users.save');
+
+        // View user.
+        Route::get('/users/{id}', [UserController::class, 'view'])->name('users.view');
     });
 });
