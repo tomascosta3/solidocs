@@ -47,8 +47,8 @@
                                         <i class='bx bx-error-circle'></i>
                                     </span>
                                 </div>
-                                @if ($errors->register->first('name'))
-                                    <small style="color: red">{{ $errors->register->first('name') }} </small>
+                                @if ($errors->create->first('name'))
+                                    <small style="color: red">{{ $errors->create->first('name') }} </small>
                                 @endif
                             </div>
                 
@@ -72,8 +72,8 @@
                                         </span>
                                     </div>
                                 </div>
-                                @if (session('error_required_access_level'))
-                                    <small style="color: red">{{ session('error_required_access_level') }} </small>
+                                @if ($errors->create->first('required_access_level'))
+                                    <small style="color: red">{{ $errors->create->first('required_access_level') }}</small>
                                 @endif
                             </div>
 
@@ -82,8 +82,8 @@
                                 <div class="control">
                                     <textarea class="textarea" name="comment" placeholder="Ingrese un comentario..."></textarea>
                                 </div>
-                                @if (session('error_comment'))
-                                    <small style="color: red">{{ session('error_comment') }} </small>
+                                @if ($errors->create->first('comment'))
+                                    <small style="color: red">{{ $errors->create->first('comment') }} </small>
                                 @endif
                                 <p class="help">No es obligatorio</p>
                             </div>
@@ -106,8 +106,8 @@
                                         </span>
                                     </label>
                                 </div>
-                                @if (session('error_file'))
-                                    <small style="color: red">{{ session('error_file') }} </small>
+                                @if ($errors->create->first('file'))
+                                    <small style="color: red">{{ $errors->create->first('file') }} </small>
                                 @endif
                             </div>
 

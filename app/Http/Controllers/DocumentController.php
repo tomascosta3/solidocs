@@ -56,7 +56,7 @@ class DocumentController extends Controller
          * Validate form inputs.
          * If there is an error, returns back with the errors.
          */
-        $validated = $request->validateWithBag('register', [
+        $validated = $request->validateWithBag('create', [
             'name' => ['required'],
             'required_access_level' => ['required'],
             'comment' => ['nullable'],
