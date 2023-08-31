@@ -105,7 +105,7 @@
                         <div class="select is-fullwidth">
                             <select name="organization" id="organization-dropdown">
                                 @foreach ($user_organizations as $organization)
-                                    <option value="{{ $organization->id }}">{{ $organization->business_name }}</option>
+                                    <option value="{{ $organization->id }}" data-access-level="{{ $organization->pivot->access_level }}">{{ $organization->business_name }}</option>
                                 @endforeach
                             </select>
                             <span class="icon is-small is-left">
@@ -125,7 +125,19 @@
                     </a>
                 </div>
             </div>
-            
+        </div>
+
+        <div class="field">
+            <label class="label" for="access_level">Nivel de acceso</label>
+            <div class="control has-icons-left has-icons-right">
+                <input class="input" type="text" name="access_level" id="access_level" readonly>
+                <span class="icon is-small is-left">
+                    <i class="bx bx-key"></i>
+                </span>
+            </div>
+            @if ($errors->create->first('access_level'))
+                <small style="color: red">{{ $errors->create->first('access_level') }} </small>
+            @endif
         </div>
 
         <div class="level-item has-text-centered">
@@ -147,4 +159,32 @@
 
     </form>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    // Change access level input value based on user's organization.
+    function setAccessLevel() {
+        let dropdown = document.getElementById('organization-dropdown');
+        let selectedOption = dropdown.options[dropdown.selectedIndex];
+        let accessLevel = selectedOption.getAttribute('data-access-level');
+
+        if(accessLevel == 1) { accessLevel = 'Cliente'; }
+        else if(accessLevel == 2) { accessLevel = 'Administración'; }
+        else if(accessLevel == 3) { accessLevel = 'Facturación'; }
+        else if(accessLevel == 4) { accessLevel = 'Dueño'; }
+        else if(accessLevel == 5) { accessLevel = 'Mesa de ayuda'; }
+        else if(accessLevel == 6) { accessLevel = 'Administración'; }
+        else if(accessLevel == 7) { accessLevel = 'Facturación'; }
+        else if(accessLevel == 8) { accessLevel = 'Administrador'; }
+
+        document.getElementById('access_level').value = accessLevel;
+    }
+
+    // Add the event to the dropdown so that changing the value updates the access level.
+    document.getElementById('organization-dropdown').addEventListener('change', setAccessLevel);
+
+    // Call the function to set the access level on page load.
+    setAccessLevel();
+</script>
 @endsection
