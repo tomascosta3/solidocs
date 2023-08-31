@@ -129,15 +129,26 @@
 
         <div class="field">
             <label class="label" for="access_level">Nivel de acceso</label>
-            <div class="control has-icons-left has-icons-right">
-                <input class="input" type="text" name="access_level" id="access_level" readonly>
-                <span class="icon is-small is-left">
-                    <i class="bx bx-key"></i>
-                </span>
+            <div class="columns">
+                <div class="column is-10">
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" type="text" name="access_level" id="access_level" readonly>
+                        <span class="icon is-small is-left">
+                            <i class="bx bx-key"></i>
+                        </span>
+                    </div>
+                    @if ($errors->create->first('access_level'))
+                        <small style="color: red">{{ $errors->create->first('access_level') }} </small>
+                    @endif
+                </div>
+                <div class="column">
+                    <a href="#" id="productive-unit-add-button">
+                        <button class="button is-link" type="button">
+                            Cambiar
+                        </button>
+                    </a>
+                </div>
             </div>
-            @if ($errors->create->first('access_level'))
-                <small style="color: red">{{ $errors->create->first('access_level') }} </small>
-            @endif
         </div>
 
         <div class="level-item has-text-centered">
