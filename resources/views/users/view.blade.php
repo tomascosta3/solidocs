@@ -99,21 +99,33 @@
 
         <div class="field">
             <label class="label" for="organization">Organización/es</label>
-            <div class="control has-icons-left has-icons-right">
-                <div class="select is-fullwidth">
-                    <select name="organization" id="organization-dropdown">
-                        @foreach ($user_organizations as $organization)
-                            <option value="12">asd</option>
-                        @endforeach
-                    </select>
-                    <span class="icon is-small is-left">
-                        <i class="bx bxs-business"></i>
-                    </span>
+            <div class="columns">
+                <div class="column is-11">
+                    <div class="control has-icons-left has-icons-right">
+                        <div class="select is-fullwidth">
+                            <select name="organization" id="organization-dropdown">
+                                @foreach ($user_organizations as $organization)
+                                    <option value="{{ $organization->id }}">{{ $organization->business_name }}</option>
+                                @endforeach
+                            </select>
+                            <span class="icon is-small is-left">
+                                <i class="bx bxs-business"></i>
+                            </span>
+                        </div>
+                    </div>
+                    @if ($errors->edit->first('organization'))
+                        <small style="color: red">{{ $errors->edit->first('organization') }} </small>
+                    @endif
+                </div>
+                <div class="column pl-0">
+                    <a href="#" id="productive-unit-add-button">
+                        <button class="button is-link" type="button">
+                            <i class="bx bx-plus" ></i>
+                        </button>
+                    </a>
                 </div>
             </div>
-            @if ($errors->edit->first('organization'))
-                <small style="color: red">{{ $errors->edit->first('organization') }} </small>
-            @endif
+            
         </div>
 
         <div class="level-item has-text-centered">
@@ -122,13 +134,6 @@
                     <a href="#">
                         <button type="button" class="button is-link is-danger">
                             <i class="bx bx-trash"></i>
-                        </button>
-                    </a>
-                </div>
-                <div class="control">
-                    <a href="#">
-                        <button type="button" class="button is-link is-success">
-                            <i class="bx bxs-download"></i>
                         </button>
                     </a>
                 </div>

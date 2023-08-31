@@ -164,7 +164,7 @@ class UserController extends Controller
             ->orderBy('first_name', 'asc')
             ->get();
 
-        $user_organizations = $user->organizations();
+        $user_organizations = $user->organizations;
         
         $organizations = Organization::where('active', true)
             ->orderBy('business_name', 'asc')
