@@ -142,7 +142,7 @@
                     @endif
                 </div>
                 <div class="column">
-                    <a href="#" id="productive-unit-add-button">
+                    <a href="#">
                         <button class="button is-link" type="button">
                             Cambiar
                         </button>
