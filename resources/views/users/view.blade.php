@@ -131,7 +131,7 @@
         <div class="level-item has-text-centered">
             <div class="field is-grouped pt-3">
                 <div class="control">
-                    <a href="#">
+                    <a href="{{ route('users.delete', ['id' => $user->id]) }}">
                         <button type="button" class="button is-link is-danger">
                             <i class="bx bx-trash"></i>
                         </button>

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Ramsey\Uuid\Type\Integer;
 
 class UserController extends Controller
 {
@@ -172,5 +173,30 @@ class UserController extends Controller
             ->with(['user' => $user])
             ->with(['users' => $users])
             ->with(['user_organizations' => $user_organizations]);
+    }
+
+
+    /**
+     * Sets the user to inactive so that it is not visible to
+     * the user.
+     */
+    public function delete($id) : RedirectResponse {
+
+        $user = User::find($id);        
+
+        // If the user doesn't exists, it returns an error.
+        if(!$user || $user->active == false) {
+
+            session()->flash('problem', 'No se encuentra el usuario seleccionado');
+            return to_route('users');
+        }
+
+        // Set active field to false.
+        $user->active = false;
+        $user->save();
+
+        session()->flash('success', 'Usuario eliminado.');
+
+        return to_route('users');
     }
 }

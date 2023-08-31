@@ -87,5 +87,8 @@ Route::middleware('auth')->group(function() {
 
         // View user.
         Route::get('/users/{id}', [UserController::class, 'view'])->name('users.view');
+
+        // Delete user.
+        Route::get('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
     });
 });
