@@ -180,7 +180,7 @@
 @section('content')
     <div class="columns">
         {{-- Column for vertical nav bar --}}
-        <div class="column is-2 px-5 full-height">
+        <div class="column is-2 px-5 full-height border-right">
 
             {{-- Image logo --}}
             <img class="solidocs-logo centered" src="{{ asset('storage/images/logo-solidocs.svg') }}" alt="SolidoCS-Logo">
@@ -188,7 +188,7 @@
             <hr class="centered">
 
             <a href="{{ route('home') }}">
-                <div class="box p-2 mb-4 invisible-box">
+                <div class="box p-2 mb-4 invisible-box {{ request()->routeIs('home') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-home-alt-2 nav-icon"></i>
                         <span class="pl-3">Inicio</span>
@@ -261,9 +261,32 @@
         </div>
 
         {{-- Column for horizontal nav bar and main content --}}
-        <div class="column is-10">
+        <div class="column is-10 px-0">
             <div class="full-width">
-                
+                <div class="top-header border-bottom">
+                    {{-- Horizontal nav bar --}}
+                    <div class="top-nav-bar half-height">
+                        <div class="columns">
+                            <div class="column is-8">
+                                Usuario | Empresa | CUIT
+                            </div>
+                            <div class="column is-2">
+                                Usuario | Editar usuario
+                            </div>
+                            <div class="column is-1">
+                                Notificaciónes
+                            </div>
+                            <div class="column is-1">
+                                Salir
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Contact channels --}}
+                    <div class="half-height">
+                        <p>Canales de contacto | Solicitar asistencia | Contacto de mesa de ayuda | Contacto de ventas y pedidos</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
