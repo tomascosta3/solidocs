@@ -64,6 +64,10 @@ hr {
   margin-right: auto;
 }
 
+.full-width {
+  width: 100%;
+}
+
 
 /*
  * Main content. 
@@ -95,4 +99,12 @@ hr {
   font-size: 20px;
   align-items: center;
   justify-content: center;
+}
+
+/* SolidoCS logo */
+.solidocs-logo {
+  height: 8vh;
+  width: auto;
+  display: block; 
+  margin-top: 24px;
 }

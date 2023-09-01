@@ -173,13 +173,6 @@
         }
 
         /*****************************************************/
-
-        /* SolidoCS logo */
-        .solidocs-logo {
-            height: 20vh;
-            width: auto;
-            display: block; 
-        }
     </style>
 @endsection
 
@@ -190,7 +183,7 @@
         <div class="column is-2 px-5 full-height">
 
             {{-- Image logo --}}
-            <img class="solidocs-logo" src="{{ asset('storage/images/logo-solidocs.svg') }}" alt="SolidoCS-Logo">
+            <img class="solidocs-logo centered" src="{{ asset('storage/images/logo-solidocs.svg') }}" alt="SolidoCS-Logo">
 
             <hr class="centered">
 
@@ -269,7 +262,9 @@
 
         {{-- Column for horizontal nav bar and main content --}}
         <div class="column is-10">
-            
+            <div class="full-width">
+                
+            </div>
         </div>
     </div>
 @endsection
