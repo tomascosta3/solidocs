@@ -1,6 +1,56 @@
 @extends('users.index')
 
 @section('users')
+
+{{-- Organizations list modal --}}
+<div class="modal" id="organizations-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <h3 class="title is-3 has-text-centered">Organizaciones a vincular</h3>
+        </header>
+        <section class="modal-card-body">
+            <label class="label has-text-centered is-size-4">Seleccioná la organización</label>
+            <div class="scrollable">
+                @foreach ($organizations as $organization)
+                <a href="#" class="organization-link" id="trigger-modal-link" data-id="{{ $organization->id }}">
+                    <div class="box is-shadowless has-background-light p-2 mb-2">
+                        <p>{{ $organization->business_name }}</p>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </section>
+        <footer class="modal-card-foot py-0">
+            <div class="column">
+                <button class="button" type="button" id="organizations-cancel-button">Cancelar</button>
+            </div>
+            <div class="column">
+                <button class="button is-primary is-pulled-right" type="submit" id="expiration-save-button">Guardar</button>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+{{-- Add organization modal --}}
+<div class="modal" id="confirmation-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Confirmación</p>
+            <button class="delete" aria-label="close" id="close-modal-button"></button>
+        </header>
+        <section class="modal-card-body">
+            ¿Estás seguro de realizar esta acción?
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button" id="cancel-button">Cancelar</button>
+            <button class="button is-success" id="confirm-button">Confirmar</button>
+        </footer>
+    </div>
+</div>
+
 <div class="box has-background-light">
     <form action="#" method="post">
         @csrf
@@ -119,7 +169,7 @@
                 </div>
                 <div class="column pl-0">
                     <a href="#" id="productive-unit-add-button">
-                        <button class="button is-link" type="button">
+                        <button class="button is-link" type="button" id="add-organization-button">
                             <i class="bx bx-plus" ></i>
                         </button>
                     </a>
@@ -174,6 +224,29 @@
 
 @section('scripts')
 <script>
+
+    // Organizations modal options.
+
+    // Show modal when user click on add organization button.
+    const addOrganizationButton = document.getElementById("add-organization-button");
+
+    addOrganizationButton.addEventListener("click", function() {
+
+        const modal = document.getElementById("organizations-modal");
+
+        modal.style.display = "flex";
+    });
+
+    // Close modal when user click on cancel button.
+    const organizationsCancelButton = document.getElementById("organizations-cancel-button");
+
+    organizationsCancelButton.addEventListener("click", function() {
+
+        const modal = document.getElementById("organizations-modal");
+
+        modal.style.display = "none";
+    })
+
     // Change access level input value based on user's organization.
     function setAccessLevel() {
         let dropdown = document.getElementById('organization-dropdown');
@@ -197,5 +270,54 @@
 
     // Call the function to set the access level on page load.
     setAccessLevel();
+
+    /**
+     * Confirm organization modal.
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+    const organizationLinks = document.querySelectorAll('.organization-link');
+    console.log(organizationLinks);
+    const modal = document.getElementById('confirmation-modal');
+    const closeModalButton = document.getElementById('close-modal-button');
+    const modalOrgName = document.getElementById('modal-org-name');
+
+    // Función para mostrar el modal
+    function showModal() {
+        modal.classList.add('is-active');
+    }
+
+    // Función para ocultar el modal
+    function closeModal() {
+        modal.classList.remove('is-active');
+    }
+
+    // Adjuntamos el eventListener a cada enlace de organización
+    organizationLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            console.log("Enlace de organización clickeado!"); // <-- Añadir esto
+            // ... resto del código ...
+        });
+
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // Obtener el nombre de la organización del contenido del enlace
+            const orgName = event.currentTarget.querySelector('p').textContent.trim();
+
+            // Mostrar los datos en el modal
+            modalOrgName.textContent = orgName;
+
+            // Mostrar el modal
+            showModal();
+        });
+    });
+
+    // Evento para cerrar el modal
+    closeModalButton.addEventListener('click', closeModal);
+
+    // Si tienes otros botones o acciones en el modal, asegúrate de que también tengan su lógica aquí
+    });
+
 </script>
 @endsection

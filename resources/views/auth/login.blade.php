@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="hero is-fullheight has-background-light login-background">
+<div class="hero is-fullheight has-background-blue-light login-background">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
             <div class="columns is-centered is-vcentered">

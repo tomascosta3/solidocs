@@ -169,10 +169,19 @@ class UserController extends Controller
         // Get user organizations.
         $user_organizations = $user->organizations;
 
+        // Gets the organizations to which the user does not belong.
+        $organizations = Organization::where('active', true)
+            ->whereDoesntHave('users', function ($query) use ($id) {
+                $query->where('users.id', $id);
+            })
+            ->orderBy('business_name', 'asc')
+            ->get();
+
         return view('users.view')
             ->with(['user' => $user])
             ->with(['users' => $users])
-            ->with(['user_organizations' => $user_organizations]);
+            ->with(['user_organizations' => $user_organizations])
+            ->with(['organizations' => $organizations]);
     }
 
 
