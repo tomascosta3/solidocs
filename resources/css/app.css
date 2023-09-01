@@ -15,7 +15,7 @@
 
 :root {
   /* Colors */
-  --body-color: #E4E9F7;
+  --body-color: rgba(0,0,0,.09);
   --sidebar-color: #fff;
   --primary-color: #0089d8;
   --primary-color-light: #f6f5ff;
@@ -51,6 +51,20 @@ div.scrollable {
   border-radius: 10px;
 }
 
+/* General */
+hr {
+  height: 0;
+  border: 0;
+  width: 90%;
+  border-top: 1px solid rgba(0,0,0,.35);
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 /*
  * Main content. 
  */
@@ -63,4 +77,22 @@ div.scrollable {
  */
 .has-background-blue-light {
   background-color: var(--body-color);
+}
+
+.invisible-box {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Styles when hovering over the invisible-box */
+.invisible-box:hover  {
+  background-color: rgba(0,0,0,.04);
+}
+
+.nav-icon {
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
 }

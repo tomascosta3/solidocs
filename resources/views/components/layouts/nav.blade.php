@@ -2,29 +2,6 @@
 
 @section('style')
     <style>
-        
-        *{
-            font-family: Arial;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Colors */
-            --body-color: #E4E9F7;
-            --sidebar-color: #fff;
-            --primary-color: #0089d8;
-            --primary-color-light: #f6f5ff;
-            --toggle-color: #ddd;
-            --text-color: #707070;
-
-            /* Transition */
-            --tran-02: all 0.2s ease;
-            --tran-03: all 0.3s ease;
-            --tran-04: all 0.4s ease;
-            --tran-05: all 0.5s ease;
-        }
 
         body {
             height: 100vh;
@@ -194,11 +171,111 @@
         #queries {
             -ms-overflow-style: none;
         }
+
+        /*****************************************************/
+
+        /* SolidoCS logo */
+        .solidocs-logo {
+            height: 20vh;
+            width: auto;
+            display: block; 
+        }
     </style>
 @endsection
 
 
 @section('content')
+    <div class="columns">
+        {{-- Column for vertical nav bar --}}
+        <div class="column is-2 px-5 full-height">
+
+            {{-- Image logo --}}
+            <img class="solidocs-logo" src="{{ asset('storage/images/logo-solidocs.svg') }}" alt="SolidoCS-Logo">
+
+            <hr class="centered">
+
+            <a href="{{ route('home') }}">
+                <div class="box p-2 mb-4 invisible-box">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-home-alt-2 nav-icon"></i>
+                        <span class="pl-3">Inicio</span>
+                    </div>
+                </div>
+            </a>
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bx-wallet-alt nav-icon"></i>
+                    <span class="pl-3">Facturas y comprobantes</span>
+                </div>
+            </div>
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bx-folder-open nav-icon"></i>
+                    <span class="pl-3">Documentos</span>
+                </div>
+            </div>
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bx-message nav-icon"></i>
+                    <span class="pl-3">Tickets</span>
+                </div>
+            </div>
+
+            <hr class="centered">
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bx-book-content nav-icon"></i>
+                    <span class="pl-3">Dailys</span>
+                </div>
+            </div>
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bx-group nav-icon"></i>
+                    <span class="pl-3">Usuarios</span>
+                </div>
+            </div>
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bxs-business nav-icon"></i>
+                    <span class="pl-3">Organizaciones</span>
+                </div>
+            </div>
+
+            <hr class="centered">
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bx-help-circle nav-icon"></i>
+                    <span class="pl-3">Ayuda</span>
+                </div>
+            </div>
+
+            <hr class="centered">
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bx-log-out nav-icon"></i>
+                    <span class="pl-3">Salir</span>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- Column for horizontal nav bar and main content --}}
+        <div class="column is-10">
+            
+        </div>
+    </div>
+@endsection
+
+
+@section('asd')
         
     <nav class="scs-sidebar">
         
