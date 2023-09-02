@@ -79,10 +79,6 @@ hr {
   border-bottom: 1px solid rgba(0,0,0,.15);
 }
 
-.channels {
-  height: calc(100% - var(--top-nav-bar-height));
-}
-
 /*
  * Main content. 
  */
@@ -139,7 +135,7 @@ div.main-page {
 
 .top-nav-bar {
   height: var(--top-nav-bar-height);
-  background-color: rgb(214, 209, 209);
+  /* background-color: rgb(214, 209, 209); */
 }
 
 .user-icon {
@@ -159,4 +155,27 @@ div.separator {
   margin-bottom: 5px;
   height: 45px;
   width: 0;
+}
+
+/* Contact channels */
+.channels {
+  height: calc(100% - var(--top-nav-bar-height));
+  background-color: rgb(214, 209, 209);
+}
+
+.channel-link {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 7px 20px;
+  transition: background-color 0.3s;
+}
+
+.channel-link:hover {
+  background-color: #e5e5e5; 
+}
+
+.channel-logo {
+  height: 30px;
 }
