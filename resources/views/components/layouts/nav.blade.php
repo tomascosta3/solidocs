@@ -277,13 +277,15 @@
                                 Usuario | Editar usuario
                             </div>
                             <div class="column is-1">
-                                Notificaciónes
+                                Notificaciones
                             </div>
                             <div class="column is-1">
-                                <div class="has-text-centered is-flex is-align-items-center">
-                                    <i class="bx bx-log-out nav-icon"></i>
-                                    <span class="pl-3">Salir</span>
-                                </div>
+                                <a href="{{ route('logout') }}">
+                                    <div class="navbar-item has-text-centered is-flex is-align-items-center">
+                                        <i class="bx bx-log-out nav-icon"></i>
+                                        <span class="pl-3">Salir</span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
