@@ -178,6 +178,7 @@
 
 
 @section('content')
+<div class="main-page">
     <div class="columns">
         {{-- Column for vertical nav bar --}}
         <div class="column is-2 px-5 full-height border-right">
@@ -251,12 +252,14 @@
 
             <hr class="centered">
 
-            <div class="box p-2 mb-4 invisible-box">
-                <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bx-log-out nav-icon"></i>
-                    <span class="pl-3">Salir</span>
+            <a href="{{ route('logout') }}">
+                <div class="box p-2 mb-4 invisible-box">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-log-out nav-icon"></i>
+                        <span class="pl-3">Salir</span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
         </div>
 
@@ -290,6 +293,7 @@
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 

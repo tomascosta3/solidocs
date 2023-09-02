@@ -13,11 +13,6 @@
   */
 @import '../../node_modules/bulma-calendar/dist/css/bulma-calendar.min.css';
 
-body {
-  /* Fix height */
-  padding-top: 12px;
-}
-
 :root {
   /* Colors */
   --body-color: rgba(0,0,0,.09);
@@ -90,6 +85,11 @@ hr {
  */
  .main-content {
   padding-left: 13vw;
+}
+
+div.main-page {
+  /* Fix height */
+  padding-top: 12px;
 }
 
 /*
