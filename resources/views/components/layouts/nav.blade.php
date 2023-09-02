@@ -270,16 +270,36 @@
                     {{-- Horizontal nav bar --}}
                     <div class="top-nav-bar half-height">
                         <div class="columns">
-                            <div class="column is-8">
+                            <div class="column is-8 py-0">
                                 <div class="navbar-item has-text-centered is-flex is-align-items-center">
                                     Usuario | Empresa | CUIT
                                 </div>
                             </div>
-                            <div class="column is-2">
-                                <div class="navbar-item has-text-centered is-flex is-align-items-center">
-                                    Usuario | Editar usuario
+
+                            <div class="column is-2 pt-2">
+                                <div class="columns is-vcentered">
+                                    <div class="column is-2">
+                                        <i class="bx bx-user-circle nav-icon user-icon"></i>
+                                    </div>
+                                    <div class="column">
+                                        <p>¡Hola! {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</p>
+                                        <p>Perfil:
+                                            @switch(Auth::user()->access_level_in_organization(session('organization_id')))
+                                                @case(1) Cliente @break
+                                                @case(2) Administración @break
+                                                @case(3) Facturación @break
+                                                @case(4) Dueño @break
+                                                @case(5) Mesa de ayuda @break
+                                                @case(6) Administración @break
+                                                @case(7) Facturación @break
+                                                @case(8) Administrador @break
+                                                @default Usuario
+                                            @endswitch
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
+                            
                             <div class="column is-1">
                                 <div class="navbar-item has-text-centered is-flex is-align-items-center">
                                     Notificaciones

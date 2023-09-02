@@ -137,3 +137,9 @@ div.main-page {
 .top-nav-bar {
   background-color: rgb(214, 209, 209);
 }
+
+.user-icon {
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+}
