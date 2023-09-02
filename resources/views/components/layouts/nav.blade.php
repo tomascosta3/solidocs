@@ -280,7 +280,10 @@
                                 Notificaciónes
                             </div>
                             <div class="column is-1">
-                                Salir
+                                <div class="has-text-centered is-flex is-align-items-center">
+                                    <i class="bx bx-log-out nav-icon"></i>
+                                    <span class="pl-3">Salir</span>
+                                </div>
                             </div>
                         </div>
                     </div>
