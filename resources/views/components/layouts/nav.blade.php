@@ -318,7 +318,7 @@
                             <div class="separator"></div>
                             
                             {{-- Notifications --}}
-                            <div class="column is-1">
+                            <div class="column is-1 pt-1">
                                 <div class="navbar-item is-align-items-center is-justify-content-center has-text-centered is-flex is-align-items-center">
                                     <i class="bx bx-bell notification-icon"></i>
                                 </div>
@@ -327,7 +327,7 @@
                             <div class="separator"></div>
 
                             {{-- Logout button --}}
-                            <div class="column is-1">
+                            <div class="column is-1 pt-1">
                                 <a href="{{ route('logout') }}">
                                     <div class="navbar-item has-text-centered is-flex is-align-items-center">
                                         <i class="bx bx-log-out nav-icon"></i>
