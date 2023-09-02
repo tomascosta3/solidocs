@@ -270,21 +270,25 @@
                     {{-- Horizontal nav bar --}}
                     <div class="top-nav-bar">
                         <div class="columns is-vcentered">
+
+                            {{-- Organization --}}
                             <div class="column">
                                 <div class="navbar-item has-text-centered is-flex is-align-items-center">
-                                    Usuario | Empresa | CUIT
+                                    <p class="is-size-5 has-text-weight-bold">{{ $organization->business_name }}</p>
+                                    <p>CUIT: </p>
                                 </div>
                             </div>
 
                             <div class="separator"></div>
 
-                            <div class="column is-2 pt-1">
-                                <div class="navbar-item has-text-centered is-flex is-align-items-center">
+                            {{-- User --}}
+                            <div class="column is-4 pt-1 is-flex is-justify-content-center">
+                                <div class="navbar-item is-align-items-center">
                                     <div class="columns is-vcentered">
                                         <div class="column is-2">
                                             <i class="bx bx-user-circle nav-icon user-icon"></i>
                                         </div>
-                                        <div class="column">
+                                        <div class="column is-10">
                                             <p>¡Hola! {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</p>
                                             <p>Perfil:
                                                 @switch(Auth::user()->access_level_in_organization(session('organization_id')))
@@ -303,9 +307,11 @@
                                     </div>
                                 </div>
                             </div>
+                            
 
                             <div class="separator"></div>
                             
+                            {{-- Notifications --}}
                             <div class="column is-1">
                                 <div class="navbar-item is-align-items-center is-justify-content-center has-text-centered is-flex is-align-items-center">
                                     <i class="bx bx-bell notification-icon"></i>
@@ -313,7 +319,8 @@
                             </div>
 
                             <div class="separator"></div>
-                            
+
+                            {{-- Logout button --}}
                             <div class="column is-1">
                                 <a href="{{ route('logout') }}">
                                     <div class="navbar-item has-text-centered is-flex is-align-items-center">
