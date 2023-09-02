@@ -271,13 +271,19 @@
                     <div class="top-nav-bar half-height">
                         <div class="columns">
                             <div class="column is-8">
-                                Usuario | Empresa | CUIT
+                                <div class="navbar-item has-text-centered is-flex is-align-items-center">
+                                    Usuario | Empresa | CUIT
+                                </div>
                             </div>
                             <div class="column is-2">
-                                Usuario | Editar usuario
+                                <div class="navbar-item has-text-centered is-flex is-align-items-center">
+                                    Usuario | Editar usuario
+                                </div>
                             </div>
                             <div class="column is-1">
-                                Notificaciones
+                                <div class="navbar-item has-text-centered is-flex is-align-items-center">
+                                    Notificaciones
+                                </div>
                             </div>
                             <div class="column is-1">
                                 <a href="{{ route('logout') }}">
