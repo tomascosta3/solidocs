@@ -272,10 +272,16 @@
                         <div class="columns is-vcentered">
 
                             {{-- Organization --}}
-                            <div class="column">
-                                <div class="navbar-item has-text-centered is-flex is-align-items-center">
-                                    <p class="is-size-5 has-text-weight-bold">{{ $organization->business_name }}</p>
-                                    <p>CUIT: </p>
+                            <div class="column pt-1 pl-5 is-flex">
+                                <div class="navbar-item is-align-items-center">
+                                    <ul>
+                                        <li>
+                                            <p class="is-size-5 has-text-weight-bold">{{ $organization->business_name }}</p>
+                                        </li>
+                                        <li>
+                                            <p>CUIT: {{ $organization->cuit }}</p>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
 
