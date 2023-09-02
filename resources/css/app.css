@@ -27,6 +27,9 @@
   --tran-03: all 0.3s ease;
   --tran-04: all 0.4s ease;
   --tran-05: all 0.5s ease;
+
+  /* Heights */
+  --top-nav-bar-height: 60%;
 }
 
 div.no-scrollbar::-webkit-scrollbar {
@@ -76,8 +79,8 @@ hr {
   border-bottom: 1px solid rgba(0,0,0,.15);
 }
 
-.half-height {
-  height: 50%;
+.channels {
+  height: calc(100% - var(--top-nav-bar-height));
 }
 
 /*
@@ -135,6 +138,7 @@ div.main-page {
 }
 
 .top-nav-bar {
+  height: var(--top-nav-bar-height);
   background-color: rgb(214, 209, 209);
 }
 
@@ -142,4 +146,17 @@ div.main-page {
   font-size: 30px;
   align-items: center;
   justify-content: center;
+}
+
+.notification-icon {
+  font-size: 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+div.separator {
+  border-right: 1px solid rgba(0,0,0,.15); 
+  margin-bottom: 5px;
+  height: 45px;
+  width: 0;
 }

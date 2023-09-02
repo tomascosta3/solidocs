@@ -268,43 +268,52 @@
             <div class="full-width">
                 <div class="top-header border-bottom">
                     {{-- Horizontal nav bar --}}
-                    <div class="top-nav-bar half-height">
-                        <div class="columns">
-                            <div class="column is-8 py-0">
+                    <div class="top-nav-bar">
+                        <div class="columns is-vcentered">
+                            <div class="column">
                                 <div class="navbar-item has-text-centered is-flex is-align-items-center">
                                     Usuario | Empresa | CUIT
                                 </div>
                             </div>
 
-                            <div class="column is-2 pt-2">
-                                <div class="columns is-vcentered">
-                                    <div class="column is-2">
-                                        <i class="bx bx-user-circle nav-icon user-icon"></i>
-                                    </div>
-                                    <div class="column">
-                                        <p>¡Hola! {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</p>
-                                        <p>Perfil:
-                                            @switch(Auth::user()->access_level_in_organization(session('organization_id')))
-                                                @case(1) Cliente @break
-                                                @case(2) Administración @break
-                                                @case(3) Facturación @break
-                                                @case(4) Dueño @break
-                                                @case(5) Mesa de ayuda @break
-                                                @case(6) Administración @break
-                                                @case(7) Facturación @break
-                                                @case(8) Administrador @break
-                                                @default Usuario
-                                            @endswitch
-                                        </p>
+                            <div class="separator"></div>
+
+                            <div class="column is-2 pt-1">
+                                <div class="navbar-item has-text-centered is-flex is-align-items-center">
+                                    <div class="columns is-vcentered">
+                                        <div class="column is-2">
+                                            <i class="bx bx-user-circle nav-icon user-icon"></i>
+                                        </div>
+                                        <div class="column">
+                                            <p>¡Hola! {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</p>
+                                            <p>Perfil:
+                                                @switch(Auth::user()->access_level_in_organization(session('organization_id')))
+                                                    @case(1) Cliente @break
+                                                    @case(2) Administración @break
+                                                    @case(3) Facturación @break
+                                                    @case(4) Dueño @break
+                                                    @case(5) Mesa de ayuda @break
+                                                    @case(6) Administración @break
+                                                    @case(7) Facturación @break
+                                                    @case(8) Administrador @break
+                                                    @default Usuario
+                                                @endswitch
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="separator"></div>
                             
                             <div class="column is-1">
-                                <div class="navbar-item has-text-centered is-flex is-align-items-center">
-                                    Notificaciones
+                                <div class="navbar-item is-align-items-center is-justify-content-center has-text-centered is-flex is-align-items-center">
+                                    <i class="bx bx-bell notification-icon"></i>
                                 </div>
                             </div>
+
+                            <div class="separator"></div>
+                            
                             <div class="column is-1">
                                 <a href="{{ route('logout') }}">
                                     <div class="navbar-item has-text-centered is-flex is-align-items-center">
@@ -317,7 +326,7 @@
                     </div>
 
                     {{-- Contact channels --}}
-                    <div class="half-height">
+                    <div class="channels">
                         <p>Canales de contacto | Solicitar asistencia | Contacto de mesa de ayuda | Contacto de ventas y pedidos</p>
                     </div>
                 </div>
