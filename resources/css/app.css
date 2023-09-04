@@ -79,6 +79,10 @@ hr {
   border-bottom: 1px solid rgba(0,0,0,.15);
 }
 
+.max-height-allowed {
+  height: 100%;
+}
+
 /* Body */
 body {
   height: 100vh;

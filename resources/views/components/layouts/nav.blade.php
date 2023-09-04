@@ -264,7 +264,8 @@
         {{-- Column for horizontal nav bar and main content --}}
         <div class="column is-10 px-0 principal-page">
             <div class="full-width">
-                <div class="top-header border-bottom">
+                <div class="top-header">
+                    
                     {{-- Horizontal nav bar --}}
                     <div class="top-nav-bar">
                         <div class="columns is-vcentered">
@@ -349,11 +350,11 @@
 
                     {{-- Contact channels --}}
                     <div class="channels">
-                        <div class="columns m-0">
-                            <div class="column is-2">
+                        <div class="columns is-vcentered m-0 max-height-allowed">
+                            <div class="column is-2 py-0">
                                 <p>Horarios de atención al cliente</p>
                             </div>
-                            <div class="column py-1 pl-0">
+                            <div class="column py-0">
                                 <ul>
                                     <li>🕘 Lunes a Viernes: 9:00 - 18:00 hs</li>
                                     <li>🕘 Sábados: 9:00 - 13:00 hs</li>
@@ -361,7 +362,8 @@
                             </div>
                     
                             <div class="column py-0 is-flex is-justify-content-center is-justify-content-space-evenly is-align-items-center"> 
-                                <div class="column pt-1">
+                                
+                                <div class="column py-0">
                                     <div class="channel-link">
                                         <a href="https://soporte.solidcloud.com.ar/" class="is-flex is-align-items-center">
                                             <img class="channel-logo pr-2" src="{{ asset('storage/images/zammad-logo.svg') }}" alt="Zammad-logo">
@@ -370,7 +372,7 @@
                                     </div>
                                 </div>
                     
-                                <div class="column pt-1">
+                                <div class="column py-0">
                                     <div class="channel-link">
                                         <a href="https://wa.me/+542324683467" class="is-flex is-align-items-center">
                                             <img class="channel-logo pr-2" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
@@ -379,7 +381,7 @@
                                     </div>
                                 </div>
                     
-                                <div class="column pt-1">
+                                <div class="column py-0">
                                     <div class="channel-link">
                                         <a href="https://wa.me/+542324696334" class="is-flex is-align-items-center">
                                             <img class="channel-logo pr-5" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
