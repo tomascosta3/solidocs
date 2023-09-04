@@ -227,8 +227,10 @@
                     
                 </div>
 
-                {{-- Content --}}
-                @yield('main-content')
+                <div class="scrollable">
+                    {{-- Content --}}
+                    @yield('main-content')
+                </div>
 
             </div>
         </div>

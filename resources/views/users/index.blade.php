@@ -131,32 +131,6 @@
                     </div>
                 </div>
 
-
-                {{-- Error or success message with document view --}}
-                <div class="column is-7">    
-                    @if (session('success') != null)
-                        <div class="columns is-centered is-vcentered">
-                            <div class="column is-10">
-                                <div class="notification is-success">
-                                    <p class="has-text-centered">{{ session('success') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    @if (session('problem') != null)
-                        <div class="columns is-centered is-vcentered">
-                            <div class="column is-11">
-                                <div class="notification is-danger">
-                                    <p class="has-text-centered">{{ session('problem') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    @yield('users')
-                </div>
-
             </div>
 
         </div>
