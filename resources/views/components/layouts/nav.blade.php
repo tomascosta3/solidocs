@@ -558,12 +558,11 @@
         }
     });
 
-    // Al cargar la página, comprueba la preferencia del tema
     document.addEventListener('DOMContentLoaded', function() {
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
+            logo.src = "{{ asset('storage/images/solidocs-white-logo.png') }}"; 
             toggleButton.textContent = 'Cambiar a modo claro';
-            logo.src = lightLogo;
         } else {
             toggleButton.textContent = 'Cambiar a modo oscuro';
         }
