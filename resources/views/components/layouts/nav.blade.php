@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="main-page">
-    <div class="columns">
+    <div class="columns full-height">
         {{-- Column for vertical nav bar --}}
         <div class="column is-2 px-5 full-height border-right vertical-navbar" id="vertical-nav-bar">
 

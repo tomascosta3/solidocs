@@ -1,14 +1,63 @@
-@extends('users.index')
+@extends('components.layouts.nav')
 
 @section('main-content')
+{{-- Organizations list modal --}}
+<div class="modal" id="organizations-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <h3 class="title is-3 has-text-centered">Organizaciones a vincular</h3>
+        </header>
+        <section class="modal-card-body">
+            <label class="label has-text-centered is-size-4">Seleccioná la organización</label>
+            <div class="scrollable">
+                @foreach ($organizations as $organization)
+                <a href="#" class="organization-link" id="trigger-modal-link" data-id="{{ $organization->id }}">
+                    <div class="box is-shadowless has-background-light p-2 mb-2">
+                        <p>{{ $organization->business_name }}</p>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </section>
+        <footer class="modal-card-foot py-0">
+            <div class="column">
+                <button class="button" type="button" id="organizations-cancel-button">Cancelar</button>
+            </div>
+            <div class="column">
+                <button class="button is-primary is-pulled-right" type="submit" id="expiration-save-button">Guardar</button>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+{{-- Add organization modal --}}
+<div class="modal" id="confirmation-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Confirmación</p>
+            <button class="delete" aria-label="close" id="close-modal-button"></button>
+        </header>
+        <section class="modal-card-body">
+            ¿Estás seguro de realizar esta acción?
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button" id="cancel-button">Cancelar</button>
+            <button class="button is-success" id="confirm-button">Confirmar</button>
+        </footer>
+    </div>
+</div>
+
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
 
             <div class="columns is-vcentered is-centered">
-                <div class="column is-7">
 
-                    {{-- Error or success message --}}  
+                {{-- Error or success message with document view --}}
+                <div class="column is-6">    
                     @if (session('success') != null)
                         <div class="columns is-centered is-vcentered">
                             <div class="column is-10">
@@ -29,56 +78,6 @@
                         </div>
                     @endif
 
-
-                    {{-- Organizations list modal --}}
-                    <div class="modal" id="organizations-modal">
-                        <div class="modal-background"></div>
-                        <div class="modal-card">
-                            <header class="modal-card-head">
-                                <h3 class="title is-3 has-text-centered">Organizaciones a vincular</h3>
-                            </header>
-                            <section class="modal-card-body">
-                                <label class="label has-text-centered is-size-4">Seleccioná la organización</label>
-                                <div class="scrollable">
-                                    @foreach ($organizations as $organization)
-                                    <a href="#" class="organization-link" id="trigger-modal-link" data-id="{{ $organization->id }}">
-                                        <div class="box is-shadowless has-background-light p-2 mb-2">
-                                            <p>{{ $organization->business_name }}</p>
-                                        </div>
-                                    </a>
-                                    @endforeach
-                                </div>
-                            </section>
-                            <footer class="modal-card-foot py-0">
-                                <div class="column">
-                                    <button class="button" type="button" id="organizations-cancel-button">Cancelar</button>
-                                </div>
-                                <div class="column">
-                                    <button class="button is-primary is-pulled-right" type="submit" id="expiration-save-button">Guardar</button>
-                                </div>
-                            </footer>
-                        </div>
-                    </div>
-    
-    
-                    {{-- Add organization modal --}}
-                    <div class="modal" id="confirmation-modal">
-                        <div class="modal-background"></div>
-                        <div class="modal-card">
-                            <header class="modal-card-head">
-                                <p class="modal-card-title">Confirmación</p>
-                                <button class="delete" aria-label="close" id="close-modal-button"></button>
-                            </header>
-                            <section class="modal-card-body">
-                                ¿Estás seguro de realizar esta acción?
-                            </section>
-                            <footer class="modal-card-foot">
-                                <button class="button" id="cancel-button">Cancelar</button>
-                                <button class="button is-success" id="confirm-button">Confirmar</button>
-                            </footer>
-                        </div>
-                    </div>
-    
                     <div class="box has-background-light">
                         <form action="#" method="post">
                             @csrf
@@ -248,8 +247,8 @@
     
                         </form>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>
