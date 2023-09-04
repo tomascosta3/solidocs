@@ -365,7 +365,7 @@
                                 
                                 <div class="column py-0">
                                     <div class="channel-link">
-                                        <a href="https://soporte.solidcloud.com.ar/" class="is-flex is-align-items-center">
+                                        <a href="https://soporte.solidcloud.com.ar/" class="is-flex is-align-items-center" target="_blank" rel="noopener noreferrer">
                                             <img class="channel-logo pr-2" src="{{ asset('storage/images/zammad-logo.svg') }}" alt="Zammad-logo">
                                             <p>Realizar ticket</p>
                                         </a>
@@ -374,7 +374,7 @@
                     
                                 <div class="column py-0">
                                     <div class="channel-link">
-                                        <a href="https://wa.me/+542324683467" class="is-flex is-align-items-center">
+                                        <a href="https://wa.me/+542324683467" class="is-flex is-align-items-center" target="_blank" rel="noopener noreferrer">
                                             <img class="channel-logo pr-2" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
                                             <p>Mesa de ayuda</p>
                                         </a>
@@ -383,7 +383,7 @@
                     
                                 <div class="column py-0">
                                     <div class="channel-link">
-                                        <a href="https://wa.me/+542324696334" class="is-flex is-align-items-center">
+                                        <a href="https://wa.me/+542324696334" class="is-flex is-align-items-center" target="_blank" rel="noopener noreferrer">
                                             <img class="channel-logo pr-5" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
                                             <p>Ventas</p>
                                         </a>
