@@ -3,11 +3,6 @@
 @section('style')
     <style>
 
-        body {
-            height: 100vh;
-            background: var(--body-color);
-        }
-
         /********************************************************************/
 
         .scs-sidebar .scs-sidebar-text {
@@ -181,10 +176,13 @@
 <div class="main-page">
     <div class="columns">
         {{-- Column for vertical nav bar --}}
-        <div class="column is-2 px-5 full-height border-right">
+        <div class="column is-2 px-5 full-height border-right vertical-navbar" id="vertical-nav-bar">
 
             {{-- Image logo --}}
-            <img class="solidocs-logo centered" src="{{ asset('storage/images/logo-solidocs.svg') }}" alt="SolidoCS-Logo">
+            <img id="logo" class="solidocs-logo centered" src="{{ asset('storage/images/logo-solidocs.svg') }}"
+            data-light="{{ asset('storage/images/logo-solidocs.svg') }}"
+            data-dark="{{ asset('storage/images/solidocs-white-logo.png') }}"
+            alt="SolidoCS-Logo">
 
             <hr class="centered">
 
@@ -261,10 +259,12 @@
                 </div>
             </a>
 
+            <button id="theme-toggle">Cambiar tema</button>
+
         </div>
 
         {{-- Column for horizontal nav bar and main content --}}
-        <div class="column is-10 px-0">
+        <div class="column is-10 px-0 principal-page">
             <div class="full-width">
                 <div class="top-header border-bottom">
                     {{-- Horizontal nav bar --}}
@@ -533,4 +533,41 @@
         @yield('main-content')
     </div>
    
+@endsection
+
+@section('scripts')
+<script>
+    var toggleButton = document.getElementById('theme-toggle');
+    var logo = document.getElementById('logo'); // Obtener el logo por su ID
+
+    toggleButton.addEventListener('click', function() {
+        var body = document.body;
+        var lightLogo = logo.getAttribute('data-light');
+        var darkLogo = logo.getAttribute('data-dark');
+        
+        if(body.classList.contains('dark-mode')) {
+            body.classList.remove('dark-mode');
+            toggleButton.textContent = 'Cambiar a modo oscuro';
+            logo.src = lightLogo;
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.classList.add('dark-mode');
+            toggleButton.textContent = 'Cambiar a modo claro';
+            logo.src = darkLogo;
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Al cargar la página, comprueba la preferencia del tema
+    document.addEventListener('DOMContentLoaded', function() {
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            toggleButton.textContent = 'Cambiar a modo claro';
+            logo.src = lightLogo;
+        } else {
+            toggleButton.textContent = 'Cambiar a modo oscuro';
+        }
+    });
+
+</script>
 @endsection

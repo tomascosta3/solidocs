@@ -79,6 +79,27 @@ hr {
   border-bottom: 1px solid rgba(0,0,0,.15);
 }
 
+/* Body */
+body {
+  height: 100vh;
+  background: var(--body-color);
+}
+
+body.dark-mode {
+  background-color: #363638;
+}
+
+/* Vertical Navbar */
+body.dark-mode .vertical-nav-bar {
+  background-color: #363638;
+}
+
+/* Principal page */
+
+body.dark-mode .principal-page {
+  background-color: #d8d3e6;
+}
+
 /*
  * Main content. 
  */
@@ -92,11 +113,8 @@ div.main-page {
 }
 
 /*
- * Boxes. 
+ * Vertial nav bar boxes. 
  */
-.has-background-blue-light {
-  background-color: var(--body-color);
-}
 
 .invisible-box {
   border: none;
@@ -105,13 +123,25 @@ div.main-page {
   transition: background-color 0.3s, color 0.3s;
 }
 
+body.dark-mode .invisible-box {
+  color: #faf8f9;
+}
+
 /* Styles when hovering over the invisible-box */
 .invisible-box:hover  {
   background-color: rgba(0,0,0,.04);
 }
 
+body.dark-mode .invisible-box:hover {
+  background-color: #c20770;
+}
+
 .invisible-box.active {
   background-color: rgba(0,0,0,.04);
+}
+
+body.dark-mode .invisible-box.active {
+  background-color: #c20770;
 }
 
 .nav-icon {
@@ -176,12 +206,28 @@ div.separator {
   transition: background-color 0.3s;
 }
 
+body.dark-mode .channel-link {
+  background-color: #363638;
+}
+
 .channel-link p {
   color: #4a4a4a;
 }
 
+body.dark-mode .channel-link p {
+  color: #faf8f9;
+}
+
 .channel-link:hover {
   background-color: #e5e5e5; 
+}
+
+body.dark-mode .channel-link:hover {
+  background-color: #faf8f9;
+}
+
+body.dark-mode .channel-link:hover p {
+  color: #363638
 }
 
 .channel-logo {
