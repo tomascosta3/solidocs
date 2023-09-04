@@ -259,8 +259,6 @@
                 </div>
             </a>
 
-            <button id="theme-toggle">Cambiar tema</button>
-
         </div>
 
         {{-- Column for horizontal nav bar and main content --}}
@@ -313,7 +311,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
 
                             <div class="separator"></div>
                             
@@ -321,6 +318,18 @@
                             <div class="column is-1 pt-1">
                                 <div class="navbar-item is-align-items-center is-justify-content-center has-text-centered is-flex is-align-items-center">
                                     <i class="bx bx-bell notification-icon"></i>
+                                </div>
+                            </div>
+
+                            <div class="separator"></div>
+
+                            {{-- Theme toggle button --}}
+                            <div class="column is-1 pt-1">
+                                <div class="navbar-item is-align-items-center is-justify-content-center has-text-centered is-flex is-align-items-center">
+                                    <button id="theme-toggle" class="hidden-button">
+                                        <i class="bx bx-sun notification-icon"></i>
+                                        <i class="bx bx-moon notification-icon" style="display: none"></i>
+                                    </button>
                                 </div>
                             </div>
 
@@ -540,19 +549,24 @@
     var toggleButton = document.getElementById('theme-toggle');
     var logo = document.getElementById('logo'); // Obtener el logo por su ID
 
+    var sunIcon = toggleButton.querySelector('.bx-sun');
+    var moonIcon = toggleButton.querySelector('.bx-moon');
+
     toggleButton.addEventListener('click', function() {
         var body = document.body;
         var lightLogo = logo.getAttribute('data-light');
         var darkLogo = logo.getAttribute('data-dark');
-        
+
         if(body.classList.contains('dark-mode')) {
             body.classList.remove('dark-mode');
-            toggleButton.textContent = 'Cambiar a modo oscuro';
+            sunIcon.style.display = 'inline-block';
+            moonIcon.style.display = 'none';
             logo.src = lightLogo;
             localStorage.setItem('theme', 'light');
         } else {
             body.classList.add('dark-mode');
-            toggleButton.textContent = 'Cambiar a modo claro';
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'inline-block';
             logo.src = darkLogo;
             localStorage.setItem('theme', 'dark');
         }
@@ -561,12 +575,13 @@
     document.addEventListener('DOMContentLoaded', function() {
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'inline-block';
             logo.src = "{{ asset('storage/images/solidocs-white-logo.png') }}"; 
-            toggleButton.textContent = 'Cambiar a modo claro';
         } else {
-            toggleButton.textContent = 'Cambiar a modo oscuro';
+            sunIcon.style.display = 'inline-block';
+            moonIcon.style.display = 'none';
         }
     });
-
 </script>
 @endsection
