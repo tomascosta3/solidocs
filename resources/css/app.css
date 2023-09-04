@@ -160,16 +160,24 @@ div.separator {
 /* Contact channels */
 .channels {
   height: calc(100% - var(--top-nav-bar-height));
-  background-color: rgb(214, 209, 209);
+  background-color: #c4027b;
+}
+
+.channels p, .channels li{
+  color: white;
 }
 
 .channel-link {
   display: flex;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #e2e2e2;
   border-radius: 10px;
   padding: 7px 20px;
   transition: background-color 0.3s;
+}
+
+.channel-link p {
+  color: #4a4a4a;
 }
 
 .channel-link:hover {

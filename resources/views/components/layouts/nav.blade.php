@@ -340,56 +340,48 @@
 
                     {{-- Contact channels --}}
                     <div class="channels">
-                        {{-- Canales de contacto | Solicitar asistencia | Contacto de mesa de ayuda | Contacto de ventas y pedidos --}}
                         <div class="columns m-0">
                             <div class="column is-2">
                                 <p>Horarios de atención al cliente</p>
                             </div>
                             <div class="column py-1 pl-0">
                                 <ul>
-                                    <li>
-                                        🕘 Lunes a Viernes: 9:00 - 18:00 hs
-                                    </li>
-                                    <li>
-                                        🕘 Sábados: 9:00 - 13:00 hs
-                                    </li>
+                                    <li>🕘 Lunes a Viernes: 9:00 - 18:00 hs</li>
+                                    <li>🕘 Sábados: 9:00 - 13:00 hs</li>
                                 </ul>
                             </div>
-
-                            <div class="column pt-1 is-flex is-justify-content-center is-align-items-center">
-                                <a href="https://wa.me/+542324683467">
+                    
+                            <div class="column py-0 is-flex is-justify-content-center is-justify-content-space-evenly is-align-items-center"> 
+                                <div class="column pt-1">
                                     <div class="channel-link">
-                                        <img class="channel-logo pr-4" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
-                                        <p>
-                                            Contactar con Mesa de ayuda
-                                        </p>
+                                        <a href="https://soporte.solidcloud.com.ar/" class="is-flex is-align-items-center">
+                                            <img class="channel-logo pr-2" src="{{ asset('storage/images/zammad-logo.svg') }}" alt="Zammad-logo">
+                                            <p>Realizar ticket</p>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                            
-                            <div class="column pt-1 is-flex is-justify-content-center is-align-items-center">
-                                <a href="https://wa.me/+542324696334">
+                                </div>
+                    
+                                <div class="column pt-1">
                                     <div class="channel-link">
-                                        <img class="channel-logo pr-4" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
-                                        <p>
-                                            Contactar con Ventas
-                                        </p>
+                                        <a href="https://wa.me/+542324683467" class="is-flex is-align-items-center">
+                                            <img class="channel-logo pr-2" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
+                                            <p>Mesa de ayuda</p>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                            
-                            <div class="column pt-1 is-flex is-justify-content-center is-align-items-center">
-                                <a href="https://soporte.solidcloud.com.ar/">
+                                </div>
+                    
+                                <div class="column pt-1">
                                     <div class="channel-link">
-                                        <img class="channel-logo pr-4" src="{{ asset('storage/images/zammad-logo.svg') }}" alt="Zammad-logo">
-                                        <p>
-                                            Realizar ticket
-                                        </p>
+                                        <a href="https://wa.me/+542324696334" class="is-flex is-align-items-center">
+                                            <img class="channel-logo pr-5" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
+                                            <p>Ventas</p>
+                                        </a>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
