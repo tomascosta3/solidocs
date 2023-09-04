@@ -364,30 +364,30 @@
                             <div class="column py-0 is-flex is-justify-content-center is-justify-content-space-evenly is-align-items-center"> 
                                 
                                 <div class="column py-0">
-                                    <div class="channel-link">
-                                        <a href="https://soporte.solidcloud.com.ar/" class="is-flex is-align-items-center" target="_blank" rel="noopener noreferrer">
+                                    <a href="https://soporte.solidcloud.com.ar/" target="_blank" rel="noopener noreferrer">
+                                        <div class="channel-link">
                                             <img class="channel-logo pr-2" src="{{ asset('storage/images/zammad-logo.svg') }}" alt="Zammad-logo">
                                             <p>Realizar ticket</p>
-                                        </a>
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
                     
                                 <div class="column py-0">
-                                    <div class="channel-link">
-                                        <a href="https://wa.me/+542324683467" class="is-flex is-align-items-center" target="_blank" rel="noopener noreferrer">
+                                        <a href="https://wa.me/+542324683467" target="_blank" rel="noopener noreferrer">
+                                        <div class="channel-link">
                                             <img class="channel-logo pr-2" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
                                             <p>Mesa de ayuda</p>
-                                        </a>
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
                     
                                 <div class="column py-0">
-                                    <div class="channel-link">
-                                        <a href="https://wa.me/+542324696334" class="is-flex is-align-items-center" target="_blank" rel="noopener noreferrer">
+                                    <a href="https://wa.me/+542324696334" target="_blank" rel="noopener noreferrer">
+                                        <div class="channel-link">
                                             <img class="channel-logo pr-5" src="{{ asset('storage/images/whatsapp-logo.svg') }}" alt="WhatsApp-logo">
                                             <p>Ventas</p>
-                                        </a>
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
