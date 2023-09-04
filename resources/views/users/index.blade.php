@@ -5,13 +5,13 @@
 @endsection
 
 @section('main-content')
-<div class="hero is-fullheight">
+<div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
 
             <div class="columns is-vcentered is-centered">
 
-                <div class="column is-7 full-height">
+                <div class="column is-7">
                     <div class="box has-background-light">
                         <div class="columns is-vcentered is-centered">
                             <div class="column p-0">
@@ -133,7 +133,7 @@
 
 
                 {{-- Error or success message with document view --}}
-                <div class="column is-7 full-height">    
+                <div class="column is-7">    
                     @if (session('success') != null)
                         <div class="columns is-centered is-vcentered">
                             <div class="column is-10">
