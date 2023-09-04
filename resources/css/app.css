@@ -15,7 +15,7 @@
 
 :root {
   /* Colors */
-  --body-color: #E4E9F7;
+  --body-color: rgba(0,0,0,.09);
   --sidebar-color: #fff;
   --primary-color: #0089d8;
   --primary-color-light: #f6f5ff;
@@ -27,6 +27,9 @@
   --tran-03: all 0.3s ease;
   --tran-04: all 0.4s ease;
   --tran-05: all 0.5s ease;
+
+  /* Heights */
+  --top-nav-bar-height: 60%;
 }
 
 div.no-scrollbar::-webkit-scrollbar {
@@ -51,6 +54,56 @@ div.scrollable {
   border-radius: 10px;
 }
 
+/* General */
+hr {
+  height: 0;
+  border: 0;
+  width: 95%;
+  border-top: 1px solid rgba(0,0,0,.15);
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.border-right {
+  border-right: 1px solid rgba(0,0,0,.15);
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+.max-height-allowed {
+  height: 100%;
+}
+
+/* Body */
+body {
+  height: 100vh;
+  background: var(--body-color);
+}
+
+body.dark-mode {
+  background-color: #363638;
+}
+
+/* Vertical Navbar */
+body.dark-mode .vertical-nav-bar {
+  background-color: #363638;
+}
+
+/* Principal page */
+
+body.dark-mode .principal-page {
+  background-color: #d8d3e6;
+}
+
 /*
  * Main content. 
  */
@@ -58,9 +111,140 @@ div.scrollable {
   padding-left: 13vw;
 }
 
+div.main-page {
+  /* Fix height */
+  padding-top: 12px;
+}
+
 /*
- * Boxes. 
+ * Vertial nav bar boxes. 
  */
-.has-background-blue-light {
-  background-color: var(--body-color);
+
+.invisible-box {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode .invisible-box {
+  color: #faf8f9;
+}
+
+/* Styles when hovering over the invisible-box */
+.invisible-box:hover  {
+  background-color: rgba(0,0,0,.04);
+}
+
+body.dark-mode .invisible-box:hover {
+  background-color: #c20770;
+}
+
+.invisible-box.active {
+  background-color: rgba(0,0,0,.04);
+}
+
+body.dark-mode .invisible-box.active {
+  background-color: #c20770;
+}
+
+.nav-icon {
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SolidoCS logo */
+.solidocs-logo {
+  height: 8vh;
+  width: auto;
+  display: block; 
+  margin-top: 12px;
+}
+
+/* Top nav bar */
+.top-header {
+  height: calc(8vh + 24px * 2);
+}
+
+.top-nav-bar {
+  height: var(--top-nav-bar-height);
+  /* background-color: rgb(214, 209, 209); */
+}
+
+.user-icon {
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-icon {
+  font-size: 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+div.separator {
+  border-right: 1px solid rgba(0,0,0,.15); 
+  margin-bottom: 5px;
+  height: 45px;
+  width: 0;
+}
+
+.hidden-button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit; 
+  font-size: inherit; 
+  color: inherit;
+}
+
+/* Contact channels */
+.channels {
+  height: calc(100% - var(--top-nav-bar-height));
+  background-color: #c4027b;
+}
+
+.channels p, .channels li{
+  color: white;
+}
+
+.channel-link {
+  display: flex;
+  align-items: center;
+  background-color: #e2e2e2;
+  border-radius: 10px;
+  padding: 7px 20px;
+  transition: background-color 0.3s;
+}
+
+body.dark-mode .channel-link {
+  background-color: #363638;
+}
+
+.channel-link p {
+  color: #4a4a4a;
+}
+
+body.dark-mode .channel-link p {
+  color: #faf8f9;
+}
+
+.channel-link:hover {
+  background-color: #e5e5e5; 
+}
+
+body.dark-mode .channel-link:hover {
+  background-color: #faf8f9;
+}
+
+body.dark-mode .channel-link:hover p {
+  color: #363638
+}
+
+.channel-logo {
+  height: 30px;
 }
