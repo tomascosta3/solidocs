@@ -30,12 +30,14 @@
                 </div>
             </div>
 
-            <div class="box p-2 mb-4 invisible-box">
-                <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bx-folder-open nav-icon"></i>
-                    <span class="pl-3">Documentos</span>
+            <a href="{{ route('documents') }}">
+                <div class="box p-2 mb-4 invisible-box {{ request()->routeIs('documents') ? 'active' : '' }}">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-folder-open nav-icon"></i>
+                        <span class="pl-3">Documentos</span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
             {{-- <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">
@@ -53,12 +55,14 @@
                 </div>
             </div>
 
-            <div class="box p-2 mb-4 invisible-box">
-                <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bx-group nav-icon"></i>
-                    <span class="pl-3">Usuarios</span>
+            <a href="{{ route('users') }}">
+                <div class="box p-2 mb-4 invisible-box {{ request()->routeIs('users') ? 'active' : '' }}">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-group nav-icon"></i>
+                        <span class="pl-3">Usuarios</span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
             <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">
@@ -222,6 +226,10 @@
                     </div>
                     
                 </div>
+
+                {{-- Content --}}
+                @yield('main-content')
+
             </div>
         </div>
     </div>

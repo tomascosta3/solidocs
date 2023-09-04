@@ -192,6 +192,9 @@
 @endsection
 
 @section('scripts')
+
+@parent
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const organizationDropdown = document.getElementById('organization-dropdown');

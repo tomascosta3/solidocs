@@ -223,7 +223,10 @@
 @endsection
 
 @section('scripts')
-<script>
+
+@parent
+
+<script>  
 
     // Organizations modal options.
 
