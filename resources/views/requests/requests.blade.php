@@ -10,7 +10,7 @@
         <div class="container">
             <div class="columns is-vcentered is-centered">
                 {{-- Show days available and request --}}
-                <div class="column is-5">
+                <div class="column is-6">
                     <div class="box secondary-background is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
                         <p class="has-text-centered is-size-3 pb-5">
                             Días disponibles para ___________
@@ -19,7 +19,7 @@
                             18
                         </p>
 
-                        <div class="field three-quarters-width">
+                        <div class="field three-quarters-width pb-4">
                             <div class="control">
                                 <div class="select full-width">
                                     <select name="option_request" id="option_request" class="full-width select-scs">
@@ -34,20 +34,26 @@
                             @endif
                         </div>
 
+                        <div class="field">
+                            <p class="is-size-5">Seleccionar fecha / período</p>
+                        </div>
+
                         <div class="columns full-width">
-                            <div class="column is-3">
-                                <button class="button full-width button-scs">
-                                    <i class="bx bx-calendar"></i>
-                                </button>
+                            
+                            <div class="column">
+                                <span>Desde</span>
+                                <input class="input" type="datetime-local"/>
                             </div>
-                            <div class="column is-flex is-align-items-center is-justify-content-center">
-                                <p class="has-text-centered">Fecha Desde - Fecha Hasta</p>
+
+                            <div class="column">
+                                <span>Hasta</span>
+                                <input class="input" type="datetime-local">
                             </div>
-                            <div class="column is-3">
-                                <button class="button full-width button-scs">
-                                    Solicitar
-                                </button>
-                            </div>
+                        </div>
+                        <div class="column is-3">
+                            <button class="button full-width button-scs">
+                                Solicitar
+                            </button>
                         </div>
 
                     </div>
