@@ -50,6 +50,22 @@
 
             <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bx-calendar nav-icon"></i>
+                    <span class="pl-3">______________</span>
+                </div>
+            </div>
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bxs-inbox nav-icon"></i>
+                    <span class="pl-3">______________</span>
+                </div>
+            </div>
+
+            <hr class="centered">
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
                     <i class="bx bx-book-content nav-icon"></i>
                     <span class="pl-3">Dailys</span>
                 </div>
