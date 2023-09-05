@@ -11,8 +11,8 @@
 
             <div class="columns is-vcentered is-centered">
 
-                <div class="column is-7">
-                    <div class="box has-background-light">
+                <div class="column">
+                    <div class="">
                         <div class="columns is-vcentered is-centered">
                             <div class="column p-0">
                                 <p class="has-text-centered is-size-4">
@@ -22,7 +22,7 @@
                         </div>
             
                         {{-- Search form --}}
-                        <div class="box is-shadowless p-3 mb-3">
+                        <div class="box is-shadowless p-3 mb-3 search">
                             <form action="#" method="get">
                                 <div class="columns is-vcentered is-centered">
                                     <div class="column is-7">
@@ -80,16 +80,22 @@
                             </form>
                         </div>
             
-                        <div class="box p-2 mb-2 has-background-grey-lighter is-shadowless">
+                        <div class="box p-2 mb-2 is-shadowless categories">
                             <div class="columns is-vcentered">
-                                <div class="column is-3">
+                                <div class="column is-2">
                                     <p>Nombre</p>
                                 </div>
-                                <div class="column is-4">
+                                <div class="column">
                                     <p>Organización</p>
                                 </div>
-                                <div class="column is-5">
+                                <div class="column">
                                     <p>Correo electrónico</p>
+                                </div>
+                                <div class="column">
+                                    <p>Teléfono</p>
+                                </div>
+                                <div class="column is-2">
+                                    <p>Perfil de usuario</p>
                                 </div>
                             </div>
                         </div>
@@ -107,12 +113,12 @@
                         {{-- Users list --}}
                         @foreach ($users as $user)
                         <a href="{{ route('users.view', ['id' => $user->id]) }}">
-                            <div class="box p-1 mb-2 has-background-white is-shadowless">
+                            <div class="box p-1 mb-2 is-shadowless list-item">
                                 <div class="columns is-vcentered">
-                                    <div class="column is-3">
+                                    <div class="column is-2">
                                         <p class="is-clipped">{{ $user->first_name . ' ' . $user->last_name }}</p>
                                     </div>
-                                    <div class="column is-4">
+                                    <div class="column">
                                         <p class="is-clipped">
                                             @if ($user->organization_count() == 0)
                                                 Sin organización
@@ -121,8 +127,32 @@
                                             @endif
                                         </p>
                                     </div>
-                                    <div class="column is-5">
+                                    <div class="column">
                                         <p class="is-clipped">{{ $user->email }}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p class="is-clipped">
+                                            @if ($user->phone_number)
+                                            {{ $user->phone_number }}
+                                            @else
+                                                No registrado
+                                            @endif
+                                        </p>
+                                    </div>
+                                    <div class="column is-2">
+                                        <p class="is-clipped">
+                                            @switch(Auth::user()->access_level_in_organization(session('organization_id')))
+                                                @case(1) Cliente @break
+                                                @case(2) Administración @break
+                                                @case(3) Facturación @break
+                                                @case(4) Dueño @break
+                                                @case(5) Mesa de ayuda @break
+                                                @case(6) Administración @break
+                                                @case(7) Facturación @break
+                                                @case(8) Administrador @break
+                                                @default Error
+                                            @endswitch
+                                        </p>
                                     </div>
                                 </div>
                             </div>

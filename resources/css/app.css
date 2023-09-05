@@ -248,3 +248,34 @@ body.dark-mode .channel-link:hover p {
 .channel-logo {
   height: 30px;
 }
+
+/* Main Content Divs */
+.categories {
+  background-color: #eceaf3;
+}
+
+body.dark-mode .categories {
+  background-color: #363638;
+}
+
+body.dark-mode .categories p {
+  color: #faf8fa;
+}
+
+/* List items */
+.list-item {
+  background-color: #faf8fa;
+}
+
+body.dark-mode .list-item {
+  background-color: #faf8fa;
+}
+
+/* Search div */
+.search {
+  background-color: #faf8fa;
+}
+
+body.dark-mode .search {
+  background-color: #faf8fa;
+}
