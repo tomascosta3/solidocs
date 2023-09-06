@@ -13,19 +13,17 @@
                 <div class="column is-5">
                     <div class="box secondary-background is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
                         <p class="has-text-centered is-size-3 pb-5">
-                            Días disponibles para Vacaciones
+                            Días disponibles para <span id="days-type"></span>
                         </p>
-                        <p class="has-text-centered days-number pb-5">
-                            {{ auth()->user()->vacations()->pivot->days_available }}
-                        </p>
+                        <p class="has-text-centered days-number pb-5" id="days-display"></p>
 
                         <div class="field three-quarters-width pb-4">
                             <div class="control">
                                 <div class="select full-width">
                                     <select name="option_request" id="option_request" class="full-width select-scs">
-                                        <option value="">Vacaciones</option>
-                                        <option value="">Licencia por maternidad</option>
-                                        <option value="">Licencia por enfermedad</option>
+                                        <option value="" data-days="{{ auth()->user()->days_of_type('Vacaciones')->pivot->days_available }}">Vacaciones</option>
+                                        <option value="" data-days="{{ auth()->user()->days_of_type('Licencia por maternidad')->pivot->days_available }}">Licencia por maternidad</option>
+                                        <option value="" data-days="{{ auth()->user()->days_of_type('Licencia por enfermedad')->pivot->days_available }}">Licencia por enfermedad</option>
                                     </select>
                                 </div>
                             </div>
@@ -191,4 +189,28 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectElement = document.getElementById('option_request');
+            const daysDisplay = document.getElementById('days-display');
+            const daysTypeSpan = document.getElementById('days-type');
+
+            selectElement.addEventListener('change', function() {
+                let selectedOption = this.options[this.selectedIndex];
+                let days = selectedOption.getAttribute('data-days');
+                let selectedType = this.options[this.selectedIndex].text;
+                if (days !== null) {
+                    daysDisplay.textContent = days;
+                } else {
+                    daysDisplay.textContent = '';
+                }
+                daysTypeSpan.textContent = selectedType;
+            });
+
+            selectElement.dispatchEvent(new Event('change'));
+        });
+    </script>
 @endsection
