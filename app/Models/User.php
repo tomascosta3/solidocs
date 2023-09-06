@@ -87,4 +87,22 @@ class User extends Authenticatable
             ->where('business_name', $organization_name)
             ->count() == 1;
     }
+
+    
+    public function days() {
+
+        return $this->belongsToMany(Day::class, 'day_user')->withPivot('days_available');
+    }
+
+
+    public function day_requests() {
+
+        return $this->hasMany(DayRequest::class);
+    }
+
+    
+    public function vacations() {
+
+        return $this->days()->where('type', 'Vacaciones')->get()[0];
+    }
 }
