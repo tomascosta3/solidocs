@@ -100,9 +100,10 @@ class User extends Authenticatable
         return $this->hasMany(DayRequest::class);
     }
 
-    
-    public function vacations() {
-
-        return $this->days()->where('type', 'Vacaciones')->get()[0];
+    public function days_of_type($type) {
+        
+        return $this->days()->where('type', $type)
+            ->where('days.active', true)
+            ->first();
     }
 }
