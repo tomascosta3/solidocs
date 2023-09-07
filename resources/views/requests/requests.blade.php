@@ -114,44 +114,49 @@
                             </div>
                         </div>
 
-                        @if ($day_requests->isEmpty())
-                        <div class="box is-shadowless p-2 full-width mb-2">
-                            <div class="columns">
-                                <div class="column">
-                                    <p class="has-text-centered">Aún no creaste solicitudes</p>
+                        <div class="requests-history full-width">
+
+                            @if ($day_requests->isEmpty())
+                            <div class="box is-shadowless p-2 full-width mb-2">
+                                <div class="columns">
+                                    <div class="column">
+                                        <p class="has-text-centered">Aún no creaste solicitudes</p>
+                                    </div>
                                 </div>
                             </div>
+                            @else
+                            @foreach ($day_requests as $day_request)
+                            <div class="box is-shadowless p-2 full-width mb-2">
+                                <div class="columns">
+                                    <div class="column">
+                                        <p>{{ $day_request->day->type }}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p>{{ $day_request->requested_days }}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p>{{ $day_request->formatted_start_date() }}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p>{{ $day_request->formatted_end_date() }}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p>
+                                            @switch($day_request->status)
+                                                @case('Pending') Pendiente @break
+                                                @case('Approved') Aprobado @break
+                                                @case('Rejected') Rechazado @break
+                                                @default Sin estado
+                                            @endswitch
+                                        </p>
+                                    </div>
+                                </div>
+                            </div> 
+                            @endforeach
+                            @endif
+
                         </div>
-                        @else
-                        @foreach ($day_requests as $day_request)
-                        <div class="box is-shadowless p-2 full-width mb-2">
-                            <div class="columns">
-                                <div class="column">
-                                    <p>{{ $day_request->day->type }}</p>
-                                </div>
-                                <div class="column">
-                                    <p>{{ $day_request->requested_days }}</p>
-                                </div>
-                                <div class="column">
-                                    <p>{{ $day_request->formatted_start_date() }}</p>
-                                </div>
-                                <div class="column">
-                                    <p>{{ $day_request->formatted_end_date() }}</p>
-                                </div>
-                                <div class="column">
-                                    <p>
-                                        @switch($day_request->status)
-                                            @case('Pending') Pendiente @break
-                                            @case('Approved') Aprobado @break
-                                            @case('Rejected') Rechazado @break
-                                            @default Sin estado
-                                        @endswitch
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                        @endif
+
                     </div>
                 </div>
             </div>
