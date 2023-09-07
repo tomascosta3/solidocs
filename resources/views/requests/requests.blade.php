@@ -192,6 +192,7 @@
 @endsection
 
 @section('scripts')
+    @parent
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const selectElement = document.getElementById('option_request');
