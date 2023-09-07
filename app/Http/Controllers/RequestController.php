@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DayRequestCreated;
 use App\Models\Day;
 use App\Models\DayRequest;
 use App\Models\DayUser;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class RequestController extends Controller
@@ -85,6 +88,15 @@ class RequestController extends Controller
         }
     
         // Send emails here.
+        $users = User::whereHas('organizations', function ($query) {
+            $query->where('business_name', 'Solido Connecting Solutions')
+                   ->where('organization_user.access_level', '>=', 6);
+        })->get();
+
+        foreach ($users as $user) {
+
+            Mail::to($user->email)->send(new DayRequestCreated($user, $request, auth()->user()));
+        }
 
         return to_route('requests');
     }
