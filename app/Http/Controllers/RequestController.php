@@ -17,7 +17,7 @@ class RequestController extends Controller
     /**
      * View requests. 
      */
-    public function view() : View {
+    public function index() : View {
 
         $day_user = DayUser::where('active', true)
             ->where('user_id', auth()->user()->id)
@@ -87,17 +87,36 @@ class RequestController extends Controller
             session()->flash('problem', 'Error al crear la solicitud');
         }
     
-        // Send emails here.
+        // User whom email will be sent to.
         $users = User::whereHas('organizations', function ($query) {
             $query->where('business_name', 'Solido Connecting Solutions')
                    ->where('organization_user.access_level', '>=', 6);
         })->get();
 
         foreach ($users as $user) {
-
+            // Send email.
             Mail::to($user->email)->send(new DayRequestCreated($user, $request, auth()->user()));
         }
 
         return to_route('requests');
+    }
+
+
+    /**
+     * Return view with request data if finds it.
+     */
+    public function view($id) {
+
+        $day_request = DayRequest::find($id);
+
+        // If the request doesn't exists, returns an error.
+        if(!$day_request) {
+
+            session()->flash('problem', 'No se encuentra la solicitud');
+            return to_route('requests');
+        }
+
+        return view('requests.view')
+            ->with(['day_request' => $day_request]);
     }
 }
