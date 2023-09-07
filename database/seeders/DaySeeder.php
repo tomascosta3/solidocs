@@ -17,5 +17,15 @@ class DaySeeder extends Seeder
             'type' => 'Vacaciones',
             'default_amount'=> '15'
         ]);
+
+        DB::table('days')->insert([
+            'type' => 'Licencia por maternidad',
+            'default_amount'=> '10'
+        ]);
+
+        DB::table('days')->insert([
+            'type' => 'Licencia por enfermedad',
+            'default_amount'=> '20'
+        ]);
     }
 }
