@@ -329,3 +329,10 @@ body.dark-mode .button-scs:hover {
 body.dark-mode .select-scs {
   border: none;
 }
+
+/* Requests history */
+.requests-history {
+  max-height: 55vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
