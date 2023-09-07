@@ -336,3 +336,10 @@ body.dark-mode .select-scs {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+/* Request text box */
+.request-textarea {
+  height: 200px !important;
+  max-height: 200px !important;
+  overflow-y: auto;
+}
