@@ -93,9 +93,12 @@ Route::middleware('auth')->group(function() {
         Route::get('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
 
         // View requests.
-        Route::get('/requests', [RequestController::class, 'view'])->name('requests');
+        Route::get('/requests', [RequestController::class, 'index'])->name('requests');
 
         // Store request in database.
         Route::post('/request/store', [RequestController::class, 'store'])->name('requests.store');
+
+        // View request.
+        Route::get('/requests/{id}', [RequestController::class, 'view'])->name('requests.view');
     });
 });
