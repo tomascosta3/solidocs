@@ -34,6 +34,13 @@ class DayRequest extends Model
 
 
     /**
+     * Returns user that made the request.
+     */
+    public function requester() {
+        return $this->belongsTo(User::class, 'requested_by');
+    }
+
+    /**
      * Return start date formatted like dd/mm/yyyy
      */
     public function formatted_start_date() {
