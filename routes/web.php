@@ -94,5 +94,8 @@ Route::middleware('auth')->group(function() {
 
         // View requests.
         Route::get('/requests', [RequestController::class, 'view'])->name('requests');
+
+        // Store request in database.
+        Route::post('/request/store', [RequestController::class, 'store'])->name('requests.store');
     });
 });

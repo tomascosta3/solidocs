@@ -23,10 +23,16 @@ return new class extends Migration
 
             $table->integer('requested_days')->nullable();
 
+            $table->timestamp('start_date')->nullable();
+
+            $table->timestamp('end_date')->nullable();
+
             $table->string('status')->default('Pending');
 
-            $table->unsignedBigInteger('updated_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
+
+            $table->boolean('active')->default(true);
 
             $table->timestamps();
         });

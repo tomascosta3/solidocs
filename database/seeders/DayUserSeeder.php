@@ -18,5 +18,17 @@ class DayUserSeeder extends Seeder
             'day_id'=> 1,
             'days_available' => 15,
         ]);
+
+        DB::table('day_user')->insert([
+            'user_id' => 2,
+            'day_id'=> 2,
+            'days_available' => 10,
+        ]);
+
+        DB::table('day_user')->insert([
+            'user_id' => 2,
+            'day_id'=> 3,
+            'days_available' => null,
+        ]);
     }
 }
