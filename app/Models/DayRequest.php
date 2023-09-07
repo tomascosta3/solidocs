@@ -51,4 +51,24 @@ class DayRequest extends Model
         $date = new DateTime($this->end_date);
         return $date->format('d/m/Y');
     }
+
+
+    /**
+     * Return start date formatted like dd/mm/yyyy hh:mm
+     */
+    public function formatted_start_date_complete() {
+
+        $date = new DateTime($this->start_date);
+        return $date->format('d/m/Y H:i\h\s');
+    }
+
+
+    /**
+     * Return end date formatted like dd/mm/yyyy hh:mm
+     */
+    public function formatted_end_date_complete() {
+
+        $date = new DateTime($this->end_date);
+        return $date->format('d/m/Y H:i\h\s');
+    }
 }
