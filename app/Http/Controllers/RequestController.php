@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\DayRequestApproved;
 use App\Mail\DayRequestCreated;
+use App\Mail\DayRequestRejected;
 use App\Models\Day;
 use App\Models\DayRequest;
 use App\Models\DayUser;
@@ -175,6 +176,35 @@ class RequestController extends Controller
         Mail::to($day_request->requester->email)->queue(new DayRequestApproved(auth()->user(), $day_request, $day_request->requester));
 
         session()->flash('success', 'Solicitud aprobada!');
+
+        return to_route('requests.view', ['id' => $id]);
+    }
+
+
+    /**
+     * Reject the day_request if exists and is active.
+     */
+    public function reject($id) : RedirectResponse {
+
+        $day_request = DayRequest::find($id);
+
+        // If the request doesn't exists or is inactive, returns an error.
+        if(!$day_request || !$day_request->active) {
+
+            session()->flash('problem', 'No se encuentra la solicitud');
+            return to_route('requests.view', ['id' => $id]);
+        }
+
+        // Update the day_request's status and updated_by attributes.
+        $day_request->update([
+            'status' => 'Rejected',
+            'updated_by' => auth()->user()->id
+        ]);
+
+        // Sends emails to day_request's requester.
+        Mail::to($day_request->requester->email)->queue(new DayRequestRejected(auth()->user(), $day_request, $day_request->requester));
+
+        session()->flash('success', 'Solicitud rechazada');
 
         return to_route('requests.view', ['id' => $id]);
     }

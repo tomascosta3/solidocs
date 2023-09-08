@@ -101,7 +101,7 @@
 
                                         {{-- Reject button --}}
                                         <div class="control mb-3">
-                                            <a href="#">
+                                            <a href="{{ route('requests.reject', ['id' => $day_request->id]) }}">
                                                 <button class="button is-danger" type="button">
                                                     <span class="icon">
                                                         <i class="bx bx-x-circle"></i>
