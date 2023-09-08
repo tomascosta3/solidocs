@@ -126,7 +126,7 @@ class RequestController extends Controller
 
         foreach ($users as $user) {
             // Send email.
-            Mail::to($user->email)->send(new DayRequestCreated($user, $request, auth()->user()));
+            Mail::to($user->email)->queue(new DayRequestCreated($user, $request, auth()->user()));
         }
 
         return to_route('requests');

@@ -52,6 +52,10 @@
                             </div>
                         </div>
 
+                        <p class="pb-3">
+                            Si se acepta esta solicitud quedarán  días disponibles
+                        </p>
+
                         <p class="is-size-4">
                             Estado de solicitud: 
                             <strong>
