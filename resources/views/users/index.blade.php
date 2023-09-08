@@ -12,11 +12,13 @@
             <div class="columns is-vcentered is-centered">
 
                 <div class="column">
-                    <div class="">
+                    <div class="box secondary-background">
                         <div class="columns is-vcentered is-centered">
                             <div class="column p-0">
-                                <p class="has-text-centered is-size-4">
-                                    Usuarios
+                                <p class="has-text-centered is-size-3">
+                                    <strong>
+                                        Usuarios
+                                    </strong>
                                 </p>
                             </div>
                         </div>
