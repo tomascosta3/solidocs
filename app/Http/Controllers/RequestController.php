@@ -68,6 +68,34 @@ class RequestController extends Controller
         $end_date = Carbon::parse($request->input('end_date'))->startOfDay();
         $requested_days = $start_date->diffInDays($end_date) + 1;
 
+        $day_user = DayUser::where('user_id', auth()->user()->id)
+            ->where('day_id', $day->id)
+            ->where('active', true)
+            ->first();
+
+        /**
+         * Check if the days ordered are less than or equal to the
+         * quantity available.
+         */
+        $allow_request_creation = false;
+
+        if($day_user) {
+
+            if($day_user->days_available == null || $requested_days <= $day_user->days_available) {
+
+                $allow_request_creation = true;
+            }
+        }
+
+        /**
+         * Returns the error when the relationship day_user does not exist
+         * or if the user requested more days than he had available.
+         */
+        if(!$allow_request_creation) {
+            session()->flash('problem', 'Error: solicitó más días de los disponibles');
+            return to_route('requests');
+        }
+
         // Create day request.
         $request = DayRequest::create([
             'requested_by' => auth()->user()->id,

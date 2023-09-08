@@ -30,6 +30,7 @@
             @endif
 
             <div class="columns is-vcentered is-centered">
+
                 {{-- Show request data --}}
                 <div class="column is-5">
                     
@@ -66,6 +67,7 @@
                     
                 </div>
 
+                {{-- Chat employer-employee --}}
                 <div class="column is-offset-1">
                     <div class="box secondary-background">
                         <div class="message p-2">
@@ -86,6 +88,7 @@
                             
                                 <div class="column is-1 is-flex is-flex-direction-column is-justify-content-center">
                                     <div class="field is-grouped is-grouped-centered is-flex-direction-column">
+                                        {{-- Approve button --}}
                                         <div class="control mb-3">
                                             <a href="#">
                                                 <button class="button is-success" type="button">
@@ -95,6 +98,8 @@
                                                 </button>
                                             </a>
                                         </div>
+
+                                        {{-- Reject button --}}
                                         <div class="control mb-3">
                                             <a href="#">
                                                 <button class="button is-danger" type="button">
@@ -104,6 +109,8 @@
                                                 </button>
                                             </a>
                                         </div>
+
+                                        {{-- Send button --}}
                                         <div class="control">
                                             <a href="#">
                                                 <button class="button is-link" type="button">
