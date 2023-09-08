@@ -147,8 +147,22 @@ class RequestController extends Controller
             return to_route('requests');
         }
 
+
+        /**
+         * Calculates the days the user would have if the request
+         * is accepted.
+         */
+        $days_after_approve = null;
+
+        $day_type = $day_request->day;
+        $requester_user = $day_request->requester;
+        $available_days = $requester_user->days->where('id', $day_type->id)->first()->pivot->days_available;
+        $requested_days = $day_request->requested_days;
+        $days_after_approve = $available_days - $requested_days;
+
         return view('requests.view')
-            ->with(['day_request' => $day_request]);
+            ->with(['day_request' => $day_request])
+            ->with(['days_after_approve' => $days_after_approve]);
     }
 
 
