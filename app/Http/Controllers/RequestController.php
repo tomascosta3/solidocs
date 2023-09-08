@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DayRequestApproved;
 use App\Mail\DayRequestCreated;
 use App\Models\Day;
 use App\Models\DayRequest;
 use App\Models\DayUser;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -40,7 +42,7 @@ class RequestController extends Controller
     /**
      * Create a new request and saves it in the database.
      */
-    public function store(Request $request) {
+    public function store(Request $request) : RedirectResponse {
 
         /**
          * Validate form inputs.
@@ -146,5 +148,34 @@ class RequestController extends Controller
 
         return view('requests.view')
             ->with(['day_request' => $day_request]);
+    }
+
+
+    /**
+     * Approve the day_request if exists and is active.
+     */
+    public function approve($id) : RedirectResponse {
+
+        $day_request = DayRequest::find($id);
+
+        // If the request doesn't exists or is inactive, returns an error.
+        if(!$day_request || !$day_request->active) {
+
+            session()->flash('problem', 'No se encuentra la solicitud');
+            return to_route('requests.view', ['id' => $id]);
+        }
+
+        // Update the day_request's status and updated_by attributes.
+        $day_request->update([
+            'status' => 'Approved',
+            'updated_by' => auth()->user()->id
+        ]);
+
+        // Sends emails to day_request's requester.
+        Mail::to($day_request->requester->email)->queue(new DayRequestApproved(auth()->user(), $day_request, $day_request->requester));
+
+        session()->flash('success', 'Solicitud aprobada!');
+
+        return to_route('requests.view', ['id' => $id]);
     }
 }

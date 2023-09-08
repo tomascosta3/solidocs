@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Day;
 use App\Models\DayRequest;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -12,7 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class DayRequestCreated extends Mailable
+class DayRequestApproved extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,9 +21,9 @@ class DayRequestCreated extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        protected User $user,
+        protected User $approver,
         protected DayRequest $day_request,
-        protected User $request_user
+        protected User $requester
     )
     {
         $this->request_link = route('requests.view', ['id' => $day_request->id]);
@@ -36,7 +35,7 @@ class DayRequestCreated extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->day_request->day->type . ' de ' . $this->request_user->first_name . ' ' . $this->request_user->last_name,
+            subject: $this->approver->first_name . ' aprobó tu solicitud',
         );
     }
 
@@ -46,12 +45,12 @@ class DayRequestCreated extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.requests.created',
+            markdown: 'emails.requests.approved',
             with: [
                 'request_link' => $this->request_link,
-                'user' => $this->user,
+                'approver' => $this->approver,
                 'day_request' => $this->day_request,
-                'request_user' => $this->request_user,
+                'requester' => $this->requester,
             ]
         );
     }

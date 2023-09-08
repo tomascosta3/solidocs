@@ -12,6 +12,6 @@ Detalles de la solicitud:
     Ver solicitud
 </x-mail::button>
 
-Atentamente,
-el equipo de Solido Connecting Solutions.
+Atentamente,<br>
+El equipo de Solido Connecting Solutions.
 </x-mail::message>

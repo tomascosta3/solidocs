@@ -90,7 +90,7 @@
                                     <div class="field is-grouped is-grouped-centered is-flex-direction-column">
                                         {{-- Approve button --}}
                                         <div class="control mb-3">
-                                            <a href="#">
+                                            <a href="{{ route('requests.approve', ['id' => $day_request->id]) }}">
                                                 <button class="button is-success" type="button">
                                                     <span class="icon">
                                                         <i class="bx bx-check-circle"></i>

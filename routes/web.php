@@ -100,5 +100,7 @@ Route::middleware('auth')->group(function() {
 
         // View request.
         Route::get('/requests/{id}', [RequestController::class, 'view'])->name('requests.view');
+
+        Route::get('/requests/approve/{id}', [RequestController::class, 'approve'])->name('requests.approve');
     });
 });
