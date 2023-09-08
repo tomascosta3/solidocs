@@ -112,7 +112,7 @@
         </div>
 
         {{-- Column for horizontal nav bar and main content --}}
-        <div class="column is-10 p-0 principal-page">
+        <div class="column is-10 px-0 principal-page">
             <div class="full-width">
                 <div class="top-header">
                     
@@ -245,10 +245,8 @@
                     
                 </div>
 
-                <div class="scrollable">
-                    {{-- Content --}}
-                    @yield('main-content')
-                </div>
+                {{-- Content --}}
+                @yield('main-content')
 
             </div>
         </div>
