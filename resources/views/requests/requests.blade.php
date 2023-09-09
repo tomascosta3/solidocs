@@ -60,7 +60,7 @@
                             </div>
 
                             {{-- Input file block --}}
-                            <div class="field" id="field-block">
+                            <div class="field file-field" id="field-block">
                                 <div class="file has-name is-fullwidth">
                                     <label class="file-label">
                                         <input class="file-input" type="file" name="file" id="inputFile">
@@ -77,6 +77,7 @@
                                         </span>
                                     </label>
                                 </div>
+                                <p class="help">Sólo se permiten adjuntar archivos: PDF, PNG, JPG, DOC y DOCX</p>
                                 @if ($errors->create->first('file'))
                                     <small style="color: red">{{ $errors->create->first('file') }} </small>
                                 @endif

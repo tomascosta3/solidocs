@@ -282,6 +282,24 @@ body.dark-mode .categories p {
   color: var(--dark-mode-text-color);
 }
 
+/* File inputs */
+body.dark-mode .file-field span.file-cta {
+  background-color: var(--dark-mode-sidebar-color);
+  color: var(--dark-mode-text-color);
+  transition: background-color 0.3s;
+  border: none;
+}
+
+body.dark-mode .file-field span.file-cta:hover  {
+  background-color: var(--dark-mode-primary-color);
+}
+
+body.dark-mode .file-field span.file-name {
+  background-color: white;
+  color: var(--dark-mode-sidebar-color);
+  border: none;
+}
+
 /* List items */
 .list-item {
   background-color: var(--dark-mode-text-color);
