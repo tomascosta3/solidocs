@@ -225,6 +225,22 @@
             });
 
             selectElement.dispatchEvent(new Event('change'));
+
+            // Changes the text displayed to the file name when it
+            // is attached.
+            const fileInput = document.getElementById('inputFile');
+            const fileNameSpan = document.querySelector('.file-name');
+
+            fileInput.addEventListener('change', function() {
+
+                if(this.files && this.files.length > 0) {
+
+                    fileNameSpan.textContent = this.files[0].name;
+                } else {
+
+                    fileNameSpan.textContent = 'Cargue el certificado aquí...';
+                }
+            });
         });
     </script>
 @endsection
