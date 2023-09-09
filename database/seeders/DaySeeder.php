@@ -25,7 +25,8 @@ class DaySeeder extends Seeder
 
         DB::table('days')->insert([
             'type' => 'Licencia por enfermedad',
-            'default_amount'=> '20'
+            'default_amount'=> '20',
+            'need_file' => true,
         ]);
     }
 }

@@ -21,6 +21,11 @@ return new class extends Migration
 
             $table->timestamp('reset_date')->nullable();
 
+            $table->boolean('need_file')->default(false);
+
+            $table->unsignedBigInteger('document_id')->nullable();
+            $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
+
             $table->boolean('active')->default(true);
 
             $table->timestamps();

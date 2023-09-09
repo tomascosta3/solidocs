@@ -45,13 +45,40 @@
                                     <div class="select full-width">
                                         <select name="option_request" id="option_request" class="full-width select-scs">
                                             @foreach ($days as $day)
-                                            <option value="{{ $day->type }}" data-days="{{ auth()->user()->days_of_type($day->type)->pivot->days_available }}">{{ $day->type }}</option>
+                                            <option value="{{ $day->type }}" 
+                                                data-days="{{ auth()->user()->days_of_type($day->type)->pivot->days_available }}"
+                                                data-need-file="{{ auth()->user()->days_of_type($day->type)->need_file }}">
+                                                {{ $day->type }}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 @if ($errors->create->first('option_request'))
                                     <small style="color: red">{{ $errors->create->first('option_request') }} </small>
+                                @endif
+                            </div>
+
+                            {{-- Input file block --}}
+                            <div class="field" id="field-block">
+                                <div class="file has-name is-fullwidth">
+                                    <label class="file-label">
+                                        <input class="file-input" type="file" name="file" id="inputFile">
+                                        <span class="file-cta">
+                                            <span class="file-icon">
+                                                <i class="bx bx-upload"></i>
+                                            </span>
+                                            <span class="file-label">
+                                                Seleccionar certificado
+                                            </span>
+                                        </span>
+                                        <span class="file-name">
+                                            Cargue el certificado aquí...
+                                        </span>
+                                    </label>
+                                </div>
+                                @if ($errors->create->first('file'))
+                                    <small style="color: red">{{ $errors->create->first('file') }} </small>
                                 @endif
                             </div>
     
@@ -174,17 +201,26 @@
             const selectElement = document.getElementById('option_request');
             const daysDisplay = document.getElementById('days-display');
             const daysTypeSpan = document.getElementById('days-type');
+            const fieldBlock = document.getElementById('field-block');
 
             selectElement.addEventListener('change', function() {
                 let selectedOption = this.options[this.selectedIndex];
                 let days = selectedOption.getAttribute('data-days');
                 let selectedType = this.options[this.selectedIndex].text;
+                let needFile = selectedOption.getAttribute('data-need-file') == true;
+
                 if (days !== null) {
                     daysDisplay.textContent = days;
                 } else {
                     daysDisplay.textContent = '';
                 }
                 daysTypeSpan.textContent = selectedType;
+
+                if (needFile) {
+                    fieldBlock.style.display = 'block';
+                } else {
+                    fieldBlock.style.display = 'none';
+                }
             });
 
             selectElement.dispatchEvent(new Event('change'));

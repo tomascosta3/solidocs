@@ -15,6 +15,22 @@ class Day extends Model
         'type',
         'default_amount',
         'reset_date',
+        'need_file',
+        'document_id',
         'active',
     ];
+
+
+    /**
+     * Get attached document, else returns null.
+     */
+    public function document() {
+
+        if($this->need_file && $this->document_id !== null) {
+
+            return $this->belongsTo(Document::class, 'document_id');
+        }
+
+        return null;
+    }
 }
