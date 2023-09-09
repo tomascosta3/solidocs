@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class RequestController extends Controller
@@ -64,6 +65,23 @@ class RequestController extends Controller
         if(!$day) {
             session()->flash('problem', 'Error al crear la solicitud');
             return to_route('requests');
+        }
+
+        // If the day type requires a file, add a validation rule for it.
+        if($day->need_file) {
+
+            $validator = Validator::make($request->all(), [
+                'file' => ['required', 'file', 'mimes:pdf,png,jpg,doc,docx'],
+            ]);
+
+            if($validator->fails()) {
+                
+                if($validator->errors()->has('file')) {
+
+                    session()->flash('problem', 'El archivo es requerdio y sólo acepta archivos PDF, PNG, JPG, DOC y DOCX');
+                    return to_route('requests');
+                }
+            }
         }
 
         // Calculates the number of days based on the start date and the end date.
