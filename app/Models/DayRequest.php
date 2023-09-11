@@ -15,6 +15,7 @@ class DayRequest extends Model
     protected $fillable = [
         'requested_by',
         'day_id',
+        'document_id',
         'requested_days',
         'start_date',
         'end_date',
@@ -38,6 +39,19 @@ class DayRequest extends Model
      */
     public function requester() {
         return $this->belongsTo(User::class, 'requested_by');
+    }
+
+    /**
+     * Returns document attached, returns null if there is none.
+     */
+    public function document() {
+        
+        if($this->document_id !== null) {
+
+            return $this->belongsTo(Document::class, 'document_id');
+        }
+
+        return null;
     }
 
     /**

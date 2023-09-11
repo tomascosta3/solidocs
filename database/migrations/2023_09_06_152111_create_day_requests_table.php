@@ -21,6 +21,9 @@ return new class extends Migration
             $table->unsignedBigInteger('day_id');
             $table->foreign('day_id')->references('id')->on('days')->onDelete('cascade');
 
+            $table->unsignedBigInteger('document_id')->nullable();
+            $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
+
             $table->integer('requested_days')->nullable();
 
             $table->timestamp('start_date')->nullable();

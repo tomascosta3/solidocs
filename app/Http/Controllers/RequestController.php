@@ -8,6 +8,7 @@ use App\Mail\DayRequestRejected;
 use App\Models\Day;
 use App\Models\DayRequest;
 use App\Models\DayUser;
+use App\Models\Document;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -117,10 +118,36 @@ class RequestController extends Controller
             return to_route('requests');
         }
 
+        // Move file to server and hash its name.
+        $file = $request->file('file');
+        $hashed_name = $file->hashName();
+        $folder_name = 'storage/documents';
+        $file->move(public_path($folder_name), $hashed_name);
+
+        // Create document.
+        $document = Document::create([
+            'name' => 'Certificado: ' . auth()->user()->first_name . ' ' . auth()->user()->last_name . ' ' . Carbon::now()->format('d/m/Y'),
+            'required_access_level' => 6, // Solido Connecting Solutions -> Administration.
+            'comment' => null,
+            'path' => $folder_name . '/' . $hashed_name,
+            'created_by' => auth()->user()->id,
+        ]);
+
+        $document_id = null;
+
+        // If the file isn't saved then it shows an error.
+        if(!$document) {
+            session()->flash('problem', 'Error al cargar el archivo');
+            return to_route('requests');
+        }
+
+        $document_id = $document->id;
+
         // Create day request.
         $request = DayRequest::create([
             'requested_by' => auth()->user()->id,
             'day_id' => $day->id,
+            'document_id' => $document_id,
             'requested_days' => $requested_days,
             'start_date' => $request->input('start_date'),
             'end_date' => $request->input('end_date')
