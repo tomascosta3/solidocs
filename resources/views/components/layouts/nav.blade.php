@@ -52,7 +52,7 @@
                 <div class="box p-2 mb-4 invisible-box">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-calendar nav-icon"></i>
-                        <span class="pl-3">______________</span>
+                        <span class="pl-3">Licencias</span>
                     </div>
                 </div>
             </a>
@@ -60,7 +60,7 @@
             <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">
                     <i class="bx bxs-inbox nav-icon"></i>
-                    <span class="pl-3">______________</span>
+                    <span class="pl-3">Solicitudes</span>
                 </div>
             </div>
 

@@ -107,7 +107,7 @@ class RequestController extends Controller
         if($day->need_file) {
 
             $validator = Validator::make($request->all(), [
-                'file' => ['required', 'file', 'mimes:pdf,png,jpg,doc,docx', 'max:10240'],
+                'file' => ['required', 'file', 'mimes:pdf,png,jpg', 'max:10240'],
             ]);
 
             // If the validator fails then returns error.
@@ -115,7 +115,7 @@ class RequestController extends Controller
                 
                 if($validator->errors()->has('file')) {
 
-                    session()->flash('problem', 'El archivo es requerido y sólo acepta archivos PDF, PNG, JPG, DOC y DOCX');
+                    session()->flash('problem', 'El archivo es requerido y sólo acepta archivos PDF, PNG y JPG');
                     return to_route('requests');
                 }
 

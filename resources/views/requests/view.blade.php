@@ -97,8 +97,12 @@
                 {{-- Chat employer-employee --}}
                 <div class="column is-offset-1">
                     <div class="box secondary-background">
-                        <div class="message p-2">
-                            Mensaje del empleado
+
+                        {{-- Chat --}}
+                        <div class="chat-messages" style="max-height: 50vh; overflow-y: auto;">
+                            <div class="message p-2">
+                                Mensaje del empleado
+                            </div>
                         </div>
 
                         <form action="#" method="post">

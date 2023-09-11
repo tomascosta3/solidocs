@@ -36,7 +36,7 @@
                         @csrf
                         <div class="box secondary-background is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
                             <p class="has-text-centered is-size-3 pb-5">
-                                Días disponibles para <span id="days-type"></span>
+                                Días de <span id="days-type"></span> disponibles
                             </p>
                             <p class="has-text-centered days-number pb-5" id="days-display"></p>
     
@@ -77,7 +77,7 @@
                                         </span>
                                     </label>
                                 </div>
-                                <p class="help">Sólo se permiten adjuntar archivos: PDF, PNG, JPG, DOC y DOCX</p>
+                                <p class="help">Sólo se permiten adjuntar archivos: PDF, PNG y JPG</p>
                                 @if ($errors->create->first('file'))
                                     <small style="color: red">{{ $errors->create->first('file') }} </small>
                                 @endif

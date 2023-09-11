@@ -361,3 +361,10 @@ body.dark-mode .select-scs {
   max-height: 200px !important;
   overflow-y: auto;
 }
+
+/* Chat messages */
+.chat-messages {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-bottom: 1em;
+}
