@@ -71,7 +71,7 @@ class RequestController extends Controller
         if($day->need_file) {
 
             $validator = Validator::make($request->all(), [
-                'file' => ['required', 'file', 'mimes:pdf,png,jpg,doc,docx'],
+                'file' => ['required', 'file', 'mimes:pdf,png,jpg,doc,docx', 'max:10240'],
             ]);
 
             if($validator->fails()) {
@@ -164,7 +164,12 @@ class RequestController extends Controller
             session()->flash('problem', 'No se encuentra la solicitud');
             return to_route('requests');
         }
-
+         
+        // Get user-day relationship
+        $day_user = DayUser::where('user_id', auth()->user()->id)
+            ->where('day_id', $day_request->day->id)
+            ->where('active', true)
+            ->first();
 
         /**
          * Calculates the days the user would have if the request
@@ -180,7 +185,8 @@ class RequestController extends Controller
 
         return view('requests.view')
             ->with(['day_request' => $day_request])
-            ->with(['days_after_approve' => $days_after_approve]);
+            ->with(['days_after_approve' => $days_after_approve])
+            ->with(['day_user' => $day_user]);
     }
 
 

@@ -32,7 +32,7 @@
             <div class="columns is-vcentered is-centered">
                 {{-- Show days available and request --}}
                 <div class="column is-6">
-                    <form action="{{ route('requests.store') }}" method="post">
+                    <form action="{{ route('requests.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="box secondary-background is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
                             <p class="has-text-centered is-size-3 pb-5">

@@ -52,10 +52,12 @@
                             </div>
                         </div>
 
-                        @if ($day_request->status == 'Pending' && $days_after_approve !== null)
-                        <p class="pb-3">
-                            Si se acepta esta solicitud quedarán {{ $days_after_approve }} días disponibles
-                        </p>
+                        @if ($day_user->days_available !== null)
+                            @if ($day_request->status == 'Pending' && $days_after_approve !== null)
+                            <p class="pb-3">
+                                Si se acepta esta solicitud quedarán {{ $days_after_approve }} días disponibles
+                            </p>
+                            @endif
                         @endif
 
                         <p class="is-size-4">
