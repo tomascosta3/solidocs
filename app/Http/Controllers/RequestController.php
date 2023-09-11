@@ -68,23 +68,6 @@ class RequestController extends Controller
             return to_route('requests');
         }
 
-        // If the day type requires a file, add a validation rule for it.
-        if($day->need_file) {
-
-            $validator = Validator::make($request->all(), [
-                'file' => ['required', 'file', 'mimes:pdf,png,jpg,doc,docx', 'max:10240'],
-            ]);
-
-            if($validator->fails()) {
-                
-                if($validator->errors()->has('file')) {
-
-                    session()->flash('problem', 'El archivo es requerido y sólo acepta archivos PDF, PNG, JPG, DOC y DOCX');
-                    return to_route('requests');
-                }
-            }
-        }
-
         // Calculates the number of days based on the start date and the end date.
         $start_date = Carbon::parse($request->input('start_date'))->startOfDay();
         $end_date = Carbon::parse($request->input('end_date'))->startOfDay();
@@ -118,30 +101,50 @@ class RequestController extends Controller
             return to_route('requests');
         }
 
-        // Move file to server and hash its name.
-        $file = $request->file('file');
-        $hashed_name = $file->hashName();
-        $folder_name = 'storage/documents';
-        $file->move(public_path($folder_name), $hashed_name);
-
-        // Create document.
-        $document = Document::create([
-            'name' => 'Certificado: ' . auth()->user()->first_name . ' ' . auth()->user()->last_name . ' ' . Carbon::now()->format('d/m/Y'),
-            'required_access_level' => 6, // Solido Connecting Solutions -> Administration.
-            'comment' => null,
-            'path' => $folder_name . '/' . $hashed_name,
-            'created_by' => auth()->user()->id,
-        ]);
-
         $document_id = null;
 
-        // If the file isn't saved then it shows an error.
-        if(!$document) {
-            session()->flash('problem', 'Error al cargar el archivo');
-            return to_route('requests');
-        }
+        // If the day type requires a file, add a validation rule for it.
+        if($day->need_file) {
 
-        $document_id = $document->id;
+            $validator = Validator::make($request->all(), [
+                'file' => ['required', 'file', 'mimes:pdf,png,jpg,doc,docx', 'max:10240'],
+            ]);
+
+            // If the validator fails then returns error.
+            if($validator->fails()) {
+                
+                if($validator->errors()->has('file')) {
+
+                    session()->flash('problem', 'El archivo es requerido y sólo acepta archivos PDF, PNG, JPG, DOC y DOCX');
+                    return to_route('requests');
+                }
+
+            } else {
+
+                // Move file to server and hash its name.
+                $file = $request->file('file');
+                $hashed_name = $file->hashName();
+                $folder_name = 'storage/documents';
+                $file->move(public_path($folder_name), $hashed_name);
+    
+                // Create document.
+                $document = Document::create([
+                    'name' => 'Certificado: ' . auth()->user()->first_name . ' ' . auth()->user()->last_name . ' ' . Carbon::now()->format('d/m/Y'),
+                    'required_access_level' => 6, // Solido Connecting Solutions -> Administration.
+                    'comment' => null,
+                    'path' => $folder_name . '/' . $hashed_name,
+                    'created_by' => auth()->user()->id,
+                ]);
+    
+                // If the file isn't saved then it shows an error.
+                if(!$document) {
+                    session()->flash('problem', 'Error al cargar el archivo');
+                    return to_route('requests');
+                }
+    
+                $document_id = $document->id;
+            }
+        }
 
         // Create day request.
         $request = DayRequest::create([
