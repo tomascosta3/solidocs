@@ -78,7 +78,7 @@ class RequestController extends Controller
                 
                 if($validator->errors()->has('file')) {
 
-                    session()->flash('problem', 'El archivo es requerdio y sólo acepta archivos PDF, PNG, JPG, DOC y DOCX');
+                    session()->flash('problem', 'El archivo es requerido y sólo acepta archivos PDF, PNG, JPG, DOC y DOCX');
                     return to_route('requests');
                 }
             }
