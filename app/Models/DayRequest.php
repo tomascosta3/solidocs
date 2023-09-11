@@ -41,6 +41,16 @@ class DayRequest extends Model
         return $this->belongsTo(User::class, 'requested_by');
     }
 
+
+    /**
+     * If request has a file attached returns true, else false.
+     */
+    public function has_document() {
+
+        return $this->document_id !== null;
+    }
+
+
     /**
      * Returns document attached, returns null if there is none.
      */

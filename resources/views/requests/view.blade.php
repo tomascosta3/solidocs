@@ -72,6 +72,12 @@
                             </strong>
                         </p>
                     </div>
+
+                    {{-- Show file if exists --}}
+                    @if ($day_request->has_document() !== null)
+                    <div class="box secondary-background is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+                    </div>
+                    @endif
                     
                 </div>
 
