@@ -71,7 +71,15 @@ class RequestController extends Controller
         // Calculates the number of days based on the start date and the end date.
         $start_date = Carbon::parse($request->input('start_date'))->startOfDay();
         $end_date = Carbon::parse($request->input('end_date'))->startOfDay();
-        $requested_days = $start_date->diffInDays($end_date) + 1;
+        $requested_days = 0;
+
+        // Increase the start date and check if it is Sunday.
+        while($start_date->lte($end_date)) {
+            if(!$start_date->isSunday()) {
+                $requested_days++;
+            }
+            $start_date->addDay();
+        }
 
         $day_user = DayUser::where('user_id', auth()->user()->id)
             ->where('day_id', $day->id)
