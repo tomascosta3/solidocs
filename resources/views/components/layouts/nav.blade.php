@@ -62,7 +62,7 @@
                     <i class="bx bxs-inbox nav-icon"></i>
                     <span class="px-3">Solicitudes</span>
                     @if (isset($pending_requests) && $pending_requests > 0)
-                    <span class="tag is-danger">{{ $pending_requests }}</span>
+                    <span class="tag is-danger counter-span">{{ $pending_requests }}</span>
                     @endif
                 </div>
             </div>

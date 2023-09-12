@@ -368,3 +368,12 @@ body.dark-mode .select-scs {
   overflow-y: auto;
   padding-bottom: 1em;
 }
+
+/* Counter span */
+body.dark-mode .counter-span {
+  background-color: var(--dark-mode-primary-color);
+}
+
+body.dark-mode .invisible-box:hover .counter-span {
+  background-color: var(--dark-mode-sidebar-color);
+}
