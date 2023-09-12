@@ -18,13 +18,6 @@ class CheckSolidoOrganization
     {
         if(auth()->check() && auth()->user()->belongs_to('Solido Connecting Solutions')) {
 
-            $organization_id = Organization::where('business_name', 'Solido Connecting Solutions')
-                ->where('active', true)
-                ->first()
-                ->id;
-
-            $access_level = $user->access_level_in_organization($organization_id);
-
             return $next($request);
         }
         
