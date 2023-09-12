@@ -242,11 +242,34 @@ class RequestController extends Controller
             return to_route('requests.view', ['id' => $id]);
         }
 
+        $day_user = DayUser::where('user_id', $day_request->requester->id)
+            ->where('day_id', $day_request->day->id)
+            ->where('active', true)
+            ->first();
+
+        // If the day_user doesn't exists or is inactive, return an error.
+        if(!$day_user) {
+
+            session()->flash('problem', 'No se encuentra la licencia del usuario');
+            return to_route('requests.view', ['id' => $id]);
+        }
+
         // Update the day_request's status and updated_by attributes.
         $day_request->update([
             'status' => 'Approved',
             'updated_by' => auth()->user()->id
         ]);
+
+        /**
+         * If the default days is not null, then it proceeds to discount the
+         * days requested from the user.
+         */
+        if($day_request->day->default_amount !== null) {
+            
+            $day_user->update([
+                'days_available' => $day_user->days_available - $day_request->requested_days,
+            ]);
+        }
 
         // Sends emails to day_request's requester.
         Mail::to($day_request->requester->email)->queue(new DayRequestApproved(auth()->user(), $day_request, $day_request->requester));
