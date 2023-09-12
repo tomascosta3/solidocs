@@ -60,7 +60,10 @@
             <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">
                     <i class="bx bxs-inbox nav-icon"></i>
-                    <span class="pl-3">Solicitudes</span>
+                    <span class="px-3">Solicitudes</span>
+                    @if (isset($pending_requests) && $pending_requests > 0)
+                    <span class="tag is-danger">{{ $pending_requests }}</span>
+                    @endif
                 </div>
             </div>
 
