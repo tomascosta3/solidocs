@@ -84,11 +84,6 @@
                             @if (isset($day_request->document->path) && in_array(pathinfo($day_request->document->path, PATHINFO_EXTENSION), ['pdf']))
                                 <iframe class="" src="{{ URL::asset($day_request->document->path) }}" frameborder="0" style="height: 45vh; max-height: 100%;width: 46vw; max-width: 100%"></iframe>
                             @endif
-                            @if (isset($day_request->document->path) && in_array(pathinfo($day_request->document->path, PATHINFO_EXTENSION), ['docx']))
-                                <div class="box has-background-light" style="max-height: 30vh">
-                                    <p class="has-text-centered is-size-4">Contenido no se puede visualizar</p>
-                                </div>
-                            @endif
                         @endif
                     @endif
                     
@@ -119,27 +114,29 @@
                             
                                 <div class="column is-1 is-flex is-flex-direction-column is-justify-content-center">
                                     <div class="field is-grouped is-grouped-centered is-flex-direction-column">
-                                        {{-- Approve button --}}
-                                        <div class="control mb-3">
-                                            <a href="{{ route('requests.approve', ['id' => $day_request->id]) }}">
-                                                <button class="button is-success" type="button">
-                                                    <span class="icon">
-                                                        <i class="bx bx-check-circle"></i>
-                                                    </span>
-                                                </button>
-                                            </a>
-                                        </div>
+                                        @if ($day_request->status == 'Pending')
+                                            {{-- Approve button --}}
+                                            <div class="control mb-3">
+                                                <a href="{{ route('requests.approve', ['id' => $day_request->id]) }}">
+                                                    <button class="button is-success" type="button">
+                                                        <span class="icon">
+                                                            <i class="bx bx-check-circle"></i>
+                                                        </span>
+                                                    </button>
+                                                </a>
+                                            </div>
 
-                                        {{-- Reject button --}}
-                                        <div class="control mb-3">
-                                            <a href="{{ route('requests.reject', ['id' => $day_request->id]) }}">
-                                                <button class="button is-danger" type="button">
-                                                    <span class="icon">
-                                                        <i class="bx bx-x-circle"></i>
-                                                    </span>
-                                                </button>
-                                            </a>
-                                        </div>
+                                            {{-- Reject button --}}
+                                            <div class="control mb-3">
+                                                <a href="{{ route('requests.reject', ['id' => $day_request->id]) }}">
+                                                    <button class="button is-danger" type="button">
+                                                        <span class="icon">
+                                                            <i class="bx bx-x-circle"></i>
+                                                        </span>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        @endif
 
                                         {{-- Send button --}}
                                         <div class="control">
