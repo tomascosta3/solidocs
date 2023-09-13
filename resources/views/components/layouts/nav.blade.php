@@ -69,12 +69,14 @@
 
             <hr class="centered">
 
-            <div class="box p-2 mb-4 invisible-box">
-                <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bx-book-content nav-icon"></i>
-                    <span class="pl-3">Dailys</span>
+            <a href="{{ route('dailys') }}">
+                <div class="box p-2 mb-4 invisible-box">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-book-content nav-icon"></i>
+                        <span class="pl-3">Dailys</span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
             <a href="{{ route('users') }}">
                 <div class="box p-2 mb-4 invisible-box {{ request()->routeIs('users') ? 'active' : '' }}">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DailyController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
@@ -106,5 +107,8 @@ Route::middleware('auth')->group(function() {
 
         // Reject request
         Route::get('/requests/reject/{id}', [RequestController::class, 'reject'])->name('requests.reject');
+
+        // View dailys.
+        Route::get('/dailys', [DailyController::class, 'index'])->name('dailys');
     });
 });
