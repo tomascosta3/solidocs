@@ -40,6 +40,40 @@
   --top-header-height: calc(8vh + 24px * 2);
   --main-content-height: calc(100vh - var(--top-header-height));
   --top-nav-bar-height: 60%;
+
+  /* Full calendar */
+  --fc-small-font-size: .85em;
+  --fc-page-bg-color: #fff;
+  --fc-neutral-bg-color: rgba(237, 29, 29, 0.3);
+  --fc-neutral-text-color: #808080;
+  --fc-border-color: var(--dark-mode-text-color);
+
+  --fc-button-text-color: #fff;
+  --fc-button-bg-color: var(--dark-mode-sidebar-color);
+  --fc-button-border-color: var(--dark-mode-sidebar-color);
+  --fc-button-hover-bg-color: var(--dark-mode-primary-color);
+  --fc-button-hover-border-color: var(--dark-mode-sidebar-color);
+  --fc-button-active-bg-color: var(--dark-mode-sidebar-color);
+  --fc-button-active-border-color: var(--dark-mode-sidebar-color);
+
+  --fc-event-bg-color: #3788d8;
+  --fc-event-border-color: #3788d8;
+  --fc-event-text-color: #fff;
+  --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
+
+  --fc-more-link-bg-color: #d0d0d0;
+  --fc-more-link-text-color: inherit;
+
+  --fc-event-resizer-thickness: 8px;
+  --fc-event-resizer-dot-total-width: 8px;
+  --fc-event-resizer-dot-border-width: 1px;
+
+  --fc-non-business-color: rgba(215, 215, 215, 0.3);
+  --fc-bg-event-color: rgb(143, 223, 130);
+  --fc-bg-event-opacity: 0.3;
+  --fc-highlight-color: rgba(188, 232, 241, 0.3);
+  --fc-today-bg-color: var(--dark-mode-body-color);
+  --fc-now-indicator-color: red;
 }
 
 div.no-scrollbar::-webkit-scrollbar {
@@ -381,12 +415,66 @@ body.dark-mode .invisible-box:hover .counter-span {
 }
 
 /* Calendar */
-.calendar-column {
+.main-content-calendar {
   height: var(--main-content-height);
+}
+
+body.dark-mode .fc-daygrid-day-top a {
+  color: #808080;
+}
+
+.fc-scrollgrid-sync-inner a {
+  /* color: #c980c9; */
+  /* color: #c4027abb; */
+  color: #c4027a9c;
+}
+
+body.dark-mode .fc-scrollgrid-sync-inner a {
+  color: #808080;
+}
+
+body.dark-mode .fc-scrollgrid-section {
+  /* background-color: var(--dark-mode-sidebar-color); */
+  background-color: #ffff;
+}
+
+.fc-header-toolbar, .fc-toolbar{
+  margin-bottom: 10px !important;
+}
+
+.fc-toolbar-title {
+  font-size: 20px !important;
+}
+
+.fc-day-grid .fc-row .fc-content-skeleton td {
+  height: 40px !important; /* Ajusta a la altura deseada */
+}
+
+.fc-day-number {
+  line-height: 40px !important; /* Asegúrate de que coincida con la altura de la celda */
+}
+
+.calendar-box {
+  height: 100%;
+}
+
+body.dark-mode .calendar-box {
+  height: 100%;
   background-color: var(--dark-mode-secondary-color);
 }
+
 .calendar {
-  padding: 1em;
+  width: 100%;
+  height: 70%;
+}
+
+.main-calendar {
+  height: 100%;
+  width: 100%;
+}
+
+.calendar-column {
+  height: var(--main-content-height);
 }
 
 .calendar .level-container {

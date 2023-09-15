@@ -23,6 +23,22 @@
                 </div>
             </a>
 
+            <a href="{{ route('users') }}">
+                <div class="box p-2 mb-4 invisible-box {{ request()->routeIs('users') ? 'active' : '' }}">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-group nav-icon"></i>
+                        <span class="pl-3">Usuarios</span>
+                    </div>
+                </div>
+            </a>
+
+            <div class="box p-2 mb-4 invisible-box">
+                <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                    <i class="bx bxs-business nav-icon"></i>
+                    <span class="pl-3">Organizaciones</span>
+                </div>
+            </div>
+
             <div class="box p-2 mb-4 invisible-box">
                 <div class="pl-5 has-text-centered is-flex is-align-items-center">
                     <i class="bx bx-wallet-alt nav-icon"></i>
@@ -48,10 +64,19 @@
 
             <hr class="centered">
 
-            <a href="{{ route('requests') }}">
+            <a href="{{ route('calendar') }}">
                 <div class="box p-2 mb-4 invisible-box">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-calendar nav-icon"></i>
+                        <span class="pl-3">Agenda</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ route('requests') }}">
+                <div class="box p-2 mb-4 invisible-box">
+                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
+                        <i class="bx bx-paper-plane"></i>
                         <span class="pl-3">Licencias</span>
                     </div>
                 </div>
@@ -64,33 +89,6 @@
                     @if (isset($pending_requests) && $pending_requests > 0)
                     <span class="tag is-danger counter-span">{{ $pending_requests }}</span>
                     @endif
-                </div>
-            </div>
-
-            <hr class="centered">
-
-            <a href="{{ route('dailys') }}">
-                <div class="box p-2 mb-4 invisible-box">
-                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                        <i class="bx bx-book-content nav-icon"></i>
-                        <span class="pl-3">Dailys</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="{{ route('users') }}">
-                <div class="box p-2 mb-4 invisible-box {{ request()->routeIs('users') ? 'active' : '' }}">
-                    <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                        <i class="bx bx-group nav-icon"></i>
-                        <span class="pl-3">Usuarios</span>
-                    </div>
-                </div>
-            </a>
-
-            <div class="box p-2 mb-4 invisible-box">
-                <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bxs-business nav-icon"></i>
-                    <span class="pl-3">Organizaciones</span>
                 </div>
             </div>
 

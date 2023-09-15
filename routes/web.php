@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DailyController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DownloadController;
@@ -110,5 +111,8 @@ Route::middleware('auth')->group(function() {
 
         // View dailys.
         Route::get('/dailys', [DailyController::class, 'index'])->name('dailys');
+
+        // View calendar.
+        Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
     });
 });
