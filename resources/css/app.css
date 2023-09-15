@@ -419,13 +419,15 @@ body.dark-mode .invisible-box:hover .counter-span {
   height: var(--main-content-height);
 }
 
+.calendar .fc-daygrid-day-events {
+  display: none;
+}
+
 body.dark-mode .fc-daygrid-day-top a {
   color: #808080;
 }
 
 .fc-scrollgrid-sync-inner a {
-  /* color: #c980c9; */
-  /* color: #c4027abb; */
   color: #c4027a9c;
 }
 
@@ -434,7 +436,6 @@ body.dark-mode .fc-scrollgrid-sync-inner a {
 }
 
 body.dark-mode .fc-scrollgrid-section {
-  /* background-color: var(--dark-mode-sidebar-color); */
   background-color: #ffff;
 }
 

@@ -1,7 +1,7 @@
 @extends('components.layouts.nav')
 
 @section('title')
-    Calendario
+    Agenda
 @endsection
 
 @section('style')
@@ -15,6 +15,11 @@
             titleFormat: { year: 'numeric', month: '2-digit' },
             height: 300,
             locale: 'es',
+            events: [
+                {
+                display: 'none'
+                }
+            ],
         });
         calendar.render();
     });
@@ -57,12 +62,17 @@
 
 @section('main-content')
 <div class="main-content-calendar">
-    <div class="columns m-0">
+    <div class="columns m-0 mr-3">
+
+        {{-- Side calendar --}}
         <div class="column is-3 calendar-column">
             <div class="box calendar-box">
                 <div id='calendar' class="calendar "></div>
+                <hr class="centered">
             </div>
         </div>
+
+        {{-- Main calendar --}}
         <div class="column calendar-column">
             <div class="box calendar-box">
                 <div id='main-calendar' class="main-calendar"></div>
