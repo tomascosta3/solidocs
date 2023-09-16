@@ -44,7 +44,7 @@
   /* Full calendar */
   --fc-small-font-size: .85em;
   --fc-page-bg-color: #fff;
-  --fc-neutral-bg-color: rgba(237, 29, 29, 0.3);
+  --fc-neutral-bg-color: #808080;
   --fc-neutral-text-color: #808080;
   --fc-border-color: var(--dark-mode-text-color);
 
@@ -71,8 +71,8 @@
   --fc-non-business-color: rgba(215, 215, 215, 0.3);
   --fc-bg-event-color: rgb(143, 223, 130);
   --fc-bg-event-opacity: 0.3;
-  --fc-highlight-color: rgba(188, 232, 241, 0.3);
-  --fc-today-bg-color: var(--dark-mode-body-color);
+  --fc-highlight-color: rgba(188, 232, 241, 0.085);
+  --fc-today-bg-color: #8080801a;
   --fc-now-indicator-color: red;
 }
 

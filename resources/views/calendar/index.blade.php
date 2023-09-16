@@ -12,7 +12,7 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            titleFormat: { year: 'numeric', month: '2-digit' },
+            titleFormat: { year: 'numeric', month: 'short' },
             height: 300,
             locale: 'es',
             events: [
@@ -20,6 +20,14 @@
                 display: 'none'
                 }
             ],
+            headerToolbar: {
+                left: 'prev',
+                center: 'title',
+                right: 'next today'
+            },
+            buttonText: {
+                today: 'hoy'
+            }
         });
         calendar.render();
     });
@@ -53,6 +61,9 @@
                 }
             },
             locale: 'es',
+            buttonText: {
+                today: 'hoy'
+            },
         });
         calendar.render();
     });
@@ -67,7 +78,7 @@
         {{-- Side calendar --}}
         <div class="column is-3 calendar-column">
             <div class="box calendar-box">
-                <div id='calendar' class="calendar "></div>
+                <div id='calendar' class="calendar"></div>
                 <hr class="centered">
             </div>
         </div>
