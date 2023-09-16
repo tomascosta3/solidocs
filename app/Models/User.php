@@ -106,4 +106,13 @@ class User extends Authenticatable
             ->where('days.active', true)
             ->first();
     }
+
+
+    /**
+     * Returns user's related calendars.
+     */
+    public function calendars() {
+
+        return $this->belongsToMany(Calendar::class);
+    }
 }

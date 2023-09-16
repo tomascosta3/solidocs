@@ -4,6 +4,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DailyController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -114,5 +115,10 @@ Route::middleware('auth')->group(function() {
 
         // View calendar.
         Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
+        Route::get('/calendar/{calendar_id}', [CalendarController::class, 'show'])->name('calendar.show');
+
+        // Events.
+        Route::get('/calendars/{calendar}/events', [EventController::class, 'index'])->name('calendars.events.index');
+        Route::post('/calendars/{calendar}/events', [EventController::class, 'add_event_to_calendar'])->name('calendars.events.store');
     });
 });
