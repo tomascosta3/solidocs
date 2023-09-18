@@ -20,6 +20,16 @@
         modal.classList.remove('is-active');
     }
 
+    function openNewCalendarModal() {
+        const modal = document.getElementById('new-calendar');
+        modal.classList.add('is-active');
+    }
+
+    function closeNewCalendarModal() {
+        const modal = document.getElementById('new-calendar');
+        modal.classList.remove('is-active');
+    }
+
     // Side calendar
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -99,7 +109,7 @@
             <button class="delete" aria-label="close" onclick="closeModal()"></button>
         </header>
         <section class="modal-card-body">
-            <form id="eventForm" action="{{ route('calendars.events.store', ['calendar' => $calendar->id]) }}" method="POST">
+            <form id="eventForm" action="{{ route('calendars.events.store', ['calendar' => $calendar->id]) }}" method="post">
                 @csrf
                 <input type="hidden" name="date" id="dateInput">
 
@@ -167,6 +177,32 @@
 </div>
 @endif
 
+{{-- Create calendar modal --}}
+<div class="modal" id="new-calendar">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Crear nuevo calendario</p>
+            <button class="delete" aria-label="close" onclick="closeNewCalendarModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <form id="new-calendar-form" action="#" method="post">
+                @csrf
+                <div class="field">
+                    <label class="label" for="title">Nombre del calendario:</label>
+                    <div class="control">
+                        <input class="input" type="text" name="title" required>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" type="submit" form="new-calendar-form">Guardar</button>
+            <button class="button" type="button" onclick="closeNewCalendarModal()">Cancelar</button>
+        </footer>
+    </div>
+</div>
+
 <div class="main-content-calendar">
     <div class="columns m-0 mr-3">
 
@@ -187,7 +223,7 @@
                     @endforeach
                 </div>
 
-                <a href="#">
+                <a href="#" onclick="openNewCalendarModal()">
                     <div class="box p-2 is-shadowless has-text-centered mt-4">
                         <div class="has-text-centered is-flex is-align-items-center is-justify-content-center">
                             <i class="bx bx-plus nav-icon create-icon"></i>

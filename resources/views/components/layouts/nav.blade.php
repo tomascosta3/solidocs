@@ -15,7 +15,7 @@
             <hr class="centered">
 
             <a href="{{ route('home') }}">
-                <div class="box p-2 mb-4 invisible-box {{ request()->routeIs('home') ? 'active' : '' }}">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'home') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-home-alt-2 nav-icon"></i>
                         <span class="pl-3">Inicio</span>
@@ -24,7 +24,7 @@
             </a>
 
             <a href="{{ route('users') }}">
-                <div class="box p-2 mb-4 invisible-box {{ request()->routeIs('users') ? 'active' : '' }}">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'users') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-group nav-icon"></i>
                         <span class="pl-3">Usuarios</span>
@@ -47,7 +47,7 @@
             </div>
 
             <a href="{{ route('documents') }}">
-                <div class="box p-2 mb-4 invisible-box {{ request()->routeIs('documents') ? 'active' : '' }}">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'documents') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-folder-open nav-icon"></i>
                         <span class="pl-3">Documentos</span>
@@ -64,8 +64,8 @@
 
             <hr class="centered">
 
-            <a href="{{ route('calendar') }}">
-                <div class="box p-2 mb-4 invisible-box">
+            <a href="{{ route('calendars') }}">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'calendars') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-calendar nav-icon"></i>
                         <span class="pl-3">Agenda</span>
@@ -74,7 +74,7 @@
             </a>
 
             <a href="{{ route('requests') }}">
-                <div class="box p-2 mb-4 invisible-box">
+                <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'requests') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-paper-plane"></i>
                         <span class="pl-3">Licencias</span>

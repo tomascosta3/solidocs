@@ -6,6 +6,7 @@ use App\Models\Calendar;
 use App\Models\CalendarUser;
 use App\Models\EventType;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -21,7 +22,7 @@ class CalendarController extends Controller
         $user = auth()->user();
         $calendars = $user->calendars;
 
-        return view('calendar.index')
+        return view('calendars.index')
             ->with(['calendar' => $calendar])
             ->with(['calendars' => $calendars]);
     }
@@ -41,5 +42,15 @@ class CalendarController extends Controller
         return view('calendar.index')
             ->with(['calendar' => $calendar])
             ->with(['event_types' => $event_types]);
+    }
+
+
+    /**
+     * Create new calendar
+     */
+    public function create(Request $request) : RedirectResponse {
+
+
+        return to_route('calendars');
     }
 }

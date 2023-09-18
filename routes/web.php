@@ -114,8 +114,8 @@ Route::middleware('auth')->group(function() {
         Route::get('/dailys', [DailyController::class, 'index'])->name('dailys');
 
         // View calendar.
-        Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
-        Route::get('/calendar/{calendar_id}', [CalendarController::class, 'show'])->name('calendar.show');
+        Route::get('/calendars', [CalendarController::class, 'index'])->name('calendars');
+        Route::get('/calendars/{calendar_id}', [CalendarController::class, 'show'])->name('calendars.show');
 
         // Events.
         Route::get('/calendars/{calendar}/events', [EventController::class, 'index'])->name('calendars.events.index');
