@@ -22,9 +22,20 @@ class CalendarController extends Controller
         $user = auth()->user();
         $calendars = $user->calendars;
 
+        $organizations = $user->organizations;
+
+        $organization = $organizations->first();
+
+        if ($organization) {
+            $users_in_organization = $organization->users->where('id', '!=', $user->id);
+        } else {
+            $users_in_organization = collect();
+        }
+
         return view('calendars.index')
             ->with(['calendar' => $calendar])
-            ->with(['calendars' => $calendars]);
+            ->with(['calendars' => $calendars])
+            ->with(['users_in_organization' => $users_in_organization]);
     }
 
 
@@ -42,10 +53,21 @@ class CalendarController extends Controller
         $user = auth()->user();
         $calendars = $user->calendars;
 
+        $organizations = $user->organizations;
+
+        $organization = $organizations->first();
+
+        if ($organization) {
+            $users_in_organization = $organization->users->where('id', '!=', $user->id);
+        } else {
+            $users_in_organization = collect();
+        }
+
         return view('calendars.index')
             ->with(['calendar' => $calendar])
             ->with(['event_types' => $event_types])
-            ->with(['calendars' => $calendars]);
+            ->with(['calendars' => $calendars])
+            ->with(['users_in_organization' => $users_in_organization]);
     }
 
 
@@ -53,6 +75,8 @@ class CalendarController extends Controller
      * Create new calendar
      */
     public function create(Request $request) : RedirectResponse {
+
+        dd($request);
 
         /**
          * Validate form inputs.

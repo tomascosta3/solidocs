@@ -58,7 +58,7 @@ class EventController extends Controller
         ]);
 
         // return response()->json(['status' => 'success']);
-        return to_route('calendar.show', ['calendar_id' => $calendar_id])
+        return to_route('calendars.show', ['calendar_id' => $calendar_id])
             ->with('success', 'Evento creado correctamente.');
     }
 }

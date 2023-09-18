@@ -194,6 +194,18 @@
                         <input class="input" type="text" name="name" required>
                     </div>
                 </div>
+                <div class="field">
+                    <label class="label" for="users">Seleccionar Usuarios:</label>
+                    <div class="control">
+                        <div class="select is-multiple">
+                            <select name="users[]" multiple size="5">
+                                @foreach($users_in_organization as $user)
+                                    <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </form>
         </section>
         <footer class="modal-card-foot">
