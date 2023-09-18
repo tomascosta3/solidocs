@@ -18,6 +18,7 @@
     function closeModal() {
         const modal = document.getElementById('eventModal');
         modal.classList.remove('is-active');
+        document.getElementById('eventForm').reset();
     }
 
     function openNewCalendarModal() {
@@ -28,6 +29,7 @@
     function closeNewCalendarModal() {
         const modal = document.getElementById('new-calendar');
         modal.classList.remove('is-active');
+        document.getElementById('new-calendar-form').reset();
     }
 
     // Side calendar
@@ -94,6 +96,24 @@
         });
     @endif
 
+    document.addEventListener('DOMContentLoaded', function() {
+        let selectedUsers = [];
+        
+        document.querySelectorAll('.toggle-user').forEach(button => {
+            button.addEventListener('click', function() {
+                let userId = this.dataset.userId;
+                if (selectedUsers.includes(userId)) {
+                    selectedUsers = selectedUsers.filter(id => id !== userId);
+                    this.classList.remove('is-primary');
+                } else {
+                    selectedUsers.push(userId);
+                    this.classList.add('is-primary');
+                }
+                document.getElementById('selectedUsers').value = selectedUsers.join(',');
+            });
+        });
+    });
+
 </script>
 @endsection
 
@@ -113,25 +133,51 @@
                 @csrf
                 <input type="hidden" name="date" id="dateInput">
 
+                <div class="columns is-vcentered is-mobile">
+                    <div class="column is-narrow">
+                        <label class="label" for="event_type_id">Tipo de Evento:</label>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <div class="control">
+                                <div class="select">
+                                    <select name="event_type_id" required>
+                                        @foreach($event_types as $type)
+                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
                 <div class="field">
-                    <label class="label" for="event_type_id">Tipo de Evento:</label>
                     <div class="control">
-                        <div class="select">
-                            <select name="event_type_id" required>
-                                @foreach($event_types as $type)
-                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                @endforeach
-                            </select>
+                        <input class="input" type="text" name="title" placeholder="Ingrese el título..." required>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="start_date">Fecha Inicio:</label>
+                            <div class="control">
+                                <input class="input" type="datetime-local" name="start_date" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="end_date">Fecha Fin:</label>
+                            <div class="control">
+                                <input class="input" type="datetime-local" name="end_date" required>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label" for="title">Título:</label>
-                    <div class="control">
-                        <input class="input" type="text" name="title" required>
-                    </div>
-                </div>
 
                 <div class="field">
                     <label class="checkbox" for="all_day">
@@ -140,19 +186,30 @@
                     </label>
                 </div>
 
-                <div class="field">
-                    <label class="label" for="start_date">Fecha Inicio:</label>
-                    <div class="control">
-                        <input class="input" type="datetime-local" name="start_date" required>
+                <div class="columns is-vcentered is-mobile">
+                    <div class="column is-narrow">
+                        <label class="label" for="reminder">Recordatorio:</label>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <div class="control">
+                                <div class="select">
+                                    <select name="reminder">
+                                        <option value="none">Ninguno</option>
+                                        <option value="5">5 minutos antes</option>
+                                        <option value="10">10 minutos antes</option>
+                                        <option value="15">15 minutos antes</option>
+                                        <option value="30">30 minutos antes</option>
+                                        <option value="60">1 hora antes</option>
+                                        <option value="120">2 horas antes</option>
+                                        <!-- Puedes agregar más opciones si lo necesitas -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="field">
-                    <label class="label" for="end_date">Fecha Fin:</label>
-                    <div class="control">
-                        <input class="input" type="datetime-local" name="end_date" required>
-                    </div>
-                </div>
+                
 
                 <div class="field">
                     <label class="label" for="location">Ubicación:</label>
@@ -206,6 +263,12 @@
                         </div>
                     </div>
                 </div>
+                @foreach($users_in_organization as $user)
+                    <button class="button is-light toggle-user" data-user-id="{{ $user->id }}" type="button">
+                        {{ $user->first_name }} {{ $user->last_name }}
+                    </button>
+                @endforeach
+                <input type="hidden" name="users" id="selectedUsers">
             </form>
         </section>
         <footer class="modal-card-foot">

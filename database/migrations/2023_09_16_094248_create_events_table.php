@@ -27,6 +27,10 @@ return new class extends Migration
 
             $table->timestamp('end');
 
+            $table->integer('reminder')->nullable();
+
+            $table->boolean('reminder_sent')->default(false);
+
             $table->string('location')->nullable();
 
             $table->text('comment')->nullable();
