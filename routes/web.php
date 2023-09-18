@@ -113,8 +113,13 @@ Route::middleware('auth')->group(function() {
         // View dailys.
         Route::get('/dailys', [DailyController::class, 'index'])->name('dailys');
 
-        // View calendar.
+        // View calendar general view.
         Route::get('/calendars', [CalendarController::class, 'index'])->name('calendars');
+
+        // Create calendar.
+        Route::post('/calendars/create', [CalendarController::class, 'create'])->name('calendars.create');
+
+        // Show main calendar.
         Route::get('/calendars/{calendar_id}', [CalendarController::class, 'show'])->name('calendars.show');
 
         // Events.

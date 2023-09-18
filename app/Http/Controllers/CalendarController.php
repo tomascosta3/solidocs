@@ -29,7 +29,7 @@ class CalendarController extends Controller
 
 
     /**
-     * 
+     * Show requested calendar as main calendar.
      */
     public function show($calendar_id) {
 
@@ -39,9 +39,13 @@ class CalendarController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('calendar.index')
+        $user = auth()->user();
+        $calendars = $user->calendars;
+
+        return view('calendars.index')
             ->with(['calendar' => $calendar])
-            ->with(['event_types' => $event_types]);
+            ->with(['event_types' => $event_types])
+            ->with(['calendars' => $calendars]);
     }
 
 
@@ -50,6 +54,24 @@ class CalendarController extends Controller
      */
     public function create(Request $request) : RedirectResponse {
 
+        /**
+         * Validate form inputs.
+         * If there is an error, returns back with the errors.
+         */
+        $validated = $request->validateWithBag('create', [
+            'name' => ['required']
+        ]);
+
+        $user = auth()->user();
+
+        // Create calendar.
+        $calendar = Calendar::create([
+            'user_id' => $user->id,
+            'name' => $request->input('name'),
+        ]);
+
+        // Attach new calendar with current user.
+        $user->calendars()->attach($calendar->id);
 
         return to_route('calendars');
     }

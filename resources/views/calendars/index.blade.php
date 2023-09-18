@@ -186,12 +186,12 @@
             <button class="delete" aria-label="close" onclick="closeNewCalendarModal()"></button>
         </header>
         <section class="modal-card-body">
-            <form id="new-calendar-form" action="#" method="post">
+            <form id="new-calendar-form" action="{{ route('calendars.create') }}" method="post">
                 @csrf
                 <div class="field">
-                    <label class="label" for="title">Nombre del calendario:</label>
+                    <label class="label" for="name">Nombre del calendario:</label>
                     <div class="control">
-                        <input class="input" type="text" name="title" required>
+                        <input class="input" type="text" name="name" required>
                     </div>
                 </div>
             </form>
@@ -215,8 +215,8 @@
                 {{-- Calendars list --}}
                 <div class="calendar-list pb-2">
                     @foreach ($calendars as $calendar)
-                    <a href="">
-                        <div class="box p-2 is-shadowless has-text-centered">
+                    <a href="{{ route('calendars.show', ['calendar_id' => $calendar->id]) }}">
+                        <div class="box p-2 is-shadowless has-text-centered {{ !$loop->last ? 'mb-2' : '' }}">
                             {{ $calendar->name }}
                         </div>
                     </a>
