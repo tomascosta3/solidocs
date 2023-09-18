@@ -45,48 +45,51 @@
         calendar.render();
     });
 
-    // Main calendar
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('main-calendar');
-        var events = @json($calendar->events); // Convert events in json format.
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            headerToolbar: {
-                center: 'dayGridMonth,dayGridWeek,timeGridOneDay' // buttons for switching between views
-            },
-            views: {
-                timeGridOneDay: {
-                type: 'timeGrid',
-                duration: { days: 1 },
-                buttonText: 'Día'
+    @if ($calendar)
+        // Main calendar
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('main-calendar');
+            var events = @json($calendar->events); // Convert events in json format.
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                headerToolbar: {
+                    center: 'dayGridMonth,dayGridWeek,timeGridOneDay' // buttons for switching between views
                 },
-                dayGridMonth: {
-                    buttonText: 'Mes',
+                views: {
+                    timeGridOneDay: {
+                    type: 'timeGrid',
+                    duration: { days: 1 },
+                    buttonText: 'Día'
+                    },
+                    dayGridMonth: {
+                        buttonText: 'Mes',
+                    },
+                    dayGridWeek: {
+                        buttonText: 'Semana',
+                    }
                 },
-                dayGridWeek: {
-                    buttonText: 'Semana',
-                }
-            },
-            locale: 'es',
-            buttonText: {
-                today: 'hoy'
-            },
-            dateClick: function(info) {
-                openModal(info.dateStr);
-                if(document.getElementById('all_day').checked) {
-                    document.querySelector('input[name="start_date"]').value = info.dateStr + "T00:00";
-                    document.querySelector('input[name="end_date"]').value = info.dateStr + "T23:59";
-                }
-            },
-            events: events,
+                locale: 'es',
+                buttonText: {
+                    today: 'hoy'
+                },
+                dateClick: function(info) {
+                    openModal(info.dateStr);
+                    if(document.getElementById('all_day').checked) {
+                        document.querySelector('input[name="start_date"]').value = info.dateStr + "T00:00";
+                        document.querySelector('input[name="end_date"]').value = info.dateStr + "T23:59";
+                    }
+                },
+                events: events,
+            });
+            calendar.render();
         });
-        calendar.render();
-    });
+    @endif
 
 </script>
 @endsection
 
 @section('main-content')
 
+@if ($calendar)  
 {{-- Add event modal --}}
 <div class="modal" id="eventModal">
     <div class="modal-background"></div>
@@ -162,63 +165,7 @@
         </footer>
     </div>
 </div>
-
-
-<div id="eventModal" style="display:none;">
-    <h3>Crear Evento para: <span id="selectedDate"></span></h3>
-
-    <form id="eventForm" action="{{ route('calendars.events.store', ['calendar' => $calendar->id]) }}" method="POST">
-        @csrf
-        <input type="hidden" name="date" id="dateInput"> <!-- Para almacenar la fecha seleccionada -->
-
-        <div>
-            <label for="event_type_id">Tipo de Evento:</label>
-            <select name="event_type_id" required>
-                {{-- @foreach($eventTypes as $type)
-                    <option value="{{ $type->id }}">{{ $type->name }}</option>
-                @endforeach --}}
-                <option value="">tipo 1</option>
-                <option value="">tipo 2</option>
-                <option value="">tipo 3</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="title">Título:</label>
-            <input type="text" name="title" required>
-        </div>
-
-        <div>
-            <label for="all_day">Todo el día:</label>
-            <input type="checkbox" name="all_day" id="all_day">
-        </div>
-
-        <div>
-            <label for="start_date">Fecha Inicio:</label>
-            <input type="datetime-local" name="start_date" required>
-        </div>
-
-        <div>
-            <label for="end_date">Fecha Fin:</label>
-            <input type="datetime-local" name="end_date" required>
-        </div>
-
-        <div>
-            <label for="location">Ubicación:</label>
-            <input type="text" name="location">
-        </div>
-
-        <div>
-            <label for="comment">Comentario:</label>
-            <textarea name="comment"></textarea>
-        </div>
-
-        <div>
-            <button type="submit">Guardar</button>
-            <button type="button" onclick="closeModal()">Cancelar</button>
-        </div>
-    </form>
-</div>
+@endif
 
 <div class="main-content-calendar">
     <div class="columns m-0 mr-3">
@@ -228,15 +175,37 @@
             <div class="box calendar-box">
                 <div id='calendar' class="calendar"></div>
                 <hr class="centered">
+
+                {{-- Calendars list --}}
+                <div class="calendar-list pb-2">
+                    @foreach ($calendars as $calendar)
+                    <a href="">
+                        <div class="box p-2 is-shadowless has-text-centered">
+                            {{ $calendar->name }}
+                        </div>
+                    </a>
+                    @endforeach
+                </div>
+
+                <a href="#">
+                    <div class="box p-2 is-shadowless has-text-centered mt-4">
+                        <div class="has-text-centered is-flex is-align-items-center is-justify-content-center">
+                            <i class="bx bx-plus nav-icon create-icon"></i>
+                            <span class="pl-3">Crear nuevo calendario</span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
 
+        @if ($calendar)
         {{-- Main calendar --}}
         <div class="column calendar-column">
             <div class="box calendar-box">
                 <div id='main-calendar' class="main-calendar"></div>
             </div>
         </div>
+        @endif
     </div>
 </div>
 @endsection

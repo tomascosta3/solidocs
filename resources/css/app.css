@@ -497,3 +497,12 @@ body.dark-mode .calendar-box {
   background-color: transparent !important;
   border: none;
 }
+
+.calendar-list {
+  max-height: 50%;
+  overflow-y: auto;
+}
+
+.create-icon {
+  color: rgb(14, 237, 14);
+}

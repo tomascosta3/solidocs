@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calendar;
+use App\Models\CalendarUser;
 use App\Models\EventType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -14,7 +16,14 @@ class CalendarController extends Controller
      */
     public function index() : View {
 
-        return view('calendar.index');
+        $calendar = null;
+
+        $user = auth()->user();
+        $calendars = $user->calendars;
+
+        return view('calendar.index')
+            ->with(['calendar' => $calendar])
+            ->with(['calendars' => $calendars]);
     }
 
 
