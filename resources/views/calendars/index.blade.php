@@ -32,6 +32,38 @@
         document.getElementById('new-calendar-form').reset();
     }
 
+    /**
+     * When 'all day' checkbox is selected, puts start and end date on 
+     * inputs.
+     */
+    function toggleAllDay() {
+        var startDateInput = document.querySelector('input[name="start_date"]');
+        var endDateInput = document.querySelector('input[name="end_date"]');
+
+        if (document.getElementById('all_day').checked) {
+
+            var startDate = new Date(startDateInput.value);
+            var endDate = new Date(endDateInput.value);
+
+            startDate.setHours(0, 0, 0);  // Set to 12:00 AM
+            endDate.setHours(23, 59, 59); // Set to 11:59 PM
+
+            startDateInput.value = formatDate(startDate);
+            endDateInput.value = formatDate(endDate);
+        }
+    }
+
+    function formatDate(date) {
+
+        var year = date.getFullYear(),
+            month = ('0' + (date.getMonth() + 1)).slice(-2),
+            day = ('0' + date.getDate()).slice(-2),
+            hour = ('0' + date.getHours()).slice(-2),
+            minute = ('0' + date.getMinutes()).slice(-2);
+
+        return year + '-' + month + '-' + day + 'T' + hour + ':' + minute;
+    }
+
     // Side calendar
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -84,11 +116,10 @@
                     today: 'hoy'
                 },
                 dateClick: function(info) {
+                    document.querySelector('input[name="start_date"]').value = info.dateStr + "T00:00";
+                    document.querySelector('input[name="end_date"]').value = info.dateStr + "T23:59";
+
                     openModal(info.dateStr);
-                    if(document.getElementById('all_day').checked) {
-                        document.querySelector('input[name="start_date"]').value = info.dateStr + "T00:00";
-                        document.querySelector('input[name="end_date"]').value = info.dateStr + "T23:59";
-                    }
                 },
                 events: events,
             });
@@ -181,7 +212,7 @@
 
                 <div class="field">
                     <label class="checkbox" for="all_day">
-                        <input type="checkbox" name="all_day" id="all_day">
+                        <input type="checkbox" name="all_day" id="all_day" onchange="toggleAllDay()">
                         Todo el día
                     </label>
                 </div>
@@ -202,7 +233,8 @@
                                         <option value="30">30 minutos antes</option>
                                         <option value="60">1 hora antes</option>
                                         <option value="120">2 horas antes</option>
-                                        <!-- Puedes agregar más opciones si lo necesitas -->
+                                        <option value="1440">1 día antes</option>
+                                        <option value="2880">2 días antes</option>
                                     </select>
                                 </div>
                             </div>

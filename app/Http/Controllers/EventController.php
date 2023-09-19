@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     /**
-     * 
+     * Returns all events in json format.
      */
     public function index() {
 
