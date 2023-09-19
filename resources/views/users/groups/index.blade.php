@@ -27,7 +27,16 @@
                         <div class="box is-shadowless p-3 mb-3 search">
                             <form action="#" method="get">
                                 <div class="columns is-vcentered is-centered">
-                                    <div class="column is-10">
+                                    <div class="column is-1">
+                                        <a href="{{ route('users') }}">
+                                            <button class="button is-link is-pulled-right" type="button">
+                                                <span class="icon">
+                                                    <i class="bx bx-left-arrow-alt"></i>
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <div class="column is-9">
                                         <div class="field has-addons">
                                             <div class="control has-icons-left is-expanded">
                                                 <input class="input" type="text" name="search" placeholder="Buscar por nombre..." value="{{ session('filter') }}">
@@ -45,7 +54,7 @@
                                         </button>
                                     </div>
                                     <div class="column is-1">
-                                        <a href="#">
+                                        <a href="{{ route('users.groups.create') }}">
                                             <button class="button is-success is-pulled-right" type="button">
                                                 <span class="icon">
                                                     <i class="bx bx-plus"></i>
@@ -63,7 +72,7 @@
                                     <p>Nombre</p>
                                 </div>
                                 <div class="column">
-                                    <p>Cantidad de usuarios</p>
+                                    <p class="has-text-centered">Cantidad de usuarios</p>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +81,7 @@
                         <div class="box p-1 has-background-white is-shadowless">
                             <div class="columns is-vcentered">
                                 <div class="column">
-                                    <p class="has-text-centered">No hay usuarios cargados</p>
+                                    <p class="has-text-centered">No hay grupos de usuarios cargados</p>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +96,7 @@
                                         <p class="is-clipped">{{ $group->name }}</p>
                                     </div>
                                     <div class="column">
-                                        <p class="is-clipped">{{ $group->users_count() }}</p>
+                                        <p class="has-text-centered is-clipped">{{ $group->users_count() }}</p>
                                     </div>
                                 </div>
                             </div>

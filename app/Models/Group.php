@@ -32,6 +32,6 @@ class Group extends Model
      */
     public function users_count() {
 
-        return $this->belongsToMany(User::class)->where('active', true)->count();
+        return $this->belongsToMany(User::class)->where('users.active', true)->count();
     }
 }

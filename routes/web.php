@@ -96,9 +96,6 @@ Route::middleware('auth')->group(function() {
         // Delete user.
         Route::get('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
 
-        // User groups index.
-        Route::get('/groups', [GroupController::class, 'index'])->name('users.groups');
-
         // View requests.
         Route::get('/requests', [RequestController::class, 'index'])->name('requests');
 
@@ -129,5 +126,14 @@ Route::middleware('auth')->group(function() {
         // Events.
         Route::get('/calendars/{calendar}/events', [EventController::class, 'index'])->name('calendars.events.index');
         Route::post('/calendars/{calendar}/events', [EventController::class, 'add_event_to_calendar'])->name('calendars.events.store');
+
+        // User groups index.
+        Route::get('/groups', [GroupController::class, 'index'])->name('users.groups');
+
+        // User groups create.
+        Route::get('/groups/create', [GroupController::class, 'create'])->name('users.groups.create');
+
+        // User group store.
+        Route::post('/groups/store', [GroupController::class, 'store'])->name('users.groups.stores');
     });
 });
