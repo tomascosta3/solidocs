@@ -5,6 +5,7 @@ use App\Http\Controllers\DailyController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -94,6 +95,9 @@ Route::middleware('auth')->group(function() {
 
         // Delete user.
         Route::get('/users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
+
+        // User groups index.
+        Route::get('/groups', [GroupController::class, 'index'])->name('users.groups');
 
         // View requests.
         Route::get('/requests', [RequestController::class, 'index'])->name('requests');

@@ -27,7 +27,7 @@
                         <div class="box is-shadowless p-3 mb-3 search">
                             <form action="#" method="get">
                                 <div class="columns is-vcentered is-centered">
-                                    <div class="column is-7">
+                                    <div class="column is-6">
                                         <div class="field has-addons">
                                             <div class="control has-icons-left is-expanded">
                                                 <input class="input" type="text" name="search" placeholder="Buscar..." value="{{ session('filter') }}">
@@ -37,7 +37,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="column is-3">
+                                    <div class="column is-2">
                                         <div class="field">
                                             <div class="control">
                                                 <div class="select">
@@ -78,6 +78,18 @@
                                             </button>
                                         </a>
                                     </div>
+                                    {{-- View users group, only available to admin user --}}
+                                    @if (auth()->user()->access_level_in_organization(session('organization_id')) >= 8)
+                                    <div class="column is-2">
+                                        <a href="{{ route('users.groups') }}">
+                                            <button class="button is-link is-pulled-right" type="button">
+                                                <span class="">
+                                                    Grupos de usuarios
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                    @endif
                                 </div>
                             </form>
                         </div>

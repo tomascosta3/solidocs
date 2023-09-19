@@ -115,4 +115,13 @@ class User extends Authenticatable
 
         return $this->belongsToMany(Calendar::class);
     }
+
+
+    /**
+     * Gets the groups which the user belongs.
+     */
+    public function groups() {
+
+        return $this->belongsToMany(Group::class)->where('active', true);
+    }
 }
