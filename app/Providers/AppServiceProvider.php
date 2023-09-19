@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Organization;
+use App\Models\User;
+use App\Observers\UserObserver;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
             $organization = Organization::find($organization_id);
             $view->with(['organization' => $organization]);
         });
+
+        User::observe(UserObserver::class);
     }
 }

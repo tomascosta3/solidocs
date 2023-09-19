@@ -119,26 +119,6 @@ class UserController extends Controller
             return to_route('users.create');
         }
 
-        $token = Str::random(60);
-
-        // Create the login and link it to the user.
-        $login = Login::create([
-            'user_id' => $user->id,
-            'verification_code' => $token,
-            'verification_code_issue_date' => Carbon::now(),
-            'verification_code_expiration_date' => Carbon::now()->addMinutes(30),
-        ]);
-
-        // Check if the login was created successfully.
-        if(!$login->id) {
-
-            session()->flash('problem', 'Error al crear el usuario');
-            return to_route('users.create');
-        }
-
-        // Send email to account verification.
-        Mail::to($user->email)->queue(new AccountVerification($login, $user));
-
         $user->organizations()->attach($organization->id, ['access_level' => $request->input('access_level')]);
 
         session()->flash('success', 'Usuario creado correctamente');

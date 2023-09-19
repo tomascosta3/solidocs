@@ -17,6 +17,8 @@ class Event extends Model
         'title',
         'start',
         'end',
+        'reminder',
+        'reminder_sent',
         'location',
         'comment',
         'all_day',
