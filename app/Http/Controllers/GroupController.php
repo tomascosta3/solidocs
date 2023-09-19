@@ -15,6 +15,7 @@ class GroupController extends Controller
 
         $groups = Group::all()->where('active', true);
 
-        return view('users.groups.index');
+        return view('users.groups.index')
+            ->with(['groups' => $groups]);
     }
 }
