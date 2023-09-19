@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="column is-2">
                                         <p class="is-clipped">
-                                            @switch(Auth::user()->access_level_in_organization(session('organization_id')))
+                                            @switch($user->access_level_in_organization(session('organization_id')))
                                                 @case(1) Cliente @break
                                                 @case(2) Administración @break
                                                 @case(3) Facturación @break

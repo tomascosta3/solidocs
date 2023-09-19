@@ -135,5 +135,8 @@ Route::middleware('auth')->group(function() {
 
         // User group store.
         Route::post('/groups/store', [GroupController::class, 'store'])->name('users.groups.stores');
+
+        // View user group.
+        Route::get('/groups/{id}', [GroupController::class, 'view'])->name('users.groups.view');
     });
 });

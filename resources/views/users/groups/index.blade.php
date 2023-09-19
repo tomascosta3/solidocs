@@ -89,7 +89,7 @@
             
                         {{-- Groups list --}}
                         @foreach ($groups as $group)
-                        <a href="#">
+                        <a href="{{ route('users.groups.view', ['id' => $group->id]) }}">
                             <div class="box p-1 mb-2 is-shadowless list-item">
                                 <div class="columns is-vcentered">
                                     <div class="column is-8">
