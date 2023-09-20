@@ -127,28 +127,31 @@ Route::middleware('auth')->group(function() {
         Route::get('/calendars/{calendar}/events', [EventController::class, 'index'])->name('calendars.events.index');
         Route::post('/calendars/{calendar}/events', [EventController::class, 'add_event_to_calendar'])->name('calendars.events.store');
 
-        // User groups index.
-        Route::get('/groups', [GroupController::class, 'index'])->name('users.groups');
-
-        // User groups create.
-        Route::get('/groups/create', [GroupController::class, 'create'])->name('users.groups.create');
-
-        // User group store.
-        Route::post('/groups/store', [GroupController::class, 'store'])->name('users.groups.stores');
-
-        // View user group.
-        Route::get('/groups/{id}', [GroupController::class, 'view'])->name('users.groups.view');
-
-        // Remove user from group.
-        Route::get('/group/{group_id}/remove/{user_id}', [GroupController::class, 'remove_user'])->name('users.groups.remove-user');
-
-        // Add users to group.
-        Route::post('/groups/{group_id}/add-users', [GroupController::class, 'add_users'])->name('users.groups.add-users');
-
-        // Delete group.
-        Route::get('groups/{group_id}/delete', [GroupController::class, 'delete'])->name('users.groups.delete');
-
-        // Edit group name.
-        Route::post('groups/{group_id}/edit', [GroupController::class, 'edit'])->name('users.groups.edit');
+        Route::middleware(['is.admin'])->group(function () {
+            
+            // User groups index.
+            Route::get('/groups', [GroupController::class, 'index'])->name('users.groups');
+    
+            // User groups create.
+            Route::get('/groups/create', [GroupController::class, 'create'])->name('users.groups.create');
+    
+            // User group store.
+            Route::post('/groups/store', [GroupController::class, 'store'])->name('users.groups.stores');
+    
+            // View user group.
+            Route::get('/groups/{id}', [GroupController::class, 'view'])->name('users.groups.view');
+    
+            // Remove user from group.
+            Route::get('/group/{group_id}/remove/{user_id}', [GroupController::class, 'remove_user'])->name('users.groups.remove-user');
+    
+            // Add users to group.
+            Route::post('/groups/{group_id}/add-users', [GroupController::class, 'add_users'])->name('users.groups.add-users');
+    
+            // Delete group.
+            Route::get('groups/{group_id}/delete', [GroupController::class, 'delete'])->name('users.groups.delete');
+    
+            // Edit group name.
+            Route::post('groups/{group_id}/edit', [GroupController::class, 'edit'])->name('users.groups.edit');
+        });
     });
 });
