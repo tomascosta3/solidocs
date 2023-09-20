@@ -49,7 +49,7 @@ class UserObserver
          */
         $calendar = Calendar::create([
             'user_id' => $user->id,
-            'name' => 'Personal',
+            'name' => 'Calendario de ' . $user->first_name . ' ' . $user->last_name,
         ]);
 
         // Link calendar with user.
