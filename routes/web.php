@@ -142,6 +142,10 @@ Route::middleware('auth')->group(function() {
         // Remove user from group.
         Route::get('/group/{group_id}/remove/{user_id}', [GroupController::class, 'remove_user'])->name('users.groups.remove-user');
 
+        // Add users to group.
         Route::post('/groups/{group_id}/add-users', [GroupController::class, 'add_users'])->name('users.groups.add-users');
+
+        // Delete group.
+        Route::get('groups/{group_id}/delete', [GroupController::class, 'delete'])->name('users.groups.delete');
     });
 });

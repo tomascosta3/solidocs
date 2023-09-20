@@ -165,4 +165,26 @@ class GroupController extends Controller
 
         return to_route('users.groups.view', ['id' => $group->id]);
     }
+
+
+    /**
+     * Delete group.
+     */
+    public function delete($group_id) : RedirectResponse {
+
+        $group = Group::find($group_id);
+
+        // Inactive all group-user relations.
+        $group->users->each(function ($user) {
+            $user->pivot->active = false;
+            $user->pivot->save();
+        });
+
+        // Inactive group.
+        $group->update([
+            'active' => false,
+        ]);
+
+        return to_route('users.groups');
+    }
 }

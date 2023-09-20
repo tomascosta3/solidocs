@@ -182,7 +182,7 @@
                                         </a>
                                     </div>
                                     <div class="control">
-                                        <a href="#">
+                                        <a href="{{ route('users.groups.delete', ['group_id' => $group->id]) }}">
                                             <button type="button" class="button is-danger">
                                                 <i class="bx bx-trash"></i>
                                             </button>
