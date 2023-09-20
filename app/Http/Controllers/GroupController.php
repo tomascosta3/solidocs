@@ -174,6 +174,11 @@ class GroupController extends Controller
 
         $group = Group::find($group_id);
 
+        if(!$group) {
+            session()->flash('problem', 'No existe el grupo');
+            return to_route('users.groups');
+        }
+
         // Inactive all group-user relations.
         $group->users->each(function ($user) {
             $user->pivot->active = false;
@@ -186,5 +191,34 @@ class GroupController extends Controller
         ]);
 
         return to_route('users.groups');
+    }
+
+
+    /**
+     * Edit group and save changes.
+     */
+    public function edit(Request $request, $group_id) : RedirectResponse {
+
+        /**
+         * Validate form inputs.
+         */
+        $validated = $request->validateWithBag('create', [
+            'name' => ['required'],
+        ]);
+
+        $group = Group::find($group_id);
+
+        if(!$group) {
+            session()->flash('problem', 'No existe el grupo');
+            return to_route('users.groups');
+        }
+
+        $group->update([
+            'name' => $request->input('name'),
+        ]);
+
+        session()->flash('success', 'Nombre del grupo cambiado');
+
+        return to_route('users.groups.view', ['id' => $group_id]);
     }
 }

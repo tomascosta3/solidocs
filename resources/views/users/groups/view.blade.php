@@ -85,7 +85,7 @@
                     @endif
 
                     <div class="box secondary-background">
-                        <form action="#" method="post">
+                        <form action="{{ route('users.groups.edit', ['group_id' => $group->id]) }}" method="post">
                             @csrf
                             <div class="field">
                                 <label class="label" for="name">Nombre del grupo</label>

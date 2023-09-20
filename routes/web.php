@@ -147,5 +147,8 @@ Route::middleware('auth')->group(function() {
 
         // Delete group.
         Route::get('groups/{group_id}/delete', [GroupController::class, 'delete'])->name('users.groups.delete');
+
+        // Edit group name.
+        Route::post('groups/{group_id}/edit', [GroupController::class, 'edit'])->name('users.groups.edit');
     });
 });
