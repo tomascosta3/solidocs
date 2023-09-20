@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Calendar;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -78,6 +79,17 @@ class GroupController extends Controller
         // Link users with group.
         $user_ids = $request->input('users');
         $group->users()->attach($user_ids);
+
+        // Create new calendar.
+        $calendar = Calendar::create([
+            'user_id' => auth()->user()->id,
+            'name' => $group->name,
+        ]);
+
+        // Attach group users with calendar.
+        foreach ($group->users()->get() as $user) {
+            $user->calendars()->attach($calendar);
+        }
 
         return to_route('users.groups');
     }
