@@ -83,6 +83,7 @@ class GroupController extends Controller
         // Create new calendar.
         $calendar = Calendar::create([
             'user_id' => auth()->user()->id,
+            'group_id' => $group->id,
             'name' => $group->name,
         ]);
 
@@ -135,13 +136,18 @@ class GroupController extends Controller
 
         $group = Group::find($group_id);
 
-        // $group->users()->detach($user_id);
-
         if($group) {
+
+            // Detach user from group.
             $group->users()->detach($user_id);
+
+            // Detach user from group's calendar.
+            $calendar = $group->calendar;
+            $calendar->users()->detach($user_id);
+
             session()->flash('success', 'Usuario desvinculado con éxito');
         } else {
-            session()->flash('error', 'Grupo no encontrado');
+            session()->flash('problem', 'Grupo no encontrado');
         }
 
 
@@ -175,6 +181,10 @@ class GroupController extends Controller
         // Attach users to group.
         $group->users()->attach($user_ids);
 
+        // Attach users to group's calendar.
+        $calendar = $group->calendar;
+        $calendar->users()->attach($user_ids);
+
         return to_route('users.groups.view', ['id' => $group->id]);
     }
 
@@ -199,6 +209,17 @@ class GroupController extends Controller
 
         // Inactive group.
         $group->update([
+            'active' => false,
+        ]);
+
+        $calendar = $group->calendar;
+        
+        $calendar->users->each(function ($user) {
+            $user->pivot->active = false;
+            $user->pivot->save();
+        });
+
+        $calendar->update([
             'active' => false,
         ]);
 

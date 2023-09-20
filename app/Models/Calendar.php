@@ -13,6 +13,7 @@ class Calendar extends Model
 
     protected $fillable = [
         'user_id',
+        'group_id',
         'name',
         'active'
     ];
@@ -24,6 +25,15 @@ class Calendar extends Model
     public function users() {
 
         return $this->belongsToMany(User::class);
+    }
+
+    
+    /**
+     * Return group.
+     */
+    public function group() {
+
+        return $this->belongsTo(Group::class);
     }
 
 

@@ -34,4 +34,14 @@ class Group extends Model
 
         return $this->belongsToMany(User::class)->where('users.active', true)->count();
     }
+
+
+    /**
+     * Return group's calendar.
+     */
+    public function calendar() {
+
+        return $this->hasOne(Calendar::class);
+    }
+
 }

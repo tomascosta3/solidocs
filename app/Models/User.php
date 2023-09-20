@@ -113,7 +113,7 @@ class User extends Authenticatable
      */
     public function calendars() {
 
-        return $this->belongsToMany(Calendar::class);
+        return $this->belongsToMany(Calendar::class)->where('calendars.active', true);
     }
 
 
