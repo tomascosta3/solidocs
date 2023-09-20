@@ -5,6 +5,57 @@
 @endsection
 
 @section('main-content')
+
+{{-- Add user to group modal --}}
+<div class="modal" id="userModal">
+    <form action="{{ route('users.groups.add-users', ['group_id' => $group->id]) }}" method="post" id="add-users-form">
+        @csrf
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Agregar usuarios al grupo</p>
+                <button class="delete" type="button" id="closeModal" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div>
+                    <div class="columns">
+                        <div class="column">
+                            @foreach($first_column_users as $user)
+                            <div class="is-flex is-align-items-center mb-3">
+                                <div class="box py-1 px-3 is-shadowless">
+                                    <input class="mr-2" type="checkbox" name="users[]" value="{{ $user->id }}">
+                                    {{ $user->first_name . ' ' . $user->last_name }}
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        
+                        <div class="column">
+                            @foreach($second_column_users as $user)
+                            <div class="is-flex is-align-items-center mb-3">
+                                <div class="box py-1 px-3 is-shadowless">
+                                    <input class="mr-2" type="checkbox" name="users[]" value="{{ $user->id }}">
+                                    {{ $user->first_name . ' ' . $user->last_name }}
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    @if ($first_column_users->isEmpty() && $second_column_users->isEmpty())
+                        No hay usuarios disponibles para agregar al grupo
+                    @endif
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" type="submit">Agregar Seleccionados</button>
+                <button class="button" id="cancelModal" type="button">Cancelar</button>
+            </footer>
+        </div>
+    </form>
+</div>
+
+
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
@@ -66,7 +117,11 @@
                                             <div class="column is-3">
                                                 <p>Perfil de usuario</p>
                                             </div>
-                                            <div class="column is-1"></div>
+                                            <div class="column is-1 is-flex is-justify-content-center is-align-items-center">
+                                                <button class="button add-button" id="openModal" type="button">
+                                                    <i class="bx bxs-user-plus"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
             
@@ -82,7 +137,7 @@
                         
                                     {{-- Group users list --}}
                                     @foreach ($group_users as $user)
-                                    <div class="box p-1 mb-2 is-shadowless list-item">
+                                    <div class="box py-1 px-2 mb-2 is-shadowless list-item">
                                         <div class="columns is-vcentered is-2">
                                             <div class="column is-3">
                                                 <p class="is-clipped">{{ $user->first_name . ' ' . $user->last_name }}</p>
@@ -105,7 +160,7 @@
                                                     @endswitch
                                                 </p>
                                             </div>
-                                            <div class="column is-1">
+                                            <div class="column is-1 is-flex is-justify-content-center is-align-items-center">
                                                 <a href="{{ route('users.groups.remove-user', ['group_id' => $group->id, 'user_id' => $user->id]) }}" onclick="return confirm('¿Estás seguro de desvincular a este usuario?');">
                                                     <i class="bx bx-x is-danger"></i>
                                                 </a>
@@ -149,4 +204,24 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    @parent
+
+    <script>
+        document.getElementById('openModal').addEventListener('click', function() {
+            document.getElementById('userModal').classList.add('is-active');
+        });
+
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('userModal').classList.remove('is-active');
+            document.getElementById('add-users-form').reset()
+        });
+
+        document.getElementById('cancelModal').addEventListener('click', function() {
+            document.getElementById('userModal').classList.remove('is-active');
+            document.getElementById('add-users-form').reset()
+        });
+    </script>
 @endsection

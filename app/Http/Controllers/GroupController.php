@@ -99,9 +99,20 @@ class GroupController extends Controller
 
         $group_users = $group->users()->get();
 
+        $organization_users = auth()->user()->organization()->users()->get();
+
+        $users_not_in_group = $organization_users->diff($group_users);
+
+        $half = ceil($users_not_in_group->count() / 2);
+
+        $first_column_users = $users_not_in_group->take($half);
+        $second_column_users = $users_not_in_group->splice($half);
+
         return view('users.groups.view')
             ->with(['group' => $group])
-            ->with(['group_users' => $group_users]);
+            ->with(['group_users' => $group_users])
+            ->with(['first_column_users' => $first_column_users])
+            ->with(['second_column_users' => $second_column_users]);
     }
 
 
@@ -125,5 +136,33 @@ class GroupController extends Controller
         session()->flash('success', 'Usuario desvinculado con éxito');
 
         return to_route('users.groups.view', ['id' => $group_id]);
+    }
+
+
+    /**
+     * Add users to existing group.
+     */
+    public function add_users(Request $request, $group_id) : RedirectResponse {
+
+        $group = Group::find($group_id);
+
+        /**
+         * Validate form inputs.
+         */
+        $validated = $request->validateWithBag('create', [
+            'users' => 'required|array',
+            'users.*' => ['exists:users,id'],
+        ]);
+
+        $user_ids = $request->input('users');
+
+        $user_ids = array_filter($user_ids, function ($userId) use ($group) {
+            return !$group->users->contains($userId);
+        });
+
+        // Attach users to group.
+        $group->users()->attach($user_ids);
+
+        return to_route('users.groups.view', ['id' => $group->id]);
     }
 }
