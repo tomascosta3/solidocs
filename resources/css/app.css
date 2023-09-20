@@ -517,3 +517,9 @@ body.dark-mode .calendar-box {
 .add-button i {
   color: var(--dark-mode-sidebar-color);
 }
+
+.groups-list {
+  max-height: 55vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

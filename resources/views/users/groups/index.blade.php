@@ -88,21 +88,23 @@
                         @endif
             
                         {{-- Groups list --}}
-                        @foreach ($groups as $group)
-                        <a href="{{ route('users.groups.view', ['id' => $group->id]) }}">
-                            <div class="box p-1 mb-2 is-shadowless list-item">
-                                <div class="columns is-vcentered">
-                                    <div class="column is-8">
-                                        <p class="is-clipped">{{ $group->name }}</p>
-                                    </div>
-                                    <div class="column">
-                                        <p class="has-text-centered is-clipped">{{ $group->users_count() }}</p>
+                        <div class="groups-list">
+                            @foreach ($groups as $group)
+                            <a href="{{ route('users.groups.view', ['id' => $group->id]) }}">
+                                <div class="box p-1 mb-2 is-shadowless list-item">
+                                    <div class="columns is-vcentered">
+                                        <div class="column is-8">
+                                            <p class="is-clipped">{{ $group->name }}</p>
+                                        </div>
+                                        <div class="column">
+                                            <p class="has-text-centered is-clipped">{{ $group->users_count() }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                        @endforeach
-                    </div>
+                            </a>
+                            @endforeach
+                        </div>
+                        </div>
                 </div>
 
             </div>
