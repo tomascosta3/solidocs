@@ -56,7 +56,7 @@
                                 <div class="field">
                                     <label class="label has-text-centered is-size-4" for="group-users">Usuarios del grupo</label>
                                     <div class="box p-2 mb-2 is-shadowless categories">
-                                        <div class="columns is-vcentered">
+                                        <div class="columns is-vcentered is-2">
                                             <div class="column is-3">
                                                 <p>Nombre</p>
                                             </div>
@@ -66,6 +66,7 @@
                                             <div class="column is-3">
                                                 <p>Perfil de usuario</p>
                                             </div>
+                                            <div class="column is-1"></div>
                                         </div>
                                     </div>
             
@@ -81,33 +82,37 @@
                         
                                     {{-- Group users list --}}
                                     @foreach ($group_users as $user)
-                                    <a href="{{ route('users.view', ['id' => $user->id]) }}">
-                                        <div class="box p-1 mb-2 is-shadowless list-item">
-                                            <div class="columns is-vcentered">
-                                                <div class="column is-3">
-                                                    <p class="is-clipped">{{ $user->first_name . ' ' . $user->last_name }}</p>
-                                                </div>
-                                                <div class="column">
-                                                    <p class="is-clipped">{{ $user->email }}</p>
-                                                </div>
-                                                <div class="column is-3">
-                                                    <p class="is-clipped">
-                                                        @switch($user->access_level_in_organization(session('organization_id')))
-                                                            @case(1) Cliente @break
-                                                            @case(2) Administración @break
-                                                            @case(3) Facturación @break
-                                                            @case(4) Dueño @break
-                                                            @case(5) Mesa de ayuda @break
-                                                            @case(6) Administración @break
-                                                            @case(7) Facturación @break
-                                                            @case(8) Administrador @break
-                                                            @default Error
-                                                        @endswitch
-                                                    </p>
-                                                </div>
+                                    <div class="box p-1 mb-2 is-shadowless list-item">
+                                        <div class="columns is-vcentered is-2">
+                                            <div class="column is-3">
+                                                <p class="is-clipped">{{ $user->first_name . ' ' . $user->last_name }}</p>
+                                            </div>
+                                            <div class="column">
+                                                <p class="is-clipped">{{ $user->email }}</p>
+                                            </div>
+                                            <div class="column is-3">
+                                                <p class="is-clipped">
+                                                    @switch($user->access_level_in_organization(session('organization_id')))
+                                                        @case(1) Cliente @break
+                                                        @case(2) Administración @break
+                                                        @case(3) Facturación @break
+                                                        @case(4) Dueño @break
+                                                        @case(5) Mesa de ayuda @break
+                                                        @case(6) Administración @break
+                                                        @case(7) Facturación @break
+                                                        @case(8) Administrador @break
+                                                        @default Error
+                                                    @endswitch
+                                                </p>
+                                            </div>
+                                            <div class="column is-1">
+                                                <a href="{{ route('users.groups.remove-user', ['group_id' => $group->id, 'user_id' => $user->id]) }}" onclick="return confirm('¿Estás seguro de desvincular a este usuario?');">
+                                                    <i class="bx bx-x is-danger"></i>
+                                                </a>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
+                                
                                     @endforeach
                                 </div>
                             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -96,10 +97,33 @@ class GroupController extends Controller
             return to_route('users.groups');
         }
 
-        $group_users = $group->users();
+        $group_users = $group->users()->get();
 
         return view('users.groups.view')
             ->with(['group' => $group])
             ->with(['group_users' => $group_users]);
+    }
+
+
+    /**
+     * Remove user from the group.
+     */
+    public function remove_user($group_id, $user_id) : RedirectResponse {
+
+        $group = Group::find($group_id);
+
+        // $group->users()->detach($user_id);
+
+        if($group) {
+            $group->users()->detach($user_id);
+            session()->flash('success', 'Usuario desvinculado con éxito');
+        } else {
+            session()->flash('error', 'Grupo no encontrado');
+        }
+
+
+        session()->flash('success', 'Usuario desvinculado con éxito');
+
+        return to_route('users.groups.view', ['id' => $group_id]);
     }
 }

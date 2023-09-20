@@ -138,5 +138,8 @@ Route::middleware('auth')->group(function() {
 
         // View user group.
         Route::get('/groups/{id}', [GroupController::class, 'view'])->name('users.groups.view');
+
+        // Remove user from group.
+        Route::get('/group/{group_id}/remove/{user_id}', [GroupController::class, 'remove_user'])->name('users.groups.remove-user');
     });
 });

@@ -23,7 +23,7 @@ class Group extends Model
      */
     public function users() {
 
-        return $this->belongsToMany(User::class)->where('users.active', true)->get();
+        return $this->belongsToMany(User::class)->where('users.active', true);
     }
 
 
