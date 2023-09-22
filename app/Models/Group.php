@@ -22,8 +22,7 @@ class Group extends Model
      * Gets the users who belong to the group.
      */
     public function users() {
-
-        return $this->belongsToMany(User::class)->where('users.active', true);
+        return $this->belongsToMany(User::class)->where('users.active', true)->withPivot('role')->withTimestamps();
     }
 
 

@@ -21,6 +21,14 @@ return new class extends Migration
             $table->unsignedBigInteger('group_id');
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
 
+            /**
+             * viewer
+             * editor
+             * admin
+             * creator
+             */
+            $table->string('role', 10)->default('viewer');
+
             $table->boolean('active')->default(true);
 
             $table->timestamps();

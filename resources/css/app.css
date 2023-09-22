@@ -523,3 +523,11 @@ body.dark-mode .calendar-box {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+.select-role {
+  border: none !important;
+  background-color: var(--dark-mode-sidebar-color) !important;
+  color: var(--dark-mode-text-color) !important;
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+}

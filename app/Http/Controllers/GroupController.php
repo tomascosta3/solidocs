@@ -69,6 +69,7 @@ class GroupController extends Controller
         $validated = $request->validateWithBag('create', [
             'name' => ['required'],
             'users' => ['required'],
+            'roles' => ['required'],
         ]);
 
         // Create user's group.
@@ -76,9 +77,20 @@ class GroupController extends Controller
             'name' => mb_convert_case($request->input('name'), MB_CASE_TITLE, "UTF-8"),
         ]);
 
-        // Link users with group.
+        // Get users list.
         $user_ids = $request->input('users');
-        $group->users()->attach($user_ids);
+
+        // Get roles list.
+        $roles = $request->input('roles');
+
+        // Prepare data for attach.
+        $user_data = [];
+        foreach($user_ids as $user_id) {
+            $user_data[$user_id] = ['role' => $roles[$user_id]];
+        }
+
+        // Link users with group with their roles.
+        $group->users()->attach($user_data);
 
         // Create new calendar.
         $calendar = Calendar::create([

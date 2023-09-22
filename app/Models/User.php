@@ -120,8 +120,8 @@ class User extends Authenticatable
     /**
      * Gets the groups which the user belongs.
      */
-    public function groups() {
-
-        return $this->belongsToMany(Group::class)->where('active', true);
+    public function groups()
+    {   
+        return $this->belongsToMany(Group::class)->where('groups.active', true)->withPivot('role')->withTimestamps();
     }
 }

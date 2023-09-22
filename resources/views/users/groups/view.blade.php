@@ -115,7 +115,7 @@
                                                 <p>Correo electrónico</p>
                                             </div>
                                             <div class="column is-3">
-                                                <p>Perfil de usuario</p>
+                                                <p>Rol dentro del grupo</p>
                                             </div>
                                             <div class="column is-1 is-flex is-justify-content-center is-align-items-center">
                                                 <button class="button add-button" id="openModal" type="button">
@@ -147,15 +147,11 @@
                                             </div>
                                             <div class="column is-3">
                                                 <p class="is-clipped">
-                                                    @switch($user->access_level_in_organization(session('organization_id')))
-                                                        @case(1) Cliente @break
-                                                        @case(2) Administración @break
-                                                        @case(3) Facturación @break
-                                                        @case(4) Dueño @break
-                                                        @case(5) Mesa de ayuda @break
-                                                        @case(6) Administración @break
-                                                        @case(7) Facturación @break
-                                                        @case(8) Administrador @break
+                                                    @switch($user->groups->where('id', $group->id)->first()->pivot->role)
+                                                        @case('viewer') Viewer @break
+                                                        @case('editor') Editor @break
+                                                        @case('admin') Admin @break
+                                                        @case('creator') Creador @break
                                                         @default Error
                                                     @endswitch
                                                 </p>
