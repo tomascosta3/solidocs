@@ -22,20 +22,38 @@
                         <div class="column">
                             @foreach($first_column_users as $user)
                             <div class="is-flex is-align-items-center mb-3">
-                                <div class="box py-1 px-3 is-shadowless">
-                                    <input class="mr-2" type="checkbox" name="users[]" value="{{ $user->id }}">
-                                    {{ $user->first_name . ' ' . $user->last_name }}
+                                <input class="mr-2" type="checkbox" name="users[]" value="{{ $user->id }}">
+                                <span class="mr-2">{{ $user->first_name . ' ' . $user->last_name }}</span>
+                                <div class="select is-small">
+                                    <select name="roles[{{ $user->id }}]" id="" class="select-role" required>
+                                        @if ($user->access_level_in_organization(session('organization_id')) < 8)
+                                        <option value="viewer">Viewer</option>
+                                        <option value="editor">Editor</option>
+                                        <option value="admin">Admin</option>
+                                        @else
+                                        <option value="creator">Creator</option>
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
                             @endforeach
                         </div>
-                        
+                    
                         <div class="column">
                             @foreach($second_column_users as $user)
                             <div class="is-flex is-align-items-center mb-3">
-                                <div class="box py-1 px-3 is-shadowless">
-                                    <input class="mr-2" type="checkbox" name="users[]" value="{{ $user->id }}">
-                                    {{ $user->first_name . ' ' . $user->last_name }}
+                                <input class="mr-2" type="checkbox" name="users[]" value="{{ $user->id }}">
+                                <span class="mr-2">{{ $user->first_name . ' ' . $user->last_name }}</span>
+                                <div class="select is-small">
+                                    <select name="roles[{{ $user->id }}]" id="" class="select-role" required>
+                                        @if ($user->access_level_in_organization(session('organization_id')) < 8)
+                                        <option value="viewer">Viewer</option>
+                                        <option value="editor">Editor</option>
+                                        <option value="admin">Admin</option>
+                                        @else
+                                        <option value="creator">Creator</option>
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
                             @endforeach

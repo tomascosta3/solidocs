@@ -182,6 +182,7 @@ class GroupController extends Controller
         $validated = $request->validateWithBag('create', [
             'users' => 'required|array',
             'users.*' => ['exists:users,id'],
+            'roles' => ['required'],
         ]);
 
         $user_ids = $request->input('users');
@@ -190,8 +191,17 @@ class GroupController extends Controller
             return !$group->users->contains($userId);
         });
 
-        // Attach users to group.
-        $group->users()->attach($user_ids);
+        // Get roles list.
+        $roles = $request->input('roles');
+
+        // Prepare data for attach.
+        $user_data = [];
+        foreach($user_ids as $user_id) {
+            $user_data[$user_id] = ['role' => $roles[$user_id]];
+        }
+
+        // Link users with group with their roles.
+        $group->users()->attach($user_data);
 
         // Attach users to group's calendar.
         $calendar = $group->calendar;
