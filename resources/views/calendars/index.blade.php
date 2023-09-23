@@ -19,6 +19,9 @@
         const modal = document.getElementById('eventModal');
         modal.classList.remove('is-active');
         document.getElementById('eventForm').reset();
+        document.getElementById('weeklyOptions').classList.add('is-hidden');
+        document.getElementById('customDateOption').classList.add('is-hidden');
+        document.getElementById('repeatDurationSection').classList.add('is-hidden');
     }
 
     function openNewCalendarModal() {
