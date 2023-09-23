@@ -22,8 +22,7 @@
                         <div class="column">
                             @foreach($first_column_users as $user)
                             <div class="is-flex is-align-items-center mb-3">
-                                <input class="mr-2" type="checkbox" name="users[]" value="{{ $user->id }}">
-                                <span class="mr-2">{{ $user->first_name . ' ' . $user->last_name }}</span>
+                                <label class="checkbox mr-2"><input type="checkbox" class="mr-2" name="users[]" value="{{ $user->id }}">{{ $user->first_name . ' ' . $user->last_name }}</label>
                                 <div class="select is-small">
                                     <select name="roles[{{ $user->id }}]" id="" class="select-role" required>
                                         @if ($user->access_level_in_organization(session('organization_id')) < 8)
@@ -42,8 +41,7 @@
                         <div class="column">
                             @foreach($second_column_users as $user)
                             <div class="is-flex is-align-items-center mb-3">
-                                <input class="mr-2" type="checkbox" name="users[]" value="{{ $user->id }}">
-                                <span class="mr-2">{{ $user->first_name . ' ' . $user->last_name }}</span>
+                                <label class="checkbox mr-2"><input type="checkbox" class="mr-2" name="users[]" value="{{ $user->id }}">{{ $user->first_name . ' ' . $user->last_name }}</label>
                                 <div class="select is-small">
                                     <select name="roles[{{ $user->id }}]" id="" class="select-role" required>
                                         @if ($user->access_level_in_organization(session('organization_id')) < 8)
