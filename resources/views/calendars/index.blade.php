@@ -242,6 +242,71 @@
                     </div>
                 </div>
                 
+                <div class="columns">
+                    {{-- Event repeat --}}
+                    <div class="column is-narrow">
+                        <div class="field">
+                            <label class="label">¿Repetir evento?</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select id="repeatOption" name="repeat_option">
+                                        <option value="no-repeat">No repetir</option>
+                                        <option value="daily">Diario</option>
+                                        <option value="weekly">Semanal</option>
+                                        <option value="custom">Personalizado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Repetition period --}}
+                    <div class="column is-hidden" id="repeatDurationSection">
+                        <div class="field">
+                            <label class="label">Duración de la repetición:</label>
+
+                            <div class="columns is-vcentered is-mobile">
+                                <div class="column is-narrow">
+                                    <div class="control">
+                                        <input class="input" type="number" id="repeatDurationValue" name="repeat_duration_value" min="1">
+                                    </div>
+                                </div>
+
+                                <div class="column">
+                                    <div class="control">
+                                        <div class="select is-fullwidth">
+                                            <select id="repeatDurationUnit" name="repeat_duration_unit">
+                                                <option value="days" id="days-option">Días</option>
+                                                <option value="weeks" od="weeks-option">Semanas</option>
+                                                <option value="months">Meses</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                {{-- Weekly options (will be displayed only if the "Weekly" option is selected) --}}
+                <div class="field is-hidden" id="weeklyOptions">
+                    <label class="label">Días:</label>
+                    <label class="checkbox mr-2"><input type="checkbox" name="week_days[]" value="Do"> Do</label>
+                    <label class="checkbox mr-2"><input type="checkbox" name="week_days[]" value="Lu"> Lu</label>
+                    <label class="checkbox mr-2"><input type="checkbox" name="week_days[]" value="Ma"> Ma</label>
+                    <label class="checkbox mr-2"><input type="checkbox" name="week_days[]" value="Mi"> Mi</label>
+                    <label class="checkbox mr-2"><input type="checkbox" name="week_days[]" value="Ju"> Ju</label>
+                    <label class="checkbox mr-2"><input type="checkbox" name="week_days[]" value="Vi"> Vi</label>
+                    <label class="checkbox"><input type="checkbox" name="week_days[]" value="Sa"> Sa</label>
+                </div>
+
+                {{-- Custom option (will be displayed only if "Custom" is selected) --}}
+                <div class="field is-hidden" id="customDateOption">
+                    <label class="label">Fecha de repetición:</label>
+                    <div class="control">
+                        <input class="input" type="date" name="custom_repeat_date">
+                    </div>
+                </div>
 
                 <div class="field">
                     <label class="label" for="location">Ubicación:</label>
@@ -351,4 +416,30 @@
         @endif
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+    @parent
+    <script>
+        // Display weekly/custom options.
+        document.getElementById('repeatOption').addEventListener('change', function() {
+            // Hide all options first.
+            document.getElementById('weeklyOptions').classList.add('is-hidden');
+            document.getElementById('customDateOption').classList.add('is-hidden');
+            
+            // Shows the selected option.
+            if (this.value === 'weekly') {
+                document.getElementById('weeklyOptions').classList.remove('is-hidden');
+            } else if (this.value === 'custom') {
+                document.getElementById('customDateOption').classList.remove('is-hidden');
+            }
+
+            if (this.value !== 'no-repeat') {
+                document.getElementById('repeatDurationSection').classList.remove('is-hidden');
+            } else {
+                document.getElementById('repeatDurationSection').classList.add('is-hidden');
+            }
+        });
+    </script>
 @endsection
