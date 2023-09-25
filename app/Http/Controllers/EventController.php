@@ -45,19 +45,64 @@ class EventController extends Controller
             $all_day = false;
         }
 
-        // Create event and saves it in requested calendar.
-        $event = Event::create([
-            'calendar_id' => $calendar->id,
-            'event_type_id' => $request->event_type_id,
-            'title' => $request->title,
-            'start' => $request->start_date,
-            'end' => $request->end_date,
-            'all_day' => $all_day,
-            'location' => mb_convert_case($request->location, MB_CASE_TITLE, "UTF-8"),
-            'comment' => $request->comment, 
-        ]);
+        // Repeat option.
+        $dates = [];
+        $repeat_option = $request->input('repeat_option');
+        $repeat_duration = $request->input('repeat_duration_value');
+        $start_date = new \DateTime($request->input('start_date'));
+        $end_date = new \DateTime($request->input('end_date'));
 
-        // return response()->json(['status' => 'success']);
+        if($repeat_option !== "no-repeat") {
+
+            switch($repeat_option) {
+                case 'daily':
+                    for($i = 0; $i < $repeat_duration + 1; $i++) {
+                        $current_start = clone $start_date;
+                        $current_end = clone $end_date;
+                        $dates[] = [
+                            'start' => $current_start->modify("+$i day"),
+                            'end' => $current_end->modify("+$i day"),
+                        ];
+                    }
+                    break;
+                case 'weekly':
+                    $week_days = $request->inpdwut('week_days');
+                    break;
+                case 'custom':
+                    break;
+                default:
+                $dates[] = $start_date;
+            }
+
+            foreach ($dates as $date) {
+
+                // Create repetition events and saves them in requested calendar.
+                $event = Event::create([
+                    'calendar_id' => $calendar->id,
+                    'event_type_id' => $request->event_type_id,
+                    'title' => $request->title,
+                    'start' => $date['start'],
+                    'end' => $date['end'],
+                    'all_day' => $all_day,
+                    'location' => mb_convert_case($request->location, MB_CASE_TITLE, "UTF-8"),
+                    'comment' => $request->comment, 
+                ]);
+            }
+        } else {
+
+            // Create no repetition event and saves it in requested calendar.
+            $event = Event::create([
+                'calendar_id' => $calendar->id,
+                'event_type_id' => $request->event_type_id,
+                'title' => $request->title,
+                'start' => $request->start_date,
+                'end' => $request->end_date,
+                'all_day' => $all_day,
+                'location' => mb_convert_case($request->location, MB_CASE_TITLE, "UTF-8"),
+                'comment' => $request->comment, 
+            ]);
+        }
+
         return to_route('calendars.show', ['calendar_id' => $calendar_id])
             ->with('success', 'Evento creado correctamente.');
     }
