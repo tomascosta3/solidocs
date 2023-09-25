@@ -35,6 +35,21 @@
         document.getElementById('new-calendar-form').reset();
     }
 
+    function closeEventModal() {
+        document.getElementById('eventDetailModal').classList.remove('is-active');
+        document.getElementById('eventViewForm').reset();
+    }
+
+    function toDatetimeLocalFormat(dateObj) {
+        let date = ('0' + dateObj.getDate()).slice(-2);
+        let month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
+        let year = dateObj.getFullYear();
+        let hours = ('0' + dateObj.getHours()).slice(-2);
+        let minutes = ('0' + dateObj.getMinutes()).slice(-2);
+
+        return `${year}-${month}-${date}T${hours}:${minutes}`;
+    }
+
     /**
      * When 'all day' checkbox is selected, puts start and end date on 
      * inputs.
@@ -125,6 +140,17 @@
                     openModal(info.dateStr);
                 },
                 events: events,
+                eventClick: function(info) {
+
+                    // Show modal
+                    document.getElementById('eventDetailModal').classList.add('is-active');
+                    document.getElementById('eventTitle').textContent = info.event.title;
+                    document.getElementById('eventTypeSelect').value = info.event.extendedProps.event_type_id;
+                    document.getElementById('startDate').value = toDatetimeLocalFormat(info.event.start);
+                    document.getElementById('endDate').value = toDatetimeLocalFormat(info.event.end);
+                    document.getElementById('location').value = info.event.extendedProps.location;
+                    document.getElementById('eventComment').textContent = info.event.extendedProps.comment;
+                },
             });
             calendar.render();
         });
@@ -378,6 +404,116 @@
     </div>
 </div>
 
+@if ($calendar)  
+{{-- View event modal --}}
+<div class="modal" id="eventDetailModal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title has-text-centered" id="eventTitle"></p>
+            <button class="delete" aria-label="close" onclick="closeEventModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <form id="eventViewForm" action="#" method="post">
+                @csrf
+                <input type="hidden" name="date" id="dateInput">
+
+                <div class="columns is-vcentered is-mobile">
+                    <div class="column is-narrow">
+                        <label class="label" for="event_type_id">Tipo de Evento:</label>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <div class="control">
+                                <div class="select">
+                                    <select id="eventTypeSelect" name="event_type_id" required>
+                                        @foreach($event_types as $type)
+                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="start_date">Desde</label>
+                            <div class="control">
+                                <input class="input" type="datetime-local" name="start_date" id="startDate" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="end_date">Hasta</label>
+                            <div class="control">
+                                <input class="input" type="datetime-local" name="end_date" id="endDate" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="field">
+                    <label class="checkbox" for="all_day">
+                        <input type="checkbox" name="all_day" id="all_day" onchange="toggleAllDay()">
+                        Todo el día
+                    </label>
+                </div>
+
+                <div class="columns is-vcentered is-mobile">
+                    <div class="column is-narrow">
+                        <label class="label" for="reminder">Recordatorio:</label>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <div class="control">
+                                <div class="select">
+                                    <select name="reminder">
+                                        <option value="none">Ninguno</option>
+                                        <option value="5">5 minutos antes</option>
+                                        <option value="10">10 minutos antes</option>
+                                        <option value="15">15 minutos antes</option>
+                                        <option value="30">30 minutos antes</option>
+                                        <option value="60">1 hora antes</option>
+                                        <option value="120">2 horas antes</option>
+                                        <option value="1440">1 día antes</option>
+                                        <option value="2880">2 días antes</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="location">Ubicación:</label>
+                    <div class="control">
+                        <input class="input" type="text" name="location" id="location">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="comment">Comentario:</label>
+                    <div class="control">
+                        <textarea class="textarea" name="comment" id="eventComment"></textarea>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" type="submit" form="eventForm">Modificar</button>
+            <button class="button" type="button" onclick="closeEventModal()">Cancelar</button>
+        </footer>
+    </div>
+</div>
+@endif
+
+
+{{-- Main Page --}}
 <div class="main-content-calendar">
     <div class="columns m-0 mr-3">
 
