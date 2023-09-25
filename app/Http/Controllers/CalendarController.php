@@ -32,10 +32,28 @@ class CalendarController extends Controller
             $users_in_organization = collect();
         }
 
+        // Get events from all calendars with color.
+        $all_events = collect();
+        foreach(auth()->user()->calendars as $calendar) {
+            foreach($calendar->events as $event) {
+                if($calendar->group) {
+                    $event->color = $calendar->group->color;
+                }
+                $all_events->push($event);
+            }
+        }
+        
+        // Get event types.
+        $event_types = EventType::where('active', true)
+            ->orderBy('name', 'asc')
+            ->get();
+
         return view('calendars.index')
             ->with(['calendar' => $calendar])
             ->with(['calendars' => $calendars])
-            ->with(['users_in_organization' => $users_in_organization]);
+            ->with(['event_types' => $event_types])
+            ->with(['users_in_organization' => $users_in_organization])
+            ->with(['all_events' => $all_events]);
     }
 
 
@@ -63,11 +81,21 @@ class CalendarController extends Controller
             $users_in_organization = collect();
         }
 
+        // Get events from selected calendars with color.
+        $events = collect();
+        foreach($calendar->events as $event) {
+            if($calendar->group) {
+                $event->color = $calendar->group->color;
+            }
+            $events->push($event);
+        }
+
         return view('calendars.index')
             ->with(['calendar' => $calendar])
             ->with(['event_types' => $event_types])
             ->with(['calendars' => $calendars])
-            ->with(['users_in_organization' => $users_in_organization]);
+            ->with(['users_in_organization' => $users_in_organization])
+            ->with(['all_events' => $events]);
     }
 
 

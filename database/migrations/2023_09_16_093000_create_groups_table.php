@@ -19,6 +19,8 @@ return new class extends Migration
 
             $table->text('description')->nullable();
 
+            $table->string('color')->default('#FFFFFF');
+
             $table->boolean('active')->default(true);
 
             $table->timestamps();

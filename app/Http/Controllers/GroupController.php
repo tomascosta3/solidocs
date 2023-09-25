@@ -70,11 +70,13 @@ class GroupController extends Controller
             'name' => ['required'],
             'users' => ['required'],
             'roles' => ['required'],
+            'color' => ['required'],
         ]);
 
         // Create user's group.
         $group = Group::create([
             'name' => mb_convert_case($request->input('name'), MB_CASE_TITLE, "UTF-8"),
+            'color' => $request->input('color'),
         ]);
 
         // Get users list.

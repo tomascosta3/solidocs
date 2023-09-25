@@ -48,7 +48,18 @@
                                 @if ($errors->create->first('name'))
                                     <small style="color: red">{{ $errors->create->first('name') }} </small>
                                 @endif
-                            </div>    
+                            </div>  
+
+                            <div class="columns is-vcentered">
+                                <div class="column is-narrow">
+                                    <label class="label">Color del grupo / eventos del calendario:</label>
+                                </div>
+                                <div class="column is-3">
+                                    <div class="control">
+                                        <input class="input" type="color" name="color" value="#FFFFFF"> <!-- color por defecto blanco -->
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="field">
                                 <label class="label">Selecciona usuarios</label>

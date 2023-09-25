@@ -107,54 +107,52 @@
         calendar.render();
     });
 
-    @if ($calendar)
-        // Main calendar
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('main-calendar');
-            var events = @json($calendar->events); // Convert events in json format.
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                headerToolbar: {
-                    center: 'dayGridMonth,dayGridWeek,timeGridOneDay' // buttons for switching between views
+    // Main calendar
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('main-calendar');
+        var events = @json($all_events); // Convert events in json format.
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                center: 'dayGridMonth,dayGridWeek,timeGridOneDay' // buttons for switching between views
+            },
+            views: {
+                timeGridOneDay: {
+                type: 'timeGrid',
+                duration: { days: 1 },
+                buttonText: 'Día'
                 },
-                views: {
-                    timeGridOneDay: {
-                    type: 'timeGrid',
-                    duration: { days: 1 },
-                    buttonText: 'Día'
-                    },
-                    dayGridMonth: {
-                        buttonText: 'Mes',
-                    },
-                    dayGridWeek: {
-                        buttonText: 'Semana',
-                    }
+                dayGridMonth: {
+                    buttonText: 'Mes',
                 },
-                locale: 'es',
-                buttonText: {
-                    today: 'hoy'
-                },
-                dateClick: function(info) {
-                    document.querySelector('input[name="start_date"]').value = info.dateStr + "T00:00";
-                    document.querySelector('input[name="end_date"]').value = info.dateStr + "T23:59";
+                dayGridWeek: {
+                    buttonText: 'Semana',
+                }
+            },
+            locale: 'es',
+            buttonText: {
+                today: 'hoy'
+            },
+            dateClick: function(info) {
+                document.querySelector('input[name="start_date"]').value = info.dateStr + "T00:00";
+                document.querySelector('input[name="end_date"]').value = info.dateStr + "T23:59";
 
-                    openModal(info.dateStr);
-                },
-                events: events,
-                eventClick: function(info) {
+                openModal(info.dateStr);
+            },
+            events: events,
+            eventClick: function(info) {
 
-                    // Show modal
-                    document.getElementById('eventDetailModal').classList.add('is-active');
-                    document.getElementById('eventTitle').textContent = info.event.title;
-                    document.getElementById('eventTypeSelect').value = info.event.extendedProps.event_type_id;
-                    document.getElementById('startDate').value = toDatetimeLocalFormat(info.event.start);
-                    document.getElementById('endDate').value = toDatetimeLocalFormat(info.event.end);
-                    document.getElementById('location').value = info.event.extendedProps.location;
-                    document.getElementById('eventComment').textContent = info.event.extendedProps.comment;
-                },
-            });
-            calendar.render();
+                // Show modal
+                document.getElementById('eventDetailModal').classList.add('is-active');
+                document.getElementById('eventTitle').textContent = info.event.title;
+                document.getElementById('eventTypeSelect').value = info.event.extendedProps.event_type_id;
+                document.getElementById('startDate').value = toDatetimeLocalFormat(info.event.start);
+                document.getElementById('endDate').value = toDatetimeLocalFormat(info.event.end);
+                document.getElementById('location').value = info.event.extendedProps.location;
+                document.getElementById('eventComment').textContent = info.event.extendedProps.comment;
+            },
         });
-    @endif
+        calendar.render();
+    });
 
     document.addEventListener('DOMContentLoaded', function() {
         let selectedUsers = [];
