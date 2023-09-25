@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Calendar;
 use App\Models\Event;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -15,6 +16,26 @@ class EventController extends Controller
 
         $events = Event::all()->where('active', true);
         return response()->json($events);
+    }
+
+
+    /**
+     * Returns dates array with start-end date event.
+     */
+    private function event_dates($start_date, $end_date, $days_duration) {
+        
+        $dates = [];
+
+        for($i = 0; $i < $days_duration; $i++) {
+            $current_start = clone $start_date;
+            $current_end = clone $end_date;
+            $dates[] = [
+                'start' => $current_start->modify("+$i day"),
+                'end' => $current_end->modify("+$i day"),
+            ];
+        }
+
+        return $dates;
     }
 
 
@@ -48,6 +69,7 @@ class EventController extends Controller
         // Repeat option.
         $dates = [];
         $repeat_option = $request->input('repeat_option');
+        $repeat_duration_unit = $request->input('repeat_duration_unit');
         $repeat_duration = $request->input('repeat_duration_value');
         $start_date = new \DateTime($request->input('start_date'));
         $end_date = new \DateTime($request->input('end_date'));
@@ -55,21 +77,41 @@ class EventController extends Controller
         if($repeat_option !== "no-repeat") {
 
             switch($repeat_option) {
+
                 case 'daily':
-                    for($i = 0; $i < $repeat_duration + 1; $i++) {
-                        $current_start = clone $start_date;
-                        $current_end = clone $end_date;
-                        $dates[] = [
-                            'start' => $current_start->modify("+$i day"),
-                            'end' => $current_end->modify("+$i day"),
-                        ];
+
+                    switch($repeat_duration_unit) {
+
+                        case 'days':
+
+                            $dates = $this->event_dates($start_date, $end_date, $repeat_duration + 1);
+
+                            break;
+
+                        case 'weeks':
+
+                            $dates = $this->event_dates($start_date, $end_date, $repeat_duration * 7);
+
+                            break;
+
+                        case 'months':
+
+                            $start = Carbon::parse($start_date);
+                            $repeat_until = $start->copy()->addMonths($repeat_duration);
+                            
+                            $dates = $this->event_dates($start_date, $end_date, $start->diffInDays($repeat_until));
+
+                            break;
                     }
                     break;
+
                 case 'weekly':
-                    $week_days = $request->inpdwut('week_days');
+                    $week_days = $request->input('week_days');
                     break;
+
                 case 'custom':
                     break;
+
                 default:
                 $dates[] = $start_date;
             }
