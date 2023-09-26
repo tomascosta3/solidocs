@@ -9,7 +9,7 @@ if (!function_exists('get_text_color')) {
         $luminosity = ($r * 0.299 + $g * 0.587 + $b * 0.114) / 255;
 
         // Dependiendo de la luminosidad, retornamos blanco o negro
-        return $luminosity > 0.5 ? '#363638' : '#faf8f9';
+        return $luminosity > 0.7 ? '#363638' : '#faf8f9';
     }
 }
 
