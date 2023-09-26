@@ -525,7 +525,11 @@
                 <div class="calendar-list pb-2">
                     @foreach ($calendars as $calendar)
                     <a href="{{ route('calendars.show', ['calendar_id' => $calendar->id]) }}">
-                        <div class="box p-2 is-shadowless has-text-centered {{ !$loop->last ? 'mb-2' : '' }}">
+                        <div class="box p-2 is-shadowless has-text-centered {{ !$loop->last ? 'mb-2' : '' }}"
+                            @if ($calendar->group)
+                            style="background-color: {{ $calendar->group->color }}; color: {{ get_text_color($calendar->group->color) }};"
+                            @endif
+                            >
                             {{ $calendar->name }}
                         </div>
                     </a>
