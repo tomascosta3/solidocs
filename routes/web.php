@@ -125,8 +125,9 @@ Route::middleware('auth')->group(function() {
 
         // Events.
         Route::get('/calendars/{calendar}/events', [EventController::class, 'index'])->name('calendars.events.index');
-        Route::post('/calendars/{calendar}/events', [EventController::class, 'add_event_to_calendar'])->name('calendars.events.store');
+        Route::post('/calendars/events', [EventController::class, 'add_event'])->name('calendars.events.store');
 
+        // Only the administrator can access this pages.
         Route::middleware(['is.admin'])->group(function () {
             
             // User groups index.

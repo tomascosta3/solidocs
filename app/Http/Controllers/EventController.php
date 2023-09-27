@@ -42,13 +42,14 @@ class EventController extends Controller
     /**
      * Add event to calendar.
      */
-    public function add_event_to_calendar(Request $request, $calendar_id) {
+    public function add_event(Request $request) {
 
         /**
          * Validate form inputs.
          * If there is an error, returns back with the errors.
          */
         $validated = $request->validateWithBag('create', [
+            'calendar_id' => ['required'],
             'event_type_id' => ['required'],
             'title' => ['required'],
             'start_date' => ['required', 'date', 'before_or_equal:end_date'],
@@ -59,7 +60,7 @@ class EventController extends Controller
         ]);
         
         // Get calendar, if fails returns error.
-        $calendar = Calendar::findOrFail($calendar_id);
+        $calendar = Calendar::findOrFail($request->input('calendar_id'));
 
         $all_day = true;
         if($request->all_day == null) {
@@ -145,7 +146,7 @@ class EventController extends Controller
             ]);
         }
 
-        return to_route('calendars.show', ['calendar_id' => $calendar_id])
+        return to_route('calendars')
             ->with('success', 'Evento creado correctamente.');
     }
 }

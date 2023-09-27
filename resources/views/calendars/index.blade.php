@@ -176,7 +176,7 @@
 
     // Function to toggle visibility of events for a given calendar ID.
     function toggleCalendarEvents(calendarId) {
-        
+
         var eventSource = calendar.getEventSourceById(calendarId.toString());
 
         var checkbox = document.querySelector('input[data-calendar-id="' + calendarId + '"]');
@@ -227,7 +227,7 @@
             <button class="delete" aria-label="close" onclick="closeModal()"></button>
         </header>
         <section class="modal-card-body">
-            <form id="eventForm" action="{{ route('calendars.events.store', ['calendar' => $calendar->id]) }}" method="post">
+            <form id="eventForm" action="{{ route('calendars.events.store') }}" method="post">
                 @csrf
                 <input type="hidden" name="date" id="dateInput">
 
@@ -242,6 +242,19 @@
                                     <select name="event_type_id" required>
                                         @foreach($event_types as $type)
                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="field">
+                            <div class="control">
+                                <div class="select">
+                                    <select name="calendar_id" required>
+                                        @foreach($calendars as $calendar)
+                                            <option value="{{ $calendar->id }}">{{ $calendar->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
