@@ -254,7 +254,14 @@
                                 <div class="select">
                                     <select name="calendar_id" required>
                                         @foreach($calendars as $calendar)
-                                            <option value="{{ $calendar->id }}">{{ $calendar->name }}</option>
+                                            <option value="{{ $calendar->id }}"
+                                                @if ($calendar->group)
+                                                    @if (auth()->user()->groups()->where('group_id', $calendar->group->id)->first()->pivot->role == 'viewer')
+                                                        disabled
+                                                    @endif
+                                                @endif
+                                                >
+                                            {{ $calendar->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
