@@ -8,6 +8,7 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 <script>
 
+    // Function to open the event creation modal with selected date.
     function openModal(date) {
         const modal = document.getElementById('eventModal');
         modal.classList.add('is-active');
@@ -15,6 +16,7 @@
         document.getElementById('dateInput').value = date;
     }
 
+    // Function to close the event creation modal and reset form values.
     function closeModal() {
         const modal = document.getElementById('eventModal');
         modal.classList.remove('is-active');
@@ -24,22 +26,26 @@
         document.getElementById('repeatDurationSection').classList.add('is-hidden');
     }
 
+    // Function to open the modal for a new calendar creation.
     function openNewCalendarModal() {
         const modal = document.getElementById('new-calendar');
         modal.classList.add('is-active');
     }
 
+    // Function to close the modal for a new calendar creation and reset form values.
     function closeNewCalendarModal() {
         const modal = document.getElementById('new-calendar');
         modal.classList.remove('is-active');
         document.getElementById('new-calendar-form').reset();
     }
 
+    // Function to close the event view modal and reset view form values.
     function closeEventModal() {
         document.getElementById('eventDetailModal').classList.remove('is-active');
         document.getElementById('eventViewForm').reset();
     }
 
+    // Convert a Date object to "datetime-local" input format.
     function toDatetimeLocalFormat(dateObj) {
         let date = ('0' + dateObj.getDate()).slice(-2);
         let month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
@@ -71,6 +77,7 @@
         }
     }
 
+    // Format a date to "datetime-local" input format.
     function formatDate(date) {
 
         var year = date.getFullYear(),
@@ -82,10 +89,10 @@
         return year + '-' + month + '-' + day + 'T' + hour + ':' + minute;
     }
 
-    // Side calendar
+    // Initializing the side calendar.
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        var sideCalendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             titleFormat: { year: 'numeric', month: 'short' },
             height: 300,
@@ -104,16 +111,21 @@
                 today: 'hoy'
             }
         });
-        calendar.render();
+        sideCalendar.render();
     });
 
-    // Main calendar
+    // Global variable for calendar.
+    var calendar;
+
+    // All events data.
+    var allEvents = @json($all_events);
+
+    // Initializing the main calendar.
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('main-calendar');
-        var events = @json($all_events); // Convert events in json format.
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
-                center: 'dayGridMonth,dayGridWeek,timeGridOneDay' // buttons for switching between views
+                center: 'dayGridMonth,dayGridWeek,timeGridOneDay,listWeek' // buttons for switching between views
             },
             views: {
                 timeGridOneDay: {
@@ -126,7 +138,10 @@
                 },
                 dayGridWeek: {
                     buttonText: 'Semana',
-                }
+                },
+                listWeek: {
+                    buttonText: 'Agenda',
+                },
             },
             locale: 'es',
             buttonText: {
@@ -138,7 +153,12 @@
 
                 openModal(info.dateStr);
             },
-            events: events,
+            eventSources: Object.keys(allEvents).map(function(calendarId) {
+                return {
+                    id: calendarId,
+                    events: allEvents[calendarId],
+                };
+            }),
             eventClick: function(info) {
 
                 // Show modal
@@ -154,6 +174,26 @@
         calendar.render();
     });
 
+    // Function to toggle visibility of events for a given calendar ID.
+    function toggleCalendarEvents(calendarId) {
+        
+        var eventSource = calendar.getEventSourceById(calendarId.toString());
+
+        var checkbox = document.querySelector('input[data-calendar-id="' + calendarId + '"]');
+        
+        if (eventSource) {
+            eventSource.remove();
+            checkbox.checked = false;
+        } else {
+            calendar.addEventSource({
+                id: calendarId.toString(),
+                events: allEvents[calendarId]
+            });
+            checkbox.checked = true;
+        }
+    }
+
+    // Event listener for selecting users.
     document.addEventListener('DOMContentLoaded', function() {
         let selectedUsers = [];
         
@@ -524,15 +564,15 @@
                 {{-- Calendars list --}}
                 <div class="calendar-list pb-2">
                     @foreach ($calendars as $calendar)
-                    <a href="{{ route('calendars.show', ['calendar_id' => $calendar->id]) }}">
+                    {{-- <a href="{{ route('calendars.show', ['calendar_id' => $calendar->id]) }}"> --}}
                         <div class="box p-2 is-shadowless has-text-centered {{ !$loop->last ? 'mb-2' : '' }}"
                             @if ($calendar->group)
                             style="background-color: {{ $calendar->group->color }}; color: {{ get_text_color($calendar->group->color) }};"
                             @endif
                             >
-                            {{ $calendar->name }}
+                            <label><input type="checkbox" class="mr-3" data-calendar-id="{{ $calendar->id }}" onclick="toggleCalendarEvents({{ $calendar->id }})" checked>{{ $calendar->name }}</label>
                         </div>
-                    </a>
+                    {{-- </a> --}}
                     @endforeach
                 </div>
 

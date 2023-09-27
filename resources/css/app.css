@@ -44,7 +44,7 @@
   /* Full calendar */
   --fc-small-font-size: .85em;
   --fc-page-bg-color: #fff;
-  --fc-neutral-bg-color: #808080;
+  --fc-neutral-bg-color: #f5f4f8;
   --fc-neutral-text-color: #808080;
   --fc-border-color: var(--dark-mode-text-color);
 
@@ -425,6 +425,10 @@ body.dark-mode .invisible-box:hover .counter-span {
 
 body.dark-mode .fc-daygrid-day-top a {
   color: #808080;
+}
+
+body.dark-mode .fc-list-day-cushion a {
+  color: var(--dark-mode-sidebar-color);
 }
 
 .fc-scrollgrid-sync-inner a {

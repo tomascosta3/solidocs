@@ -33,15 +33,25 @@ class CalendarController extends Controller
         }
 
         // Get events from all calendars with color.
-        $all_events = collect();
-        foreach(auth()->user()->calendars as $calendar) {
-            foreach($calendar->events as $event) {
-                if($calendar->group) {
-                    $event->color = $calendar->group->color;
-                }
-                $all_events->push($event);
-            }
+        $all_events = [];
+        foreach (auth()->user()->calendars as $calendar) {
+            $all_events[$calendar->id] = $calendar->events->map(function ($event) use ($calendar) {
+                return [
+                    'id' => $event->id,
+                    'event_type_id' => $event->event_type_id,
+                    'title' => $event->title,
+                    'start' => $event->start,
+                    'end' => $event->end,
+                    'reminder' => $event->reminder,
+                    'reminder_sent' => $event->reminder_sent,
+                    'location' => $event->location,
+                    'comment' => $event->comment,
+                    'all_day' => $event->all_day,
+                    'color' => $calendar->group ? $calendar->group->color : null,
+                ];
+            })->toArray();
         }
+
         
         // Get event types.
         $event_types = EventType::where('active', true)
