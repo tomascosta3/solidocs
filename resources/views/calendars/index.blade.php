@@ -302,7 +302,7 @@
                     </label>
                 </div>
 
-                <div class="field">
+                {{-- <div class="field">
                     <label for="collaborators" class="label">Colaboradores:</label>
                     <div class="columns">
                         <div class="column">
@@ -318,6 +318,33 @@
                             </label>
                         </div>
                         <div class="column">
+                            <select name="users[]" id="users" multiple></select>
+                        </div>
+                    </div>
+                </div> --}}
+
+                <div class="field">
+                    <label for="collaborators" class="label">Colaboradores:</label>
+                    <div class="columns is-vcentered">
+                        <div class="column">
+                            <!-- Checkbox "Todos" -->
+                            <div class="field">
+                                <label class="checkbox" for="all">
+                                    <input type="checkbox" name="all" id="all">
+                                    Todos
+                                </label>
+                            </div>
+                            
+                            <!-- Checkbox "Solo yo" -->
+                            <div class="field">
+                                <label class="checkbox" for="only_me">
+                                    <input type="checkbox" name="only_me" id="only_me">
+                                    Solo yo
+                                </label>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <!-- Select de usuarios -->
                             <select name="users[]" id="users" multiple></select>
                         </div>
                     </div>
@@ -670,9 +697,6 @@
             })
             .then(data => {
                 userChoices.clearChoices();
-
-                console.log(calendarId);
-                console.log(data);
 
                 userChoices.setChoices(data, 'id', 'first_name', true);
             })
