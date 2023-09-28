@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('title');
 
-            $table->enum('visibility', ['only_me', 'all_group', 'specific_users']);
+            $table->string('visibility', 15)->default('only_me');
 
             $table->timestamp('start');
 

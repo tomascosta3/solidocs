@@ -15,6 +15,7 @@ class Event extends Model
         'calendar_id',
         'event_type_id',
         'title',
+        'visibility',
         'start',
         'end',
         'reminder',
@@ -48,6 +49,6 @@ class Event extends Model
      * Return attached users, 
      */
     public function users() {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

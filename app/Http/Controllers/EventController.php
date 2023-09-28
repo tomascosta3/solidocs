@@ -44,8 +44,6 @@ class EventController extends Controller
      */
     public function add_event(Request $request) {
 
-        dd($request);
-
         /**
          * Validate form inputs.
          * If there is an error, returns back with the errors.
@@ -76,6 +74,13 @@ class EventController extends Controller
         $repeat_duration = $request->input('repeat_duration_value');
         $start_date = new \DateTime($request->input('start_date'));
         $end_date = new \DateTime($request->input('end_date'));
+
+        $visibility = 'only_me';
+        if($request->has('all')) {
+            $visibility = 'all';
+        } else if($request->has('users')) {
+            $visibility = 'custom';
+        }
 
         if($repeat_option !== "no-repeat") {
 
@@ -126,26 +131,62 @@ class EventController extends Controller
                     'calendar_id' => $calendar->id,
                     'event_type_id' => $request->event_type_id,
                     'title' => $request->title,
+                    'visibility' => $visibility,
                     'start' => $date['start'],
                     'end' => $date['end'],
                     'all_day' => $all_day,
                     'location' => mb_convert_case($request->location, MB_CASE_TITLE, "UTF-8"),
                     'comment' => $request->comment, 
                 ]);
+
+                $users_to_attach = [];
+
+                if ($request->has('all')) {
+                    if(!$calendar->group) {
+                        $users_to_attach = [auth()->user()->id];
+                    } else {
+                        $users_to_attach = $calendar->group->users->pluck('id')->toArray();
+                    }
+                } elseif ($request->has('only_me')) {
+                    $users_to_attach = [auth()->user()->id];
+                } elseif ($request->has('users')) {
+                    $users_to_attach = $request->input('users');
+                }
+
+                $event->users()->attach($users_to_attach, ['active' => true]);
             }
         } else {
+
+            
 
             // Create no repetition event and saves it in requested calendar.
             $event = Event::create([
                 'calendar_id' => $calendar->id,
                 'event_type_id' => $request->event_type_id,
                 'title' => $request->title,
+                'visibility' => $visibility,
                 'start' => $request->start_date,
                 'end' => $request->end_date,
                 'all_day' => $all_day,
                 'location' => mb_convert_case($request->location, MB_CASE_TITLE, "UTF-8"),
                 'comment' => $request->comment, 
             ]);
+
+            $users_to_attach = [];
+
+            if ($request->has('all')) {
+                if(!$calendar->group) {
+                    $users_to_attach = [auth()->user()->id];
+                } else {
+                    $users_to_attach = $calendar->group->users->pluck('id')->toArray();
+                }
+            } elseif ($request->has('only_me')) {
+                $users_to_attach = [auth()->user()->id];
+            } elseif ($request->has('users')) {
+                $users_to_attach = $request->input('users');
+            }
+
+            $event->users()->attach($users_to_attach, ['active' => true]);
         }
 
         return to_route('calendars')
