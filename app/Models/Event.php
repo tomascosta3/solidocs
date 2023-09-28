@@ -42,4 +42,12 @@ class Event extends Model
 
         return $this->belongsTo(EventType::class);
     }
+
+
+    /**
+     * Return attached users, 
+     */
+    public function users() {
+        return $this->belongsToMany(User::class);
+    }
 }

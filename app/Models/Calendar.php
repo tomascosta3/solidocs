@@ -44,4 +44,21 @@ class Calendar extends Model
 
         return $this->hasMany(Event::class);
     }
+
+
+    /**
+     * Returns user related events.
+     */
+    public function user_events($user_id) {
+
+        $user_events = $this->events
+            ->whereHas('users', function($query) use ($user_id) {
+                $query->where('id', $user_id)
+                    ->where('active', true);
+            })
+            ->where('active', true)
+            ->get();
+
+        return $user_events;
+    }
 }

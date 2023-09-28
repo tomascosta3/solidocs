@@ -44,6 +44,8 @@ class EventController extends Controller
      */
     public function add_event(Request $request) {
 
+        dd($request);
+
         /**
          * Validate form inputs.
          * If there is an error, returns back with the errors.
