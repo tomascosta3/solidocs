@@ -13,14 +13,6 @@
 
 <script>
 
-    // Function to open the event creation modal with selected date.
-    function openModal(date) {
-        const modal = document.getElementById('eventModal');
-        modal.classList.add('is-active');
-        document.getElementById('selectedDate').innerText = date;
-        document.getElementById('dateInput').value = date;
-    }
-
     // Function to close the event creation modal and reset form values.
     function closeModal() {
         const modal = document.getElementById('eventModal');
@@ -326,11 +318,9 @@
                             </label>
                         </div>
                         <div class="column">
-                            <select name="users[]" id="users" multiple>
-                            </select>
+                            <select name="users[]" id="users" multiple></select>
                         </div>
                     </div>
-                    
                 </div>
 
                 <div class="columns is-vcentered is-mobile">
@@ -653,20 +643,21 @@
     @parent
     <script>
 
+        // Select collaborators users
         const userChoices = new Choices('#users', {
             removeItemButton: true,
-            searchEnabled: true
         });
 
         const calendarSelect = document.querySelector('#calendar-select');
 
+        // When calendar selected change, update users list.
         calendarSelect.addEventListener('change', function(e) {
             const calendarId = e.target.value;
 
-            // Verifica si hay un valor seleccionado
+            // Verify if there is a selected value.
             if (!calendarId) return;
 
-            // Obtén la lista de usuarios basado en el calendario/grupo seleccionado
+            // Get user's list based on selected calendar.
             fetch(`/calendars/${calendarId}/users`)
             .then(response => {
                 if (!response.ok) {
@@ -704,5 +695,58 @@
                 document.getElementById('repeatDurationSection').classList.add('is-hidden');
             }
         });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const allCheckbox = document.getElementById('all');
+            const onlyMeCheckbox = document.getElementById('only_me');
+            const userSelect = document.getElementById('users');
+
+            // Listener for the "Todos" checkbox.
+            allCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    // If "Everyone" is selected, uncheck "Only me".
+                    onlyMeCheckbox.checked = false;
+                }
+                toggleUserSelect();
+            });
+
+            // Listener for the "Only me" checkbox.
+            onlyMeCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    // If "Only Me" is selected, uncheck "Everyone".
+                    allCheckbox.checked = false;
+                }
+                toggleUserSelect();
+            });
+
+            // Function to show/hide selected users.
+            function toggleUserSelect() {
+                const choicesContainer = userSelect.closest('.choices');
+                if (allCheckbox.checked || onlyMeCheckbox.checked) {
+                    choicesContainer.style.display = 'none';
+                } else {
+                    choicesContainer.style.display = 'block';
+                }
+            }
+
+            // Simulate a change on the calendar select to load users for the first calendar.
+            calendarSelect.dispatchEvent(new Event('change'));
+
+            // Initial call to set the correct state on page load.
+            toggleUserSelect();
+        });
+
+        // Function to open the event creation modal with selected date.
+        function openModal(date) {
+            const modal = document.getElementById('eventModal');
+            modal.classList.add('is-active');
+            document.getElementById('selectedDate').innerText = date;
+            document.getElementById('dateInput').value = date;
+
+            // Simulate a change on the calendar select to load users for the first calendar.
+            calendarSelect.dispatchEvent(new Event('change'));
+        }
+
     </script>
 @endsection
