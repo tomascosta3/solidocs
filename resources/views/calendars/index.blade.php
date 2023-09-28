@@ -652,6 +652,9 @@
 
         // When calendar selected change, update users list.
         calendarSelect.addEventListener('change', function(e) {
+
+            userChoices.clearStore();
+
             const calendarId = e.target.value;
 
             // Verify if there is a selected value.
