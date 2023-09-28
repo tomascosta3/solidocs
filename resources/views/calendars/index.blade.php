@@ -6,6 +6,11 @@
 
 @section('style')
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+
+{{-- Choices --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 <script>
 
     // Function to open the event creation modal with selected date.
@@ -252,10 +257,11 @@
                         <div class="field">
                             <div class="control">
                                 <div class="select">
-                                    <select name="calendar_id" required>
+                                    <select name="calendar_id" id="calendar-select" required>
                                         @foreach($calendars as $calendar)
                                             <option value="{{ $calendar->id }}"
                                                 @if ($calendar->group)
+                                                    data-users="{{ json_encode($calendar->group->users) }}"
                                                     @if (auth()->user()->groups()->where('group_id', $calendar->group->id)->first()->pivot->role == 'viewer')
                                                         disabled
                                                     @endif
@@ -302,6 +308,29 @@
                         <input type="checkbox" name="all_day" id="all_day" onchange="toggleAllDay()">
                         Todo el día
                     </label>
+                </div>
+
+                <div class="field">
+                    <label for="collaborators" class="label">Colaboradores:</label>
+                    <div class="columns">
+                        <div class="column">
+                            <label class="checkbox" for="all">
+                                <input type="checkbox" name="all" id="all">
+                                Todos
+                            </label>
+                        </div>
+                        <div class="column">
+                            <label class="checkbox" for="only_me">
+                                <input type="checkbox" name="only_me" id="only_me">
+                                Solo yo
+                            </label>
+                        </div>
+                        <div class="column">
+                            <select name="users[]" id="users" multiple>
+                            </select>
+                        </div>
+                    </div>
+                    
                 </div>
 
                 <div class="columns is-vcentered is-mobile">
@@ -623,6 +652,39 @@
 @section('scripts')
     @parent
     <script>
+
+        const userChoices = new Choices('#users', {
+            removeItemButton: true,
+            searchEnabled: true
+        });
+
+        const calendarSelect = document.querySelector('#calendar-select');
+
+        calendarSelect.addEventListener('change', function(e) {
+            const calendarId = e.target.value;
+
+            // Verifica si hay un valor seleccionado
+            if (!calendarId) return;
+
+            // Obtén la lista de usuarios basado en el calendario/grupo seleccionado
+            fetch(`/calendars/${calendarId}/users`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                userChoices.clearChoices();
+
+                console.log(calendarId);
+                console.log(data);
+
+                userChoices.setChoices(data, 'id', 'first_name', true);
+            })
+            .catch(error => console.error('Hubo un error obteniendo los usuarios:', error));
+        });
+
         // Display weekly/custom options.
         document.getElementById('repeatOption').addEventListener('change', function() {
             // Hide all options first.

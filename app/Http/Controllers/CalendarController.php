@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Calendar;
 use App\Models\CalendarUser;
 use App\Models\EventType;
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -137,4 +138,28 @@ class CalendarController extends Controller
 
         return to_route('calendars');
     }
+
+
+    /**
+     * Get users from calendar's group.
+     * If calendar doesn't have group attached, return
+     * associated user.
+     */
+    public function get_users_from_calendar($calendar_id) {
+
+        $calendar = Calendar::find($calendar_id);
+
+        if(!$calendar) {
+            return response()->json(['error' => 'Grupo no encontrado'], 404);
+        }
+
+        $group = $calendar->group;
+
+        if (!$group) {
+            return response()->json($calendar->users);
+        }
+
+        return response()->json($group->users);
+    }
+
 }

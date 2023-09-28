@@ -154,5 +154,8 @@ Route::middleware('auth')->group(function() {
             // Edit group name.
             Route::post('groups/{group_id}/edit', [GroupController::class, 'edit'])->name('users.groups.edit');
         });
+
+        // Get users from calendar in json format.
+        Route::get('/calendars/{calendar_id}/users', [CalendarController::class, 'get_users_from_calendar'])->name('calendars.users');
     });
 });
