@@ -216,4 +216,25 @@ class EventController extends Controller
 
         return response()->json($event_users);
     }
+
+
+    /**
+     * Delete event.
+     */
+    public function delete($event_id) {
+
+        $event = Event::find($event_id);
+
+        if(!$event) {
+
+            session()->flash('problem', 'No se encuentra el evento');
+            return to_route('calendars');
+        }
+
+        $event->update([
+            'active' => false,
+        ]);
+
+        return to_route('calendars');
+    }
 }

@@ -195,6 +195,8 @@
                 }
                 document.getElementById('location').value = info.event.extendedProps.location;
                 document.getElementById('eventComment').textContent = info.event.extendedProps.comment;
+                
+                document.getElementById('deleteLink').href = "/calendars/event/" + info.event.id + "/delete";
 
                 fetchSetEventUsers(info.event.id);
             },
@@ -627,9 +629,12 @@
                 </div>
             </form>
         </section>
-        <footer class="modal-card-foot">
+        <footer class="modal-card-foot is-centered">
+            <button class="button mr-2" type="button" onclick="closeEventModal()">Cancelar</button>
+            <a id="deleteLink" href="#" class="mr-2">
+                <button class="button is-danger" type="button">Eliminar</button>
+            </a>
             <button class="button is-success" type="submit" form="eventForm">Modificar</button>
-            <button class="button" type="button" onclick="closeEventModal()">Cancelar</button>
         </footer>
     </div>
 </div>

@@ -160,5 +160,8 @@ Route::middleware('auth')->group(function() {
 
         // Get users from event in json format.
         Route::get('/events/{event_id}/users', [EventController::class, 'get_users_from_event'])->name('events.users');
+
+        // Delete event.
+        Route::get('/calendars/event/{event_id}/delete', [EventController::class, 'delete'])->name('calendars.events.delete');
     });
 });
