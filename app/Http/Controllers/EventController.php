@@ -54,6 +54,7 @@ class EventController extends Controller
             'title' => ['required'],
             'start_date' => ['required', 'date', 'before_or_equal:end_date'],
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
+            'reminder' => ['required'],
             'location' => ['nullable'],
             'comment' => ['nullable'],
             'all_day' => ['nullable']
@@ -74,6 +75,12 @@ class EventController extends Controller
         $repeat_duration = $request->input('repeat_duration_value');
         $start_date = new \DateTime($request->input('start_date'));
         $end_date = new \DateTime($request->input('end_date'));
+
+        $reminder = null;
+        if($request->input('reminder') !== 'none') {
+
+            $reminder = $request->input('reminder');
+        }
 
         $visibility = 'only_me';
         if($request->has('all')) {
@@ -134,6 +141,7 @@ class EventController extends Controller
                     'visibility' => $visibility,
                     'start' => $date['start'],
                     'end' => $date['end'],
+                    'reminder' => $reminder,
                     'all_day' => $all_day,
                     'location' => mb_convert_case($request->location, MB_CASE_TITLE, "UTF-8"),
                     'comment' => $request->comment, 
@@ -157,8 +165,6 @@ class EventController extends Controller
             }
         } else {
 
-            
-
             // Create no repetition event and saves it in requested calendar.
             $event = Event::create([
                 'calendar_id' => $calendar->id,
@@ -167,6 +173,7 @@ class EventController extends Controller
                 'visibility' => $visibility,
                 'start' => $request->start_date,
                 'end' => $request->end_date,
+                'reminder' => $reminder,
                 'all_day' => $all_day,
                 'location' => mb_convert_case($request->location, MB_CASE_TITLE, "UTF-8"),
                 'comment' => $request->comment, 
