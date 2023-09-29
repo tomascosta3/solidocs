@@ -157,11 +157,12 @@
                 };
             }),
             eventClick: function(info) {
-
+                console.log(info.event);
                 // Show modal
                 document.getElementById('eventDetailModal').classList.add('is-active');
                 document.getElementById('eventTitle').textContent = info.event.title;
                 document.getElementById('eventTypeSelect').value = info.event.extendedProps.event_type_id;
+                document.getElementById('calendarEvent').textContent = info.event.extendedProps.calendar.name;
                 document.getElementById('startDate').value = toDatetimeLocalFormat(info.event.start);
                 document.getElementById('endDate').value = toDatetimeLocalFormat(info.event.end);
                 document.getElementById('location').value = info.event.extendedProps.location;
@@ -301,27 +302,6 @@
                         Todo el día
                     </label>
                 </div>
-
-                {{-- <div class="field">
-                    <label for="collaborators" class="label">Colaboradores:</label>
-                    <div class="columns">
-                        <div class="column">
-                            <label class="checkbox" for="all">
-                                <input type="checkbox" name="all" id="all">
-                                Todos
-                            </label>
-                        </div>
-                        <div class="column">
-                            <label class="checkbox" for="only_me">
-                                <input type="checkbox" name="only_me" id="only_me">
-                                Solo yo
-                            </label>
-                        </div>
-                        <div class="column">
-                            <select name="users[]" id="users" multiple></select>
-                        </div>
-                    </div>
-                </div> --}}
 
                 <div class="field">
                     <label for="collaborators" class="label">Colaboradores:</label>
@@ -538,6 +518,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="column is-6">
+                        <span id="calendarEvent"></span>
                     </div>
                 </div>
 

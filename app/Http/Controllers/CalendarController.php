@@ -42,6 +42,9 @@ class CalendarController extends Controller
             $all_events[$calendar->id] = $user_events->map(function ($event) use ($calendar) {
                 return [
                     'id' => $event->id,
+                    'calendar' => [
+                        'name' => $event->calendar->name,
+                    ],
                     'event_type_id' => $event->event_type_id,
                     'title' => $event->title,
                     'visibility' => $event->visibility,
