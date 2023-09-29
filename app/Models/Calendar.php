@@ -51,10 +51,10 @@ class Calendar extends Model
      */
     public function user_events($user_id) {
 
-        $user_events = $this->events
+        $user_events = $this->events()
             ->whereHas('users', function($query) use ($user_id) {
-                $query->where('id', $user_id)
-                    ->where('active', true);
+                $query->where('users.id', $user_id)
+                    ->where('users.active', true);
             })
             ->where('active', true)
             ->get();

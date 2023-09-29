@@ -36,11 +36,15 @@ class CalendarController extends Controller
         // Get events from all calendars with color.
         $all_events = [];
         foreach (auth()->user()->calendars as $calendar) {
-            $all_events[$calendar->id] = $calendar->events->map(function ($event) use ($calendar) {
+
+            $user_events = $calendar->user_events($user->id);
+    
+            $all_events[$calendar->id] = $user_events->map(function ($event) use ($calendar) {
                 return [
                     'id' => $event->id,
                     'event_type_id' => $event->event_type_id,
                     'title' => $event->title,
+                    'visibility' => $event->visibility,
                     'start' => $event->start,
                     'end' => $event->end,
                     'reminder' => $event->reminder,
@@ -114,8 +118,6 @@ class CalendarController extends Controller
      * Create new calendar
      */
     public function create(Request $request) : RedirectResponse {
-
-        dd($request);
 
         /**
          * Validate form inputs.
