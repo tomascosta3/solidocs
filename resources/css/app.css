@@ -139,6 +139,20 @@ hr {
   height: 100%;
 }
 
+.discreet-input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 100%;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-size: larger;
+}
+
 /* Body */
 body {
   height: 100vh;

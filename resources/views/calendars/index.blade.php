@@ -182,7 +182,7 @@
             eventClick: function(info) {
                 // Show modal
                 document.getElementById('eventDetailModal').classList.add('is-active');
-                document.getElementById('eventTitle').textContent = info.event.title;
+                document.getElementById('eventTitle').value = info.event.title;
                 document.getElementById('eventTypeSelect').value = info.event.extendedProps.event_type_id;
                 document.getElementById('calendarEvent').textContent = info.event.extendedProps.calendar.name;
                 document.getElementById('startDate').value = toDatetimeLocalFormat(info.event.start);
@@ -524,7 +524,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title has-text-centered" id="eventTitle"></p>
+            <input type="text" id="eventTitle" class="discreet-input">
             <button class="delete" aria-label="close" onclick="closeEventModal()"></button>
         </header>
         <section class="modal-card-body">
