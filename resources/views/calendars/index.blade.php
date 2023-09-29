@@ -582,6 +582,7 @@
                 </div>
 
                 <div class="field">
+                    <label for="collaborators" class="label">Colaboradores:</label>
                     <!-- Event users select -->
                     <select id="event-users-select" multiple></select>
                 </div>
@@ -691,6 +692,7 @@
         // Select collaborators users
         const userChoices = new Choices('#users', {
             removeItemButton: true,
+            noChoicesText: 'No hay usuarios disponibles',
         });
 
         const calendarSelect = document.querySelector('#calendar-select');
@@ -796,6 +798,7 @@
         // Event's users select.
         const eventUsersChoices = new Choices('#event-users-select', {
             removeItemButton: true,
+            noChoicesText: 'No hay usuarios disponibles',
         });
 
     </script>
