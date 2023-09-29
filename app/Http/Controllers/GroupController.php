@@ -261,6 +261,7 @@ class GroupController extends Controller
          */
         $validated = $request->validateWithBag('create', [
             'name' => ['required'],
+            'color' => ['required'],
         ]);
 
         $group = Group::find($group_id);
@@ -273,6 +274,7 @@ class GroupController extends Controller
         // Change group's name.
         $group->update([
             'name' => $request->input('name'),
+            'color' => $request->input('color'),
         ]);
 
         // Change calendar's name.
