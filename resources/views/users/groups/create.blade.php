@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="column is-3">
                                     <div class="control">
-                                        <input class="input" type="color" name="color" value="#FFFFFF"> <!-- color por defecto blanco -->
+                                        <input class="input" type="color" name="color" value="#FFFFFF">
                                     </div>
                                 </div>
                             </div>

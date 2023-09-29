@@ -103,20 +103,32 @@
                     <div class="box secondary-background">
                         <form action="{{ route('users.groups.edit', ['group_id' => $group->id]) }}" method="post">
                             @csrf
-                            <div class="field">
-                                <label class="label" for="name">Nombre del grupo</label>
-                                <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" name="name" id="name" placeholder="Escriba aquí el nombre del grupo..." value="{{ $group->name }}">
-                                    <span class="icon is-small is-left">
-                                        <i class="bx bxs-id-card"></i>
-                                    </span>
-                                    <span class="icon is-small is-right">
-                                        <i class='bx bx-error-circle'></i>
-                                    </span>
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label" for="name">Nombre del grupo</label>
+                                        <div class="control has-icons-left has-icons-right">
+                                            <input class="input" type="text" name="name" id="name" placeholder="Escriba aquí el nombre del grupo..." value="{{ $group->name }}">
+                                            <span class="icon is-small is-left">
+                                                <i class="bx bxs-id-card"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class='bx bx-error-circle'></i>
+                                            </span>
+                                        </div>
+                                        @if ($errors->edit->first('name'))
+                                            <small style="color: red">{{ $errors->edit->first('name') }} </small>
+                                        @endif
+                                    </div>
                                 </div>
-                                @if ($errors->edit->first('name'))
-                                    <small style="color: red">{{ $errors->edit->first('name') }} </small>
-                                @endif
+                                <div class="column">
+                                    <div class="field">
+                                        <label for="color" class="label">Color del grupo</label>
+                                        <div class="control">
+                                            <input class="input" type="color" name="color" value="{{ $group->color }}">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="box is-shadowless">
