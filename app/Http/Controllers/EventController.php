@@ -199,4 +199,21 @@ class EventController extends Controller
         return to_route('calendars')
             ->with('success', 'Evento creado correctamente.');
     }
+
+
+    /**
+     * Get users from event.
+     */
+    public function get_users_from_event($event_id) {
+
+        $event = Event::find($event_id);
+
+        if(!$event) {
+            return response()->json(['error' => 'Evento no encontrado'], 404);
+        }
+
+        $event_users = $event->users;
+
+        return response()->json($event_users);
+    }
 }

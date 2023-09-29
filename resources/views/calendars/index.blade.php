@@ -86,6 +86,29 @@
         return year + '-' + month + '-' + day + 'T' + hour + ':' + minute;
     }
 
+    // Set event users in select from view event modal.
+    function fetchSetEventUsers(event_id) {
+        fetch(`/events/${event_id}/users`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            eventUsersChoices.clearChoices();
+            const choicesArray = data.map(user => {
+                return {
+                    value: user.id,
+                    label: user.first_name,
+                    selected: true // Marcar todos los usuarios como seleccionados
+                };
+            });
+            eventUsersChoices.setChoices(choicesArray, 'value', 'label', true);
+        })
+        .catch(error => console.error('Hubo un error obteniendo los usuarios:', error));
+    }
+
     // Initializing the side calendar.
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -157,7 +180,6 @@
                 };
             }),
             eventClick: function(info) {
-                console.log(info.event);
                 // Show modal
                 document.getElementById('eventDetailModal').classList.add('is-active');
                 document.getElementById('eventTitle').textContent = info.event.title;
@@ -165,8 +187,16 @@
                 document.getElementById('calendarEvent').textContent = info.event.extendedProps.calendar.name;
                 document.getElementById('startDate').value = toDatetimeLocalFormat(info.event.start);
                 document.getElementById('endDate').value = toDatetimeLocalFormat(info.event.end);
+
+                if(info.event.extendedProps.reminder === null) {
+                    document.getElementById('reminderSelect').value = "none";
+                } else {
+                    document.getElementById('reminderSelect').value = info.event.extendedProps.reminder;
+                }
                 document.getElementById('location').value = info.event.extendedProps.location;
                 document.getElementById('eventComment').textContent = info.event.extendedProps.comment;
+
+                fetchSetEventUsers(info.event.id);
             },
         });
         calendar.render();
@@ -551,6 +581,11 @@
                     </label>
                 </div>
 
+                <div class="field">
+                    <!-- Event users select -->
+                    <select id="event-users-select" multiple></select>
+                </div>
+
                 <div class="columns is-vcentered is-mobile">
                     <div class="column is-narrow">
                         <label class="label" for="reminder">Recordatorio:</label>
@@ -559,7 +594,7 @@
                         <div class="field">
                             <div class="control">
                                 <div class="select">
-                                    <select name="reminder">
+                                    <select name="reminder" id="reminderSelect">
                                         <option value="none">Ninguno</option>
                                         <option value="5">5 minutos antes</option>
                                         <option value="10">10 minutos antes</option>
@@ -757,6 +792,11 @@
             // Simulate a change on the calendar select to load users for the first calendar.
             calendarSelect.dispatchEvent(new Event('change'));
         }
+
+        // Event's users select.
+        const eventUsersChoices = new Choices('#event-users-select', {
+            removeItemButton: true,
+        });
 
     </script>
 @endsection

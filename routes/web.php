@@ -157,5 +157,8 @@ Route::middleware('auth')->group(function() {
 
         // Get users from calendar in json format.
         Route::get('/calendars/{calendar_id}/users', [CalendarController::class, 'get_users_from_calendar'])->name('calendars.users');
+
+        // Get users from event in json format.
+        Route::get('/events/{event_id}/users', [EventController::class, 'get_users_from_event'])->name('events.users');
     });
 });
