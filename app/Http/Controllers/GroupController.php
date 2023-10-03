@@ -271,7 +271,7 @@ class GroupController extends Controller
             return to_route('users.groups');
         }
 
-        // Change group's name.
+        // Change group's name and color.
         $group->update([
             'name' => $request->input('name'),
             'color' => $request->input('color'),

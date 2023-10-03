@@ -237,4 +237,61 @@ class EventController extends Controller
 
         return to_route('calendars');
     }
+
+
+    /**
+     * Edit event.
+     */
+    public function edit(Request $request, $event_id) {
+
+        /**
+         * Validate form inputs.
+         * If there is an error, returns back with the errors.
+         */
+        $validated = $request->validateWithBag('create', [
+            'event_type_id' => ['required'],
+            'title' => ['required'],
+            'start_date' => ['required', 'date', 'before_or_equal:end_date'],
+            'end_date' => ['required', 'date', 'after_or_equal:start_date'],
+            'reminder' => ['required'],
+            'location' => ['nullable'],
+            'comment' => ['nullable'],
+            'all_day' => ['nullable']
+        ]);
+
+        $event = Event::find($event_id);
+
+        if(!$event || !$event->active) {
+
+            session()->flash('problem', 'No existe el evento');
+            return to_route('calendars');
+        }
+
+        $all_day = true;
+        if($request->all_day == null) {
+            $all_day = false;
+        }
+
+        $event->update([
+            'event_type_id' => $request->event_type_id,
+            'title' => $request->title,
+            'start' => $request->start_date,
+            'end' => $request->end_date,
+            'location' => mb_convert_case($request->location, MB_CASE_TITLE, "UTF-8"),
+            'comment' => $request->comment,
+            'all_day' => $all_day,
+        ]);
+
+        if(($request->reminder !== $event->reminder) && !($request->reminder == 'none' && $event->reminder == null)) {
+            $event->update([
+                'reminder' => $request->reminder,
+                'reminder_sent' => false,
+            ]);
+        }
+
+        $user_ids = $request->input('users');
+        $event->users()->sync($user_ids);
+
+        return to_route('calendars');
+    }
 }

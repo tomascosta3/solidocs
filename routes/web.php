@@ -163,5 +163,8 @@ Route::middleware('auth')->group(function() {
 
         // Delete event.
         Route::get('/calendars/event/{event_id}/delete', [EventController::class, 'delete'])->name('calendars.events.delete');
+
+        // Edit event.
+        Route::post('/calendars/event/{event_id}/edit', [EventController::class, 'edit'])->name('calendars.event.edit');
     });
 });

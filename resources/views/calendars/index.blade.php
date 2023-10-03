@@ -197,6 +197,7 @@
                 document.getElementById('eventComment').textContent = info.event.extendedProps.comment;
                 
                 document.getElementById('deleteLink').href = "/calendars/event/" + info.event.id + "/delete";
+                document.getElementById('eventViewForm').action = "/calendars/event/" + info.event.id + "/edit";
 
                 fetchSetEventUsers(info.event.id);
             },
@@ -523,15 +524,15 @@
 @if ($calendar)  
 {{-- View event modal --}}
 <div class="modal" id="eventDetailModal">
+    <form id="eventViewForm" action="#" method="post">
+        @csrf
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <input type="text" id="eventTitle" class="discreet-input">
+            <input type="text" id="eventTitle" name="title" class="discreet-input">
             <button class="delete" aria-label="close" onclick="closeEventModal()"></button>
         </header>
         <section class="modal-card-body">
-            <form id="eventViewForm" action="#" method="post">
-                @csrf
                 <input type="hidden" name="date" id="dateInput">
 
                 <div class="columns is-vcentered is-mobile">
@@ -586,7 +587,7 @@
                 <div class="field">
                     <label for="collaborators" class="label">Colaboradores:</label>
                     <!-- Event users select -->
-                    <select id="event-users-select" multiple></select>
+                    <select id="event-users-select" name="users[]" multiple></select>
                 </div>
 
                 <div class="columns is-vcentered is-mobile">
@@ -627,16 +628,16 @@
                         <textarea class="textarea" name="comment" id="eventComment"></textarea>
                     </div>
                 </div>
-            </form>
-        </section>
-        <footer class="modal-card-foot is-centered">
-            <button class="button mr-2" type="button" onclick="closeEventModal()">Cancelar</button>
-            <a id="deleteLink" href="#" class="mr-2">
-                <button class="button is-danger" type="button">Eliminar</button>
-            </a>
-            <button class="button is-success" type="submit" form="eventForm">Modificar</button>
-        </footer>
-    </div>
+            </section>
+            <footer class="modal-card-foot is-centered">
+                <button class="button mr-2" type="button" onclick="closeEventModal()">Cancelar</button>
+                <a id="deleteLink" href="#" class="mr-2">
+                    <button class="button is-danger" type="button">Eliminar</button>
+                </a>
+                <button class="button is-success" type="submit" form="eventViewForm">Modificar</button>
+            </footer>
+        </div>
+    </form>
 </div>
 @endif
 
