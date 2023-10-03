@@ -43,6 +43,7 @@ class CalendarController extends Controller
                 return [
                     'id' => $event->id,
                     'calendar' => [
+                        'id' => $event->calendar->id,
                         'name' => $event->calendar->name,
                     ],
                     'event_type_id' => $event->event_type_id,

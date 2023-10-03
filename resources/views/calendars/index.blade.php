@@ -86,28 +86,73 @@
         return year + '-' + month + '-' + day + 'T' + hour + ':' + minute;
     }
 
+    // // Set event users in select from view event modal.
+    // function fetchSetEventUsers(event_id) {
+    //     fetch(`/events/${event_id}/users`)
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         eventUsersChoices.clearChoices();
+    //         const choicesArray = data.map(user => {
+    //             return {
+    //                 value: user.id,
+    //                 label: user.first_name,
+    //                 selected: true // Marcar todos los usuarios como seleccionados
+    //             };
+    //         });
+    //         eventUsersChoices.setChoices(choicesArray, 'value', 'label', true);
+    //     })
+    //     .catch(error => console.error('Hubo un error obteniendo los usuarios:', error));
+    // }
+
     // Set event users in select from view event modal.
-    function fetchSetEventUsers(event_id) {
-        fetch(`/events/${event_id}/users`)
+    function fetchSetEventUsers(event_id, calendar_id) {
+
+        fetch(`/calendars/${calendar_id}/users`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
+        .then(allCalendarUsers => {
+
+            return fetch(`/events/${event_id}/users`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(eventUsers => {
+                    return {
+                        allCalendarUsers: allCalendarUsers,
+                        eventUsers: eventUsers
+                    };
+                });
+
+        })
         .then(data => {
             eventUsersChoices.clearChoices();
-            const choicesArray = data.map(user => {
+
+            const choicesArray = data.allCalendarUsers.map(user => {
                 return {
                     value: user.id,
                     label: user.first_name,
-                    selected: true // Marcar todos los usuarios como seleccionados
+                    selected: data.eventUsers.some(eventUser => eventUser.id === user.id)
                 };
             });
+
             eventUsersChoices.setChoices(choicesArray, 'value', 'label', true);
+
         })
         .catch(error => console.error('Hubo un error obteniendo los usuarios:', error));
     }
+
 
     // Initializing the side calendar.
     document.addEventListener('DOMContentLoaded', function() {
@@ -199,7 +244,7 @@
                 document.getElementById('deleteLink').href = "/calendars/event/" + info.event.id + "/delete";
                 document.getElementById('eventViewForm').action = "/calendars/event/" + info.event.id + "/edit";
 
-                fetchSetEventUsers(info.event.id);
+                fetchSetEventUsers(info.event.id, info.event.extendedProps.calendar.id);
             },
         });
         calendar.render();
