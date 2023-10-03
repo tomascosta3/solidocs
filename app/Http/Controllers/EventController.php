@@ -282,7 +282,7 @@ class EventController extends Controller
             'all_day' => $all_day,
         ]);
 
-        if(($request->reminder !== $event->reminder) && !($request->reminder == 'none' && $event->reminder == null)) {
+        if((intval($request->reminder) !== $event->reminder) && !($request->reminder == 'none' && $event->reminder == null)) {
             $event->update([
                 'reminder' => $request->reminder,
                 'reminder_sent' => false,
