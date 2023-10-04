@@ -114,12 +114,7 @@ class DocumentController extends Controller
             return to_route('documents');
         }
 
-        // Get all active documents.
-        $documents = Document::where('active', true)
-            ->get();
-
         return view('documents.view')
-            ->with(['documents' => $documents])
             ->with(['document' => $document]);
     }
 

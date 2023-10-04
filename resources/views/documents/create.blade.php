@@ -5,7 +5,7 @@
 @endsection
 
 @section('main-content')
-<div class="hero is-fullheight">
+<div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
             
