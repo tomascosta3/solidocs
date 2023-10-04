@@ -77,20 +77,19 @@
                 <div class="box p-2 mb-4 invisible-box {{ Str::startsWith(request()->route()->getName(), 'requests') ? 'active' : '' }}">
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-paper-plane"></i>
-                        <span class="pl-3">Licencias</span>
+                        <span class="px-3">Licencias</span>
+                        @if (isset($pending_requests) && $pending_requests > 0)
+                        <span class="tag is-danger pending-counter-span mx-1">{{ $pending_requests }}</span>
+                        @endif
+                        @if (isset($approved_requests) && $approved_requests >= 0)
+                        <span class="tag is-danger approved-counter-span mx-1">{{ $approved_requests }}</span>
+                        @endif
+                        @if (isset($rejected_requests) && $rejected_requests >= 0)
+                        <span class="tag is-danger rejected-counter-span mx-1">{{ $rejected_requests }}</span>
+                        @endif
                     </div>
                 </div>
             </a>
-
-            <div class="box p-2 mb-4 invisible-box">
-                <div class="pl-5 has-text-centered is-flex is-align-items-center">
-                    <i class="bx bxs-inbox nav-icon"></i>
-                    <span class="px-3">Solicitudes</span>
-                    @if (isset($pending_requests) && $pending_requests > 0)
-                    <span class="tag is-danger counter-span">{{ $pending_requests }}</span>
-                    @endif
-                </div>
-            </div>
 
             <hr class="centered">
 

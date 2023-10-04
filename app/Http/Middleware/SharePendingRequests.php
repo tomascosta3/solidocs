@@ -40,8 +40,23 @@ class SharePendingRequests
                     ->where('active', true)
                     ->count();
 
+                // Get the number of approved requests.
+                $approved_requests = DayRequest::where('status', 'Approved')
+                    ->where('active', true)
+                    ->count();
+
+                // Get the number of rejected requests.
+                $rejected_requests = DayRequest::where('status', 'Rejected')
+                    ->where('active', true)
+                    ->count();
+
                 // Share it with all views.
-                view()->share('pending_requests', $pending_requests);
+                view()->share([
+                    'pending_requests' => $pending_requests,
+                    'approved_requests' => $approved_requests,
+                    'rejected_requests' => $rejected_requests
+                ]);
+                
             }
 
         }

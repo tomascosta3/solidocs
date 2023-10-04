@@ -420,13 +420,26 @@ body.dark-mode .select-scs {
 }
 
 /* Counter span */
-body.dark-mode .counter-span {
-  background-color: var(--dark-mode-primary-color);
+body.dark-mode .pending-counter-span {
+  background-color: #ffff00;
+  color: var(--dark-mode-sidebar-color);
 }
 
+body.dark-mode .approved-counter-span {
+  background-color: #00ff00;
+  color: var(--dark-mode-sidebar-color);
+}
+
+body.dark-mode .rejected-counter-span {
+  background-color: #cc0000;
+  color: var(--dark-mode-text-color);
+}
+
+/* 
 body.dark-mode .invisible-box:hover .counter-span {
   background-color: var(--dark-mode-sidebar-color);
 }
+*/
 
 /* Calendar */
 .main-content-calendar {
