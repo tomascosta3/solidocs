@@ -1,5 +1,9 @@
 @extends('components.layouts.nav')
 
+@section('title')
+    Usuario
+@endsection
+
 @section('main-content')
 {{-- Organizations list modal --}}
 <div class="modal" id="organizations-modal">
@@ -81,36 +85,42 @@
                     <div class="box has-background-light">
                         <form action="#" method="post">
                             @csrf
-                            <div class="field">
-                                <label class="label" for="first_name">Nombre/s</label>
-                                <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" name="first_name" id="first_name" placeholder="Escriba aquí el nombre del usuario..." value="{{ $user->first_name }}">
-                                    <span class="icon is-small is-left">
-                                        <i class="bx bxs-id-card"></i>
-                                    </span>
-                                    <span class="icon is-small is-right">
-                                        <i class='bx bx-error-circle'></i>
-                                    </span>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label" for="first_name">Nombre/s</label>
+                                        <div class="control has-icons-left has-icons-right">
+                                            <input class="input" type="text" name="first_name" id="first_name" placeholder="Escriba aquí el nombre del usuario..." value="{{ $user->first_name }}">
+                                            <span class="icon is-small is-left">
+                                                <i class="bx bxs-id-card"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class='bx bx-error-circle'></i>
+                                            </span>
+                                        </div>
+                                        @if ($errors->edit->first('first_name'))
+                                            <small style="color: red">{{ $errors->edit->first('first_name') }} </small>
+                                        @endif
+                                    </div>
                                 </div>
-                                @if ($errors->edit->first('first_name'))
-                                    <small style="color: red">{{ $errors->edit->first('first_name') }} </small>
-                                @endif
-                            </div>
-    
-                            <div class="field">
-                                <label class="label" for="last_name">Apellido/s</label>
-                                <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" name="last_name" id="last_name" placeholder="Escriba aquí el apellido del usuario..." value="{{ $user->last_name }}">
-                                    <span class="icon is-small is-left">
-                                        <i class="bx bxs-id-card"></i>
-                                    </span>
-                                    <span class="icon is-small is-right">
-                                        <i class='bx bx-error-circle'></i>
-                                    </span>
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label" for="last_name">Apellido/s</label>
+                                        <div class="control has-icons-left has-icons-right">
+                                            <input class="input" type="text" name="last_name" id="last_name" placeholder="Escriba aquí el apellido del usuario..." value="{{ $user->last_name }}">
+                                            <span class="icon is-small is-left">
+                                                <i class="bx bxs-id-card"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class='bx bx-error-circle'></i>
+                                            </span>
+                                        </div>
+                                        @if ($errors->edit->first('last_name'))
+                                            <small style="color: red">{{ $errors->edit->first('last_name') }} </small>
+                                        @endif
+                                    </div>
                                 </div>
-                                @if ($errors->edit->first('last_name'))
-                                    <small style="color: red">{{ $errors->edit->first('last_name') }} </small>
-                                @endif
                             </div>
     
                             <div class="field">
