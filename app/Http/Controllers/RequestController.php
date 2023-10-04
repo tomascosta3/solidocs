@@ -28,12 +28,20 @@ class RequestController extends Controller
             ->where('user_id', auth()->user()->id)
             ->get();
 
-        $day_requests = DayRequest::where('active', true)
-            ->where('requested_by', auth()->user()->id)
-            ->get();
-
         $days = Day::where('active', true)
             ->get();
+
+        if(auth()->user()->access_level_in_organization(session('organization_id')) >= 8) {
+
+            $day_requests = DayRequest::where('active', true)
+                ->get();
+        } else {
+
+            $day_requests = DayRequest::where('active', true)
+                ->where('requested_by', auth()->user()->id)
+                ->get();
+        }
+
 
         return view('requests.requests')
             ->with(['day_user' => $day_user])

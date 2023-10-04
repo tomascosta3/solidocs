@@ -29,6 +29,86 @@
             </div>
             @endif
 
+            @if (auth()->user()->access_level_in_organization(session('organization_id')) >= 8)
+            {{-- Requests list --}}
+            <div class="column">
+                <div class="box secondary-background is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+                    <p class="has-text-centered is-size-3 pb-5">
+                        Solicitudes
+                    </p>
+
+                    <div class="box is-shadowless p-2 mb-4 full-width categories">
+                        <div class="columns">
+                            <div class="column">
+                                <p>Usuario</p>
+                            </div>
+                            <div class="column">
+                                <p>Tipo</p>
+                            </div>
+                            <div class="column">
+                                <p>Días</p>
+                            </div>
+                            <div class="column">
+                                <p>Desde</p>
+                            </div>
+                            <div class="column">
+                                <p>Hasta</p>
+                            </div>
+                            <div class="column">
+                                <p>Estado</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="requests-history full-width">
+                        @if ($day_requests->isEmpty())
+                        <div class="box is-shadowless p-2 full-width mb-2">
+                            <div class="columns">
+                                <div class="column">
+                                    <p class="has-text-centered">Aún no creaste solicitudes</p>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        @foreach ($day_requests as $day_request)
+                        <a href="{{ route('requests.view', ['id' => $day_request->id]) }}">
+                            <div class="box is-shadowless p-2 full-width mb-2">
+                                <div class="columns">
+                                    <div class="column">
+                                        <p>{{ $day_request->requester->first_name}} {{ $day_request->requester->last_name}}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p>{{ $day_request->day->type }}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p>{{ $day_request->requested_days }}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p>{{ $day_request->formatted_start_date() }}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p>{{ $day_request->formatted_end_date() }}</p>
+                                    </div>
+                                    <div class="column">
+                                        <p>
+                                            @switch($day_request->status)
+                                                @case('Pending') Pendiente @break
+                                                @case('Approved') Aprobado @break
+                                                @case('Rejected') Rechazado @break
+                                                @default Sin estado
+                                            @endswitch
+                                        </p>
+                                    </div>
+                                </div>
+                            </div> 
+                        </a>
+                        @endforeach
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            @else
             <div class="columns is-vcentered is-centered">
                 {{-- Show days available and request --}}
                 <div class="column is-6">
@@ -114,7 +194,7 @@
                         </div>
                     </form>
                 </div>
-
+                    
                 {{-- Column for request's history --}}
                 <div class="column">
                     <div class="box secondary-background is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
@@ -184,11 +264,12 @@
                             </a>
                             @endforeach
                             @endif
-
                         </div>
-
                     </div>
                 </div>
+            @endif
+
+
             </div>
         </div>
     </div>
