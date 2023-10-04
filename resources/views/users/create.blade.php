@@ -31,7 +31,7 @@
 
             <div class="columns is-centered is-vcentered">
                 <div class="column is-5">
-                    <div class="box">
+                    <div class="box user-create-scrollable">
                         <form action="{{ route('users.save') }}" method="post">
                             @csrf
 

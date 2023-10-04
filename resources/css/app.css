@@ -557,3 +557,9 @@ body.dark-mode .calendar-box {
   color: var(--dark-mode-text-color) !important;
   font-size: 95% !important;
 }
+
+/* User creation */
+.user-create-scrollable {
+  overflow-y: auto;
+  max-height: 80vh;
+}
