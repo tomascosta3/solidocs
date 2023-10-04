@@ -5,7 +5,7 @@
 @endsection
 
 @section('main-content')
-<div class="hero is-fullheight">
+<div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
             
@@ -34,36 +34,42 @@
                     <div class="box">
                         <form action="{{ route('users.save') }}" method="post">
                             @csrf
-                            <div class="field">
-                                <label class="label" for="first_name">Nombre</label>
-                                <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" name="first_name" id="first_name" placeholder="Escriba aquí el nombre del usuario...">
-                                    <span class="icon is-small is-left">
-                                        <i class="bx bxs-id-card"></i>
-                                    </span>
-                                    <span class="icon is-small is-right">
-                                        <i class='bx bx-error-circle'></i>
-                                    </span>
-                                </div>
-                                @if ($errors->create->first('first_name'))
-                                    <small style="color: red">{{ $errors->create->first('first_name') }} </small>
-                                @endif
-                            </div>
 
-                            <div class="field">
-                                <label class="label" for="last_name">Apellido</label>
-                                <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" name="last_name" id="last_name" placeholder="Escriba aquí el apellido del usuario...">
-                                    <span class="icon is-small is-left">
-                                        <i class="bx bxs-id-card"></i>
-                                    </span>
-                                    <span class="icon is-small is-right">
-                                        <i class='bx bx-error-circle'></i>
-                                    </span>
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label" for="first_name">Nombre</label>
+                                        <div class="control has-icons-left has-icons-right">
+                                            <input class="input" type="text" name="first_name" id="first_name" placeholder="Escriba aquí el nombre del usuario...">
+                                            <span class="icon is-small is-left">
+                                                <i class="bx bxs-id-card"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class='bx bx-error-circle'></i>
+                                            </span>
+                                        </div>
+                                        @if ($errors->create->first('first_name'))
+                                            <small style="color: red">{{ $errors->create->first('first_name') }} </small>
+                                        @endif
+                                    </div>
                                 </div>
-                                @if ($errors->create->first('last_name'))
-                                    <small style="color: red">{{ $errors->create->first('last_name') }} </small>
-                                @endif
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label" for="last_name">Apellido</label>
+                                        <div class="control has-icons-left has-icons-right">
+                                            <input class="input" type="text" name="last_name" id="last_name" placeholder="Escriba aquí el apellido del usuario...">
+                                            <span class="icon is-small is-left">
+                                                <i class="bx bxs-id-card"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class='bx bx-error-circle'></i>
+                                            </span>
+                                        </div>
+                                        @if ($errors->create->first('last_name'))
+                                            <small style="color: red">{{ $errors->create->first('last_name') }} </small>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="field">
