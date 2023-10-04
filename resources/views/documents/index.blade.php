@@ -5,22 +5,24 @@
 @endsection
 
 @section('main-content')
-<div class="hero is-fullheight">
+<div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
 
             <div class="columns is-vcentered is-centered">
-
-                <div class="column is-6 full-height">
-                    <div class="box has-background-light">
+                
+                <div class="column is-8">
+                    <div class="box secondary-background">
                         <div class="columns is-vcentered is-centered">
                             <div class="column p-0">
-                                <p class="has-text-centered is-size-4">
-                                    Documentos
+                                <p class="has-text-centered is-size-3">
+                                    <strong>
+                                        Documentos
+                                    </strong>
                                 </p>
                             </div>
                         </div>
-            
+
                         {{-- Search form --}}
                         <div class="box is-shadowless p-3 mb-3">
                             <form action="{{ route('documents') }}" method="get">
@@ -54,7 +56,7 @@
                                 </div>
                             </form>
                         </div>
-            
+
                         <div class="box p-2 mb-2 has-background-grey-lighter is-shadowless">
                             <div class="columns is-vcentered">
                                 <div class="column is-6">
@@ -107,33 +109,8 @@
                             </div>
                         </a>
                         @endforeach
+
                     </div>
-                </div>
-
-
-                {{-- Error or success message with document view --}}
-                <div class="column is-8 full-height">    
-                    @if (session('success') != null)
-                        <div class="columns is-centered is-vcentered">
-                            <div class="column is-10">
-                                <div class="notification is-success">
-                                    <p class="has-text-centered">{{ session('success') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    @if (session('problem') != null)
-                        <div class="columns is-centered is-vcentered">
-                            <div class="column is-11">
-                                <div class="notification is-danger">
-                                    <p class="has-text-centered">{{ session('problem') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    @yield('document')
                 </div>
 
             </div>
