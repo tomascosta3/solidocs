@@ -282,7 +282,7 @@ class GroupController extends Controller
         $calendar->update([
             'name' => $request->input('name'),
         ]);
-        session()->flash('success', 'Nombre del grupo cambiado');
+        session()->flash('success', 'Grupo actualizado!');
 
         return to_route('users.groups.view', ['id' => $group_id]);
     }
