@@ -124,4 +124,22 @@ class User extends Authenticatable
     {   
         return $this->belongsToMany(Group::class)->where('groups.active', true)->withPivot('role')->withTimestamps();
     }
+
+
+    /**
+     * Get all user's conversations.
+     */
+    public function conversations() {
+
+        return $this->belongsToMany(Conversation::class, 'conversation_user');
+    }
+
+
+    /**
+     * Get all user's messages.
+     */
+    public function messages() {
+
+        return $this->hasMany(Message::class);
+    }
 }
