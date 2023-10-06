@@ -420,9 +420,19 @@ body.dark-mode .select-scs {
 }
 
 /* Counter span */
+.pending-counter-span {
+  background-color: #ffff00 !important;
+  color: var(--dark-mode-sidebar-color) !important;
+}
+
 body.dark-mode .pending-counter-span {
   background-color: #ffff00;
   color: var(--dark-mode-sidebar-color);
+}
+
+.approved-counter-span {
+  background-color: #00ff00 !important;
+  color: var(--dark-mode-sidebar-color) !important;
 }
 
 body.dark-mode .approved-counter-span {
@@ -430,16 +440,15 @@ body.dark-mode .approved-counter-span {
   color: var(--dark-mode-sidebar-color);
 }
 
+.rejected-counter-span {
+  background-color: #cc0000 !important;
+  color: var(--dark-mode-text-color) !important;
+}
+
 body.dark-mode .rejected-counter-span {
   background-color: #cc0000;
   color: var(--dark-mode-text-color);
 }
-
-/* 
-body.dark-mode .invisible-box:hover .counter-span {
-  background-color: var(--dark-mode-sidebar-color);
-}
-*/
 
 /* Calendar */
 .main-content-calendar {

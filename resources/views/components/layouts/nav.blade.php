@@ -79,13 +79,13 @@
                         <i class="bx bx-paper-plane"></i>
                         <span class="px-3">Licencias</span>
                         @if (isset($pending_requests) && $pending_requests > 0)
-                        <span class="tag is-danger pending-counter-span mx-1">{{ $pending_requests }}</span>
+                        <span class="tag pending-counter-span mx-1">{{ $pending_requests }}</span>
                         @endif
                         @if (isset($approved_requests) && $approved_requests >= 0)
-                        <span class="tag is-danger approved-counter-span mx-1">{{ $approved_requests }}</span>
+                        <span class="tag approved-counter-span mx-1">{{ $approved_requests }}</span>
                         @endif
                         @if (isset($rejected_requests) && $rejected_requests >= 0)
-                        <span class="tag is-danger rejected-counter-span mx-1">{{ $rejected_requests }}</span>
+                        <span class="tag rejected-counter-span mx-1">{{ $rejected_requests }}</span>
                         @endif
                     </div>
                 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\DayRequestApproved;
 use App\Mail\DayRequestCreated;
 use App\Mail\DayRequestRejected;
+use App\Models\Conversation;
 use App\Models\Day;
 use App\Models\DayRequest;
 use App\Models\DayUser;
