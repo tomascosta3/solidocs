@@ -1,5 +1,9 @@
 @extends('components.layouts.nav')
 
+@section('title')
+    Documento
+@endsection
+
 @section('main-content')
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
