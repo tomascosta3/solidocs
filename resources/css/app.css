@@ -585,3 +585,8 @@ body.dark-mode .calendar-box {
   overflow-y: auto;
   max-height: 80vh;
 }
+
+.allow-scroll-document {
+  overflow-y: auto;
+  max-height: 75vh;
+}

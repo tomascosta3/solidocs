@@ -9,12 +9,12 @@
                 <div class="column is-8">
                     {{-- Show document --}}
                     @if (isset($document->path) && in_array(pathinfo($document->path, PATHINFO_EXTENSION), ['jpg', 'png']))
-                    <div class="has-text-centered is-flex is-align-items-center is-justify-content-center">
-                        <img class="mb-6" src="{{ URL::asset($document->path) }}" alt="Document image" style="max-height: 75vh">
+                    <div class="has-text-centered is-flex is-align-items-center is-justify-content-center allow-scroll-document">
+                        <img src="{{ URL::asset($document->path) }}" alt="Document image" style="max-height: 75vh">
                     </div>
                     @else 
                         @if (isset($document->path) && in_array(pathinfo($document->path, PATHINFO_EXTENSION), ['pdf']))
-                            <iframe class="mb-6" src="{{ URL::asset($document->path) }}" frameborder="0" style="height: 75vh; width: 46vw"></iframe>
+                            <iframe src="{{ URL::asset($document->path) }}" frameborder="0" class="allow-scroll-document" style="height: 75vh; width: 46vw"></iframe>
                         @endif
 
                         @if (isset($document->path) && in_array(pathinfo($document->path, PATHINFO_EXTENSION), ['docx']))
