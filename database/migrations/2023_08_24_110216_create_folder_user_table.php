@@ -11,23 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('folder_user', function (Blueprint $table) {
 
             $table->id();
 
             $table->unsignedBigInteger('folder_id');
             $table->foreign('folder_id')->references('id')->on('folders')->onDelete('cascade');
 
-            $table->string('name');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->text('comment')->nullable();
+            $table->boolean('can_red')->default(false);
 
-            $table->string('path')->unique();
-
-            $table->unsignedBigInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-
-            $table->unsignedBigInteger('required_access_level');
+            $table->boolean('can_write')->default(false);
 
             $table->boolean('active')->default(true);
 
@@ -40,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('folder_user');
     }
 };

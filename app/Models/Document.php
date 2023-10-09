@@ -13,6 +13,7 @@ class Document extends Model
     protected $table = 'documents';
 
     protected $fillable = [
+        'folder_id',
         'name',
         'comment',
         'path',
@@ -39,5 +40,14 @@ class Document extends Model
         $formatted_date = $date->format('d/m/Y H:i:s');
 
         return $formatted_date;
+    }
+
+
+    /**
+     * Get this document's folder.
+     */
+    public function folder() {
+
+        return $this->belongsTo(Folder::class);
     }
 }

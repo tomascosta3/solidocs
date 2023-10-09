@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('conversations', function (Blueprint $table) {
+        Schema::create('folders', function (Blueprint $table) {
 
             $table->id();
 
-            $table->unsignedBigInteger('request_id')->nullable();
-            $table->foreign('request_id')->references('id')->on('day_requests')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('folders')->onDelete('cascade');
+
+            $table->string('name');
 
             $table->boolean('active')->default(true);
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('conversations');
+        Schema::dropIfExists('folders');
     }
 };

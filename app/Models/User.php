@@ -142,4 +142,22 @@ class User extends Authenticatable
 
         return $this->hasMany(Message::class);
     }
+
+
+    /**
+     * Get user's folder with permissions.
+     */
+    public function folders() {
+
+        return $this->belongsToMany(Folder::class)->withPivot('can_read', 'can_write');
+    }
+
+
+    /**
+     * Get user's documents with permissions.
+     */
+    public function documents() {
+
+        return $this->belongsToMany(Document::class)->withPivot('can_read', 'can_write');
+    }
 }
