@@ -78,7 +78,7 @@
                     <div class="pl-5 has-text-centered is-flex is-align-items-center">
                         <i class="bx bx-paper-plane"></i>
                         <span class="px-3">Licencias</span>
-                        @if (isset($pending_requests) && $pending_requests > 0)
+                        @if (isset($pending_requests) && $pending_requests >= 0)
                         <span class="tag pending-counter-span mx-1">{{ $pending_requests }}</span>
                         @endif
                         @if (isset($approved_requests) && $approved_requests >= 0)
