@@ -4,7 +4,62 @@
     Documentos
 @endsection
 
+@section('style')
+<style>
+    .file-explorer .menu-list a {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .file-explorer .menu-list a:before {
+        content: '📁';
+        display: inline-block;
+    }
+    
+    .file-explorer .box > div > p:before {
+        content: '📄';
+        display: inline-block;
+        margin-right: 5px;
+    }
+</style>
+@endsection
+
 @section('main-content')
+<div class="hero">
+    <div class="hero-body is-flex justify-content-center">
+        <div class="container">
+            <div class="file-explorer">
+                <div class="columns">
+                    <div class="column is-3">
+                        <!-- Panel lateral para carpetas -->
+                        <aside class="menu">
+                            <p class="menu-label">Explorador de Archivos</p>
+                            <ul class="menu-list">
+                                <!-- Aquí irían las carpetas y subcarpetas -->
+                                <li><a>Carpeta 1</a></li>
+                                <li class="pl-2"><a>Subcarpeta 1.1</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    <div class="column is-9">
+                        <!-- Área principal para mostrar el contenido de la carpeta actual -->
+                        <div class="box">
+                            <h1 class="title">Carpeta 1</h1>
+                            <div>
+                                <!-- Aquí irían los archivos de la carpeta actual -->
+                                <p>Archivo 1.1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('main-content-old')
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">

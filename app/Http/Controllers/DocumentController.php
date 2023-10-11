@@ -66,7 +66,7 @@ class DocumentController extends Controller
         // Move file to server and hash its name.
         $file = $request->file('file');
         $hashed_name = $file->hashName();
-        $folder_name = 'storage/documents';
+        $folder_name = config('folders.folders.documents');
         $file->move(public_path($folder_name), $hashed_name);       
         
         // Create document.

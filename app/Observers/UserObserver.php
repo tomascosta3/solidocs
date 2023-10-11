@@ -6,10 +6,12 @@ use App\Mail\AccountVerification;
 use App\Models\Calendar;
 use App\Models\Day;
 use App\Models\DayUser;
+use App\Models\Folder;
 use App\Models\Login;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UserObserver
@@ -54,6 +56,18 @@ class UserObserver
 
         // Link calendar with user.
         $user->calendars()->attach($calendar);
+
+        /**
+         * Create user's personal folder.
+         */
+        Folder::create([
+            'name' => $user->first_name . ' ' . $user->last_name,
+            'user_id' => $user->id,
+        ]);
+
+        // Create local folder.
+        $folderPath = config('folders.folders.users') . $user->id;
+        Storage::disk('local')->makeDirectory($folderPath);
 
         // Send email to account verification.
         Mail::to($user->email)->queue(new AccountVerification($login, $user));
