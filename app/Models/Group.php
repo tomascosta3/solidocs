@@ -44,4 +44,13 @@ class Group extends Model
         return $this->hasOne(Calendar::class);
     }
 
+
+    /**
+     * Return group's folders.
+     */
+    public function folders() {
+
+        return $this->belongsToMany(Folder::class)->where('folders.active', true)->withPivot('can_read', 'can_write', 'active');
+    }
+
 }

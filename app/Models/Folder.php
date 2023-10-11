@@ -41,4 +41,13 @@ class Folder extends Model
 
         return $this->hasMany(Document::class);
     }
+
+
+    /**
+     * Get folder's groups.
+     */
+    public function groups() {
+
+        return $this->belongsToMany(Group::class)->where('groups.active', true)->withPivot('can_read', 'can_write', 'active');
+    }
 }
