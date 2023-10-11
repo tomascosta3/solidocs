@@ -149,7 +149,7 @@ class User extends Authenticatable
      */
     public function folders() {
 
-        return $this->belongsToMany(Folder::class)->withPivot('can_read', 'can_write');
+        return $this->belongsToMany(Folder::class);
     }
 
 

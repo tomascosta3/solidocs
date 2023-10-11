@@ -17,6 +17,14 @@ class Folder extends Model
 
 
     /**
+     * Get subfolders.
+     */
+    public function subfolders() {
+        
+        return $this->hasMany(Folder::class, 'parent_id');
+    }
+
+    /**
      * Get parent folder.
      */
     public function parent() {

@@ -33,8 +33,19 @@ class DocumentController extends Controller
                 ->get();
         }
         
+        // Get folders.
+        $user_folders = auth()->user()->folders;
+
+        $group_folders = collect();
+        foreach (auth()->user()->groups as $group) {
+            $group_folders = $group_folders->concat($group->folders);
+        }
+
+        $folders = $user_folders->concat($group_folders)->unique('id');
+
         return view('documents.index')
-            ->with(['documents' => $documents]);
+            ->with(['documents' => $documents])
+            ->with(['folders' => $folders]);
     }
 
 

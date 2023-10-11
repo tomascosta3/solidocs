@@ -22,7 +22,29 @@
         display: inline-block;
         margin-right: 5px;
     }
+
+    .folder-content {
+        display: none;
+    }   
+
+    .expand-indicator {
+        cursor: pointer;
+        margin-right: 5px;
+        transition: transform 0.3s ease;
+    }
+
+    .expand-indicator:active {
+        transform: scale(1.2);
+    }
+
+    .expand-indicator, .expandable-folder {
+        display: inline-block !important;
+        vertical-align: middle;
+    }
 </style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 @endsection
 
 @section('main-content')
@@ -36,10 +58,12 @@
                         <aside class="menu">
                             <p class="menu-label">Explorador de Archivos</p>
                             <ul class="menu-list">
-                                <!-- Aquí irían las carpetas y subcarpetas -->
-                                <li><a>Carpeta 1</a></li>
-                                <li class="pl-2"><a>Subcarpeta 1.1</a></li>
-                            </ul>
+                                @foreach($folders as $folder)
+                                    @if (!$folder->parent)
+                                        @include('documents.folders', ['folder' => $folder, 'level' => 0])
+                                    @endif
+                                @endforeach
+                            </ul>                            
                         </aside>
                     </div>
                     <div class="column is-9">
@@ -57,6 +81,32 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    @parent
+    <script>
+
+        $(document).ready(function() {
+            $('.expandable-folder').click(function(e) {
+                e.preventDefault();
+
+                var target = $(this).data('target');
+                var indicator = $(this).siblings('.expand-indicator');
+
+                if ($('#' + target).is(':visible')) {
+                    
+                    indicator.text('→');
+                } else {
+                    
+                    indicator.text('↓');
+                }
+
+                $('#' + target).toggle();
+            });
+        });
+
+    </script>
 @endsection
 
 @section('main-content-old')

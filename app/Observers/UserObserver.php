@@ -60,14 +60,25 @@ class UserObserver
         /**
          * Create user's personal folder.
          */
-        Folder::create([
+        $folder = Folder::create([
             'name' => $user->first_name . ' ' . $user->last_name,
-            'user_id' => $user->id,
         ]);
+
+        $user->folders()->attach($folder);
+
+        $sub_folder = Folder::create([
+            'name' => 'Certificados',
+            'parent_id' => $folder->id,
+        ]);
+
+        $user->folders()->attach($sub_folder);
 
         // Create local folder.
         $folderPath = config('folders.folders.users') . $user->id;
         Storage::disk('local')->makeDirectory($folderPath);
+
+        $subfolderPath = $folderPath . '/Certificados';
+        Storage::disk('local')->makeDirectory($subfolderPath);
 
         // Send email to account verification.
         Mail::to($user->email)->queue(new AccountVerification($login, $user));
