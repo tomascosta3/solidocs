@@ -11,17 +11,6 @@
         align-items: center;
         gap: 5px;
     }
-    
-    .file-explorer .menu-list a:before {
-        content: '📁';
-        display: inline-block;
-    }
-    
-    .file-explorer .box > div > p:before {
-        content: '📄';
-        display: inline-block;
-        margin-right: 5px;
-    }
 
     .folder-content {
         display: none;
@@ -29,17 +18,42 @@
 
     .expand-indicator {
         cursor: pointer;
-        margin-right: 5px;
         transition: transform 0.3s ease;
     }
 
-    .expand-indicator:active {
-        transform: scale(1.2);
+    .folder-item {
+        display: flex;
+        align-items: center;
     }
 
-    .expand-indicator, .expandable-folder {
-        display: inline-block !important;
+    .expand-indicator, .folder-content-link {
+        display: inline-block;
         vertical-align: middle;
+    }
+
+    .menu-label {
+        color: var(--dark-mode-sidebar-color);
+    }
+
+    .hero {
+        height: var(--main-content-height); /* Asegura que el hero ocupe todo el alto de la ventana del navegador */
+        display: flex; /* Hace que el hero sea un contenedor flex */
+        flex-direction: column; /* Asegura que los hijos directos de .hero (es decir, .hero-body) se apilen verticalmente */
+    }
+
+    .hero-body {
+        flex-grow: 1; /* Hace que .hero-body ocupe todo el espacio disponible dentro de .hero */
+        display: flex; /* Hace que .hero-body sea un contenedor flex */
+        justify-content: center; /* Centra el contenido de .hero-body horizontalmente */
+    }
+
+    .max-height-available {
+        height: 100%;
+    }
+
+    .file-explorer-box {
+        height: 100%;
+        overflow-y: auto;
     }
 </style>
 
@@ -51,24 +65,26 @@
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
-            <div class="file-explorer">
-                <div class="columns">
+            <div class="file-explorer max-height-available">
+                <div class="columns max-height-available">
                     <div class="column is-3">
                         <!-- Panel lateral para carpetas -->
-                        <aside class="menu">
-                            <p class="menu-label">Explorador de Archivos</p>
-                            <ul class="menu-list">
-                                @foreach($folders as $folder)
-                                    @if (!$folder->parent)
-                                        @include('documents.folders', ['folder' => $folder, 'level' => 0])
-                                    @endif
-                                @endforeach
-                            </ul>                            
-                        </aside>
+                        <div class="box secondary-background file-explorer-box">
+                            <aside class="menu">
+                                <p class="menu-label">Explorador de Archivos</p>
+                                <ul class="menu-list">
+                                    @foreach($folders as $folder)
+                                        @if (!$folder->parent)
+                                            @include('documents.folders', ['folder' => $folder, 'level' => 0])
+                                        @endif
+                                    @endforeach
+                                </ul>                            
+                            </aside>
+                        </div>
                     </div>
                     <div class="column is-9">
                         <!-- Área principal para mostrar el contenido de la carpeta actual -->
-                        <div class="box">
+                        <div class="box max-height-available">
                             <h1 class="title">Carpeta 1</h1>
                             <div>
                                 <!-- Aquí irían los archivos de la carpeta actual -->
@@ -88,21 +104,35 @@
     <script>
 
         $(document).ready(function() {
-            $('.expandable-folder').click(function(e) {
+            $('.expand-indicator').click(function(e) {
                 e.preventDefault();
 
                 var target = $(this).data('target');
-                var indicator = $(this).siblings('.expand-indicator');
 
                 if ($('#' + target).is(':visible')) {
-                    
-                    indicator.text('→');
+                    $(this).removeClass('bx-chevron-down').addClass('bx-chevron-right');
                 } else {
-                    
-                    indicator.text('↓');
+                    $(this).removeClass('bx-chevron-right').addClass('bx-chevron-down');
                 }
 
                 $('#' + target).toggle();
+            });
+
+            // Muestra el contenido de la carpeta con el enlace
+            $('.folder-content-link').click(function(e) {
+                e.preventDefault();
+
+                var folderId = $(this).data('folder-id');
+
+                // Aquí es donde puedes agregar la lógica para mostrar el contenido de la carpeta
+                // en el lado derecho. Dependerá de cómo tengas estructurada tu aplicación y de
+                // dónde esté almacenada la información sobre los archivos y subcarpetas de cada carpeta.
+                // Puede que necesites hacer una solicitud AJAX para obtener este contenido, o quizás 
+                // sólo necesites mostrar/ocultar un div que ya contenga la información.
+
+                // Ejemplo simple (puedes adaptarlo según tus necesidades):
+                $('.folder-content-display').hide();  // Oculta todos los contenidos
+                $('#folder-content-' + folderId).show();  // Muestra el contenido específico de la carpeta clickeada
             });
         });
 
