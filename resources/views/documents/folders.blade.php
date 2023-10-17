@@ -14,23 +14,31 @@
             <div class="options-wrap">
                 <div class="options">
                     <a href="#" class="option-link">
-                        <p>Opcion 1</p>
+                        <p>Nueva subcarpeta</p>
                         <span>></span>
                     </a>
                     <a href="#" class="option-link">
-                        <p>Opcion 1</p>
+                        <p>Permisos</p>
                         <span>></span>
                     </a>
                     <a href="#" class="option-link">
-                        <p>Opcion 1</p>
+                        <p>Copiar a...</p>
                         <span>></span>
                     </a>
                     <a href="#" class="option-link">
-                        <p>Opcion 1</p>
+                        <p>Mover a...</p>
                         <span>></span>
                     </a>
                     <a href="#" class="option-link">
-                        <p>Opcion 1</p>
+                        <p>Eliminar</p>
+                        <span>></span>
+                    </a>
+                    <a href="#" class="option-link">
+                        <p>Cambiar nombre</p>
+                        <span>></span>
+                    </a>
+                    <a href="#" class="option-link">
+                        <p>Propiedades</p>
                         <span>></span>
                     </a>
                 </div>
