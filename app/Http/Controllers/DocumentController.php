@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\Folder;
 use App\Models\User;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\RedirectResponse;

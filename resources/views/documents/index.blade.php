@@ -9,7 +9,6 @@
     .file-explorer .menu-list a {
         display: flex;
         align-items: center;
-        gap: 5px;
     }
 
     .folder-content {
@@ -31,6 +30,31 @@
         vertical-align: middle;
     }
 
+    .folder-box {
+        display: flex !important;
+        align-items: center !important;
+        width: 100%;
+        background: none !important;
+    }
+
+    .folder-box:hover {
+        background-color: var(--dark-mode-primary-color) !important;
+        color: var(--dark-mode-text-color);
+    }
+
+    .folder-box:hover a{
+        color: var(--dark-mode-text-color);
+    }
+
+    .folder-selected {
+        background-color: var(--dark-mode-primary-color) !important;
+        color: var(--dark-mode-text-color) !important;
+    }
+
+    .folder-selected a{
+        color: var(--dark-mode-text-color) !important;
+    }
+
     .menu-label {
         color: var(--dark-mode-sidebar-color);
     }
@@ -45,16 +69,28 @@
         flex-grow: 1; /* Hace que .hero-body ocupe todo el espacio disponible dentro de .hero */
         display: flex; /* Hace que .hero-body sea un contenedor flex */
         justify-content: center; /* Centra el contenido de .hero-body horizontalmente */
+        max-height: 100%;
     }
 
     .max-height-available {
         height: 100%;
+        max-height: 100%;
     }
 
-    .file-explorer-box {
-        height: 100%;
+    .scrollable {
         overflow-y: auto;
     }
+
+    .no-border {
+        border: none !important;
+        border-radius: 0 !important;
+    }
+
+    .menu-list li a:hover {
+        background: none;
+        width: 100%
+    }
+
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -69,16 +105,18 @@
                 <div class="columns max-height-available">
                     <div class="column is-3">
                         <!-- Panel lateral para carpetas -->
-                        <div class="box secondary-background file-explorer-box">
+                        <div class="box secondary-background max-height-available">
                             <aside class="menu">
                                 <p class="menu-label">Explorador de Archivos</p>
-                                <ul class="menu-list">
-                                    @foreach($folders as $folder)
-                                        @if (!$folder->parent)
-                                            @include('documents.folders', ['folder' => $folder, 'level' => 0])
-                                        @endif
-                                    @endforeach
-                                </ul>                            
+                                <div class="scrollable no-border m-0 p-0">
+                                    <ul class="menu-list">
+                                        @foreach($folders as $folder)
+                                            @if (!$folder->parent)
+                                                @include('documents.folders', ['folder' => $folder, 'level' => 0])
+                                            @endif
+                                        @endforeach
+                                    </ul>                            
+                                </div>
                             </aside>
                         </div>
                     </div>
@@ -133,6 +171,14 @@
                 // Ejemplo simple (puedes adaptarlo según tus necesidades):
                 $('.folder-content-display').hide();  // Oculta todos los contenidos
                 $('#folder-content-' + folderId).show();  // Muestra el contenido específico de la carpeta clickeada
+            });
+
+            $('.folder-box').on('click', function() {
+                // Eliminar la clase 'folder-selected' de todas las carpetas
+                $('.folder-box').removeClass('folder-selected');
+                
+                // Añadir la clase 'folder-selected' a la carpeta clickeada
+                $(this).addClass('folder-selected');
             });
         });
 

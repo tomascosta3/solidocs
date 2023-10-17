@@ -1,11 +1,13 @@
 <li class="subfolder-level-{{ $level }}">
     <div class="folder-item">
-        @if(count($folder->subfolders) > 0)
-            <i class="expand-indicator bx bx-chevron-right" data-target="folder-content-{{ $folder->id }}"></i>
-        @endif
-        <a href="#" class="expandable-folder-link" data-folder-id="{{ $folder->id }}">
-            {{ $folder->name }}
-        </a>
+        <div class="box folder-box px-0 py-1 mb-1 is-shadowless">
+            @if(count($folder->subfolders) > 0)
+                <i class="expand-indicator bx bx-chevron-right pl-2" data-target="folder-content-{{ $folder->id }}"></i>
+            @endif
+            <a href="#" class="expandable-folder-link pl-2 py-0" data-folder-id="{{ $folder->id }}">
+                {{ $folder->name }}
+            </a>
+        </div>
     </div>
     @if(count($folder->subfolders) > 0)
         <ul id="folder-content-{{ $folder->id }}" class="folder-content my-0">

@@ -149,7 +149,7 @@ class User extends Authenticatable
      */
     public function folders() {
 
-        return $this->belongsToMany(Folder::class);
+        return $this->belongsToMany(Folder::class)->withTimestamps();
     }
 
 
