@@ -35,6 +35,7 @@
         align-items: center !important;
         width: 100%;
         background: none !important;
+        justify-content: space-between;
     }
 
     .folder-box:hover {
@@ -53,6 +54,10 @@
 
     .folder-selected a{
         color: var(--dark-mode-text-color) !important;
+    }
+
+    .left-content {
+        display: flex;
     }
 
     .menu-label {
@@ -89,6 +94,45 @@
     .menu-list li a:hover {
         background: none;
         width: 100%
+    }
+
+    /* Options */
+    .options-wrap {
+        position: absolute;
+        width: 180px;
+        max-height: 0px;
+        overflow: hidden;
+        background: var(--dark-mode-sidebar-color);
+        border-radius: 10px;
+    }
+
+    .options-wrap.open-options {
+        max-height: 300px;
+    }
+
+    .option-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        margin: 0px;
+    }
+
+    .option-link p {
+        width: 100%;
+        color: var(--dark-mode-text-color);
+    }
+
+    .option-link:hover p {
+        font-weight: 600;
+    }
+
+    .option-link span {
+        transition: transform 0.5s;
+        color: var(--dark-mode-text-color);
+    }
+
+    .option-link:hover span {
+        transform: translateX(5px);
     }
 
 </style>
@@ -180,7 +224,41 @@
                 // Añadir la clase 'folder-selected' a la carpeta clickeada
                 $(this).addClass('folder-selected');
             });
+
+            $('.folder-option-button').on('click', function(e) {
+                e.stopPropagation();
+
+                var associatedMenu = $(this).next('.options-wrap');
+
+                var position = $(this).position();
+                var topPosition = position.top;
+                var leftPosition = position.left + $(this).outerWidth();
+
+                associatedMenu.css({
+                    'top': topPosition + 'px',
+                    'left': leftPosition + 'px'
+                });
+
+                var wasOpen = associatedMenu.hasClass('open-options');
+
+                // Cierra todos los menús
+                $('.options-wrap').removeClass('open-options');
+
+                // Si el menú no estaba abierto originalmente, ábrelo.
+                if (!wasOpen) {
+                    associatedMenu.addClass('open-options');
+                }
+            });
+
+            $(document).on('click', function() {
+                $('.options-wrap').removeClass('open-options');
+            });
+
+            $('.options-wrap').on('click', function(e) {
+                e.stopPropagation();
+            });
         });
+
 
     </script>
 @endsection
