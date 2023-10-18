@@ -9,11 +9,11 @@
                     {{ $folder->name }}
                 </a>
             </div>
-            <i class="bx bx-dots-horizontal-rounded folder-option-button pr-3"></i>
+            <i class="bx bx-dots-horizontal-rounded folder-option-button pr-3" data-folder-id="{{ $folder->id }}"></i>
             
             <div class="options-wrap">
                 <div class="options">
-                    <a href="#" class="option-link">
+                    <a href="#" class="option-link create-subfolder-option">
                         <p>Nueva subcarpeta</p>
                         <span>></span>
                     </a>

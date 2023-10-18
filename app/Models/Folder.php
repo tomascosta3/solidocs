@@ -58,4 +58,12 @@ class Folder extends Model
 
         return $this->belongsToMany(Group::class)->where('groups.active', true)->withPivot('can_read', 'can_write', 'active');
     }
+
+
+    /**
+     * Get folder's users.
+     */
+    public function users() {
+        return $this->belongsToMany(User::class)->withPivot('can_read', 'can_write');
+    }    
 }

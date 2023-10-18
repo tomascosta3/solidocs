@@ -5,6 +5,7 @@ use App\Http\Controllers\DailyController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FolderController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -166,5 +167,8 @@ Route::middleware('auth')->group(function() {
 
         // Edit event.
         Route::post('/calendars/event/{event_id}/edit', [EventController::class, 'edit'])->name('calendars.event.edit');
+
+        // Create new folder.
+        Route::post('/folder/new', [FolderController::class, 'new_folder'])->name('documents.add-folder');
     });
 });

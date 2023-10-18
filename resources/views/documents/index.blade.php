@@ -139,9 +139,68 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script>
+    function openNewSubfolderModal() {
+
+        const modal = document.getElementById('new-subfolder-modal');
+        modal.classList.add('is-active');
+    }
+
+    function closeNewSubfolderModal() {
+        const modal = document.getElementById('new-subfolder-modal');
+        modal.classList.remove('is-active');
+        document.getElementById('new-subfolder-form').reset();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const createSubfolderOptions = document.querySelectorAll('.create-subfolder-option');
+        
+        createSubfolderOptions.forEach(option => {
+            option.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                // Obtiene el ID de la carpeta desde el botón de opciones
+                const folderId = $(this).closest('.folder-box').find('.folder-option-button').data('folder-id');
+                
+                // Establece ese ID en el campo oculto del formulario en el modal
+                $('#parent-folder-id').val(folderId);
+                
+                openNewSubfolderModal();
+            });
+        });
+    });
+</script>
+
 @endsection
 
 @section('main-content')
+<div class="modal" id="new-subfolder-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Nueva Subcarpeta</p>
+            <button class="delete" type="button" aria-label="close" onclick="closeNewSubfolderModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <form id="new-subfolder-form" action="{{ route('documents.add-folder') }}" method="post">
+                @csrf
+                <input type="hidden" name="parent_folder_id" id="parent-folder-id">
+                <div class="field">
+                    <label class="label" for="name">Nombre de subcarpeta</label>
+                    <div class="control">
+                        <input class="input" type="text" name="folder-name" required>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button" type="button" onclick="closeNewSubfolderModal()">Cancelar</button>
+            <button class="button is-success" type="submit" form="new-subfolder-form">Crear</button>
+        </footer>
+    </div>
+</div>
+
+
 <div class="hero">
     <div class="hero-body is-flex justify-content-center">
         <div class="container">
@@ -241,10 +300,8 @@
 
                 var wasOpen = associatedMenu.hasClass('open-options');
 
-                // Cierra todos los menús
                 $('.options-wrap').removeClass('open-options');
 
-                // Si el menú no estaba abierto originalmente, ábrelo.
                 if (!wasOpen) {
                     associatedMenu.addClass('open-options');
                 }

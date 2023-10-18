@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->boolean('can_red')->default(false);
+            $table->boolean('can_read')->default(false);
 
             $table->boolean('can_write')->default(false);
 

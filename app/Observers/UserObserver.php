@@ -64,14 +64,20 @@ class UserObserver
             'name' => $user->first_name . ' ' . $user->last_name,
         ]);
 
-        $user->folders()->attach($folder);
+        $user->folders()->attach($folder->id, [
+            'can_read' => true,
+            'can_write' => true,
+        ]);
 
         $sub_folder = Folder::create([
             'name' => 'Certificados',
             'parent_id' => $folder->id,
         ]);
 
-        $user->folders()->attach($sub_folder);
+        $user->folders()->attach($sub_folder->id, [
+            'can_read' => true,
+            'can_write' => true,
+        ]);
 
         // Create local folder.
         $folderPath = config('folders.folders.users') . $user->id;
